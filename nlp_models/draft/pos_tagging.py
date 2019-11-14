@@ -59,4 +59,4 @@ print('WTF?: nlp_length', len(nlp_res),' parsed_length', len(pars_res))
 # Write down results of POS-Tagging work
 # Parsed data is available in test.txt (dataset) for comparison with result
 with open('results_nlp.txt', 'w') as fp:
-    fp.write('\n'.join('%s %s' % x for x in pars_res))
+    fp.write('\n'.join('%s %s' % x for x in nlp_res))
