@@ -51,7 +51,7 @@ def main(lang="en", output_dir=None, n_iter=25):
     nlp = spacy.load('en_core_web_sm')
     # TODO Find and fix crash for full-files
     #      Following code solved problem with hyphenated words
-    # ############################### My tryings ###############################
+    # ############################### My attempts ###############################
     infixes = nlp.Defaults.prefixes + tuple(r"[-]~")
     infix_re = spacy.util.compile_infix_regex(infixes)
 
