@@ -1,2 +1,6 @@
 
 .DS_Store
+
+nlp_models/draft/.idea/
+
+nlp_models/draft/__pycache__/
