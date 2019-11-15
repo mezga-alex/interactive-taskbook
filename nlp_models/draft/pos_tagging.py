@@ -1,5 +1,7 @@
 # IF THERE IS NO ANY FILE, RUN PARSE.PY FIRST
 import spacy
+import parse
+
 from spacy.tokenizer import Tokenizer
 
 
@@ -23,10 +25,11 @@ def lexical_processor(mail):
     return mail
 
 
+parse.parse_data('test')
 # Read from files
 # Text.txt and Pos.txt were parsed from the test dataset
-text = lexical_processor(open('./created_files/text.txt').read())
-pos = open('./created_files/pos.txt').read()
+text = lexical_processor(open('./created_files/text_test.txt').read())
+pos = open('./created_files/pos_test.txt').read()
 
 nlp = spacy.load('en_core_web_sm')
 # TODO: decide and implement the correct version of tokenization

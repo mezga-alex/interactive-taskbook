@@ -6,7 +6,7 @@
 # # ################   PLEASE, USE PARSED TXT FILES   ################
 # # ##################################################################
 # #
-# #UPD: No, now it's quite OK
+# #                 UPD: No, now it's quite OK
 
 import string
 
@@ -37,10 +37,10 @@ def create_train_data(path):
         if len(f_line) > 1:
             f_line = f_line.split()
 
-            if f_line[0] not in string.punctuation:
+            if f_line[1] not in string.punctuation and f_line[1] not in ("''", "``", "'", "`"):
                 file_sent_line.write(f_line[0] + ' ')
                 file_pos_line.write(f_line[1] + ' ')
-            elif f_line[0] in ('.', '...', '?'):
+            elif f_line[1] in ('.', '...', '?'):
                 file_sent_line.write('\n')
                 file_pos_line.write('\n')
 
@@ -77,24 +77,33 @@ def find_difference(words_sents, words_pos):
     return difference
 
 
-def parse_data(dataset_type = 'train'):
+def parse_data(dataset_type = 'train', trace = False):
+    """
+    Parse data from train or test files
+
+    :param dataset_type: str - Select 'train' or 'test'
+    :param trace: bool   - Select True to enable validation and print.
+
+    """
+
     if dataset_type == 'train':
         dir_ = './dataset/train.txt'
         create_train_data(dir_)
 
-        num_of_words_pos = words_in_line('./created_files/pos_train.txt')
-        num_of_words_sents = words_in_line('./created_files/sents_train.txt')
+        if trace:
+            num_of_words_pos = words_in_line('./created_files/pos_train.txt')
+            num_of_words_sents = words_in_line('./created_files/sents_train.txt')
 
-        print('num_of_words_pos:')
-        print(num_of_words_pos)
-        print('num_of_words_sents')
-        print(num_of_words_sents)
+            print('num_of_words_pos:')
+            print(num_of_words_pos)
+            print('num_of_words_sents')
+            print(num_of_words_sents)
 
-        diff = find_difference(num_of_words_sents, num_of_words_pos)
-        print('find difference')
-        print(diff)
+            diff = find_difference(num_of_words_sents, num_of_words_pos)
+            print('find difference')
+            print(diff)
 
     else:
-        dir_ = './dataset/train.txt'
+        dir_ = './dataset/test.txt'
         create_test_data(dir_)
 
