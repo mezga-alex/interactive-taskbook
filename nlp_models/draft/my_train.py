@@ -1,3 +1,3 @@
 import parse
 
-parse.parse_data('test')
+parse.parse_data('train')
