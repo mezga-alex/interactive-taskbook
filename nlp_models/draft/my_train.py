@@ -8,6 +8,7 @@ from pathlib import Path
 import spacy
 from spacy.util import minibatch, compounding
 from spacy.tokenizer import Tokenizer
+from spacy.matcher import Matcher
 
 
 TRAIN_DATA = []
@@ -48,30 +49,80 @@ def main(lang="en", output_dir=None, n_iter=25):
     sents_train_path = sents_exp_path
     init_train_data(pos_train_path, sents_train_path)
 
+    # Write TRAIN_DATA for debug
+    log = open('log.txt', 'w')
+    log.write('\n'.join('%s' % str(el) for el in TRAIN_DATA))
+    log.write('\n \n' + 'BATCHES:')
+
     nlp = spacy.load('en_core_web_sm')
     # TODO Find and fix crash for full-files
     #      Following code solved problem with hyphenated words
-    # ############################### My attempts ###############################
-    infixes = nlp.Defaults.prefixes + tuple(r"[-]~")
-    infix_re = spacy.util.compile_infix_regex(infixes)
+    # ###################### My attempts #############################
+    # infixes = nlp.Defaults.prefixes + tuple(r"[-]~")
+    # infix_re = spacy.util.compile_infix_regex(infixes)
+    #
+    # def custom_tokenizer(nlp):
+    #     return Tokenizer(nlp.vocab, infix_finditer=infix_re.finditer)
+    #
+    # nlp.tokenizer = custom_tokenizer(nlp)
+    # #################################################################
+    # #################################################################
+    # ###################### SET UP MATCHER ###########################
+    # #################################################################
+    # It merges, but nlp.update does not see this or something like that
 
-    def custom_tokenizer(nlp):
-        return Tokenizer(nlp.vocab, infix_finditer=infix_re.finditer)
+    matcher = Matcher(nlp.vocab)
+    pattern = [{'OP': '?', 'IS_ALPHA': True},
+               {'ORTH': '-'},
+               {'IS_ALPHA': True}]
+    matcher.add('QUOTED', None, pattern)
 
-    nlp.tokenizer = custom_tokenizer(nlp)
-    ############################################################################
+    def intra_hyphen_merger(doc):
+        # this will be called on the Doc object in the pipeline
+        matched_spans = []
+        matches = matcher(doc)
+        for match_id, start, end in matches:
+            span = doc[start:end]
+            matched_spans.append(span)
+        for span in matched_spans:  # merge into one token after collecting all matches
+            span.merge()
+        return doc
+
+    nlp.add_pipe(intra_hyphen_merger, first=True)  # add it right after the tokenizer
+    # #################################################################
+
     optimizer = nlp.begin_training()
     for i in range(n_iter):
         random.shuffle(TRAIN_DATA)
         losses = {}
         # batch up the examples using spaCy's minibatch
         batches = minibatch(TRAIN_DATA, size=compounding(4.0, 32.0, 1.001))
+
         for batch in batches:
             texts, annotations = zip(*batch)
 
+            # #########################################################################
+            # ##########################  Log for debug  ##############################
+            # #########################################################################
+            log.write('\n\ni = ' + str(i+1))
+            log.write('\nTEXTS:\n')
+            log.write('\n'.join('%s' % str(text) for text in texts))
+            log.write('\n\nANNOTATIONS:\n')
+            log.write('\n'.join('%s' % str(ann) for ann in annotations))
+
+            log.write('\n\nNLP SPLIT:\n')
+            for sent in texts:
+                nlp_split_sent = nlp(sent)
+                log.write(''.join('%s ' % token.text for token in nlp_split_sent))
+                log.write('\n')
+            separator = "#" * 100
+            log.write('\n' + separator)
+            # ##########################################################################
+
             nlp.update(texts, annotations, sgd=optimizer, losses=losses)
             print("Losses", losses)
-    #
+    log.close()
+
     # test the trained model
     test_text = "I like blue eggs"
     doc = nlp(test_text)
