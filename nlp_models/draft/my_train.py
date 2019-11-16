@@ -41,8 +41,8 @@ def main(lang="en", output_dir=None, n_iter=25):
     sents_full_path = './created_files/sents_train.txt'
 
     # Experimental files (you can change it for yourself)
-    pos_exp_path = './created_files/pos_exp'
-    sents_exp_path = './created_files/sents_exp'
+    pos_exp_path = './created_files/pos_exp.txt'
+    sents_exp_path = './created_files/sents_exp.txt'
 
     # Initialize paths we work with
     pos_train_path = pos_exp_path
@@ -57,38 +57,38 @@ def main(lang="en", output_dir=None, n_iter=25):
     nlp = spacy.load('en_core_web_sm')
     # TODO Find and fix crash for full-files
     #      Following code solved problem with hyphenated words
-    # ###################### My attempts #############################
-    # infixes = nlp.Defaults.prefixes + tuple(r"[-]~")
-    # infix_re = spacy.util.compile_infix_regex(infixes)
-    #
-    # def custom_tokenizer(nlp):
-    #     return Tokenizer(nlp.vocab, infix_finditer=infix_re.finditer)
-    #
-    # nlp.tokenizer = custom_tokenizer(nlp)
+    # ##################### My attempts #############################
+    infixes = nlp.Defaults.prefixes + tuple(r"[-]~")
+    infix_re = spacy.util.compile_infix_regex(infixes)
+
+    def custom_tokenizer(nlp):
+        return Tokenizer(nlp.vocab, infix_finditer=infix_re.finditer)
+
+    nlp.tokenizer = custom_tokenizer(nlp)
     # #################################################################
     # #################################################################
     # ###################### SET UP MATCHER ###########################
     # #################################################################
     # It merges, but nlp.update does not see this or something like that
 
-    matcher = Matcher(nlp.vocab)
-    pattern = [{'OP': '?', 'IS_ALPHA': True},
-               {'ORTH': '-'},
-               {'IS_ALPHA': True}]
-    matcher.add('QUOTED', None, pattern)
-
-    def intra_hyphen_merger(doc):
-        # this will be called on the Doc object in the pipeline
-        matched_spans = []
-        matches = matcher(doc)
-        for match_id, start, end in matches:
-            span = doc[start:end]
-            matched_spans.append(span)
-        for span in matched_spans:  # merge into one token after collecting all matches
-            span.merge()
-        return doc
-
-    nlp.add_pipe(intra_hyphen_merger, first=True)  # add it right after the tokenizer
+    # matcher = Matcher(nlp.vocab)
+    # pattern = [{'OP': '?', 'IS_ALPHA': True},
+    #            {'ORTH': '-'},
+    #            {'IS_ALPHA': True}]
+    # matcher.add('QUOTED', None, pattern)
+    #
+    # def intra_hyphen_merger(doc):
+    #     # this will be called on the Doc object in the pipeline
+    #     matched_spans = []
+    #     matches = matcher(doc)
+    #     for match_id, start, end in matches:
+    #         span = doc[start:end]
+    #         matched_spans.append(span)
+    #     for span in matched_spans:  # merge into one token after collecting all matches
+    #         span.merge()
+    #     return doc
+    #
+    # nlp.add_pipe(intra_hyphen_merger, first=True)  # add it right after the tokenizer
     # #################################################################
 
     optimizer = nlp.begin_training()
