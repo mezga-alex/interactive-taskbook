@@ -8665,7 +8665,6 @@ all DT B-NP
 groups NNS I-NP
 in IN B-PP
 the DT B-NP
-35-44 JJ I-NP
 age NN I-NP
 bracket NN I-NP
 , , O
@@ -16411,7 +16410,6 @@ liability NN I-NP
 
 IRS NNP B-NP
 Notice NN I-NP
-89-136 CD I-NP
 describes VBZ B-VP
 this DT B-NP
 and CC O
@@ -16673,7 +16671,6 @@ beneficiaries NNS I-NP
 IRS NNP B-NP
 Revenue NN I-NP
 Procedure NN I-NP
-89-52 CD I-NP
 describes VBZ B-VP
 the DT B-NP
 reporting VBG I-NP
@@ -16777,7 +16774,6 @@ a DT B-NP
 bank NN I-NP
 account NN I-NP
 in IN B-PP
-1982-84 CD B-NP
 while IN B-SBAR
 reporting VBG B-VP
 income NN B-NP
@@ -16808,7 +16804,6 @@ saved VBD B-VP
 $ $ B-NP
 47,000 CD I-NP
 in IN B-PP
-1974-81 CD B-NP
 by IN B-PP
 living VBG B-VP
 with IN B-PP
@@ -24654,7 +24649,6 @@ provision NN I-NP
 
 By IN B-PP
 an DT B-NP
-11-2 JJ I-NP
 margin NN I-NP
 , , O
 Senate NNP B-NP
@@ -24902,7 +24896,6 @@ approval NN I-NP
 -- : O
 on IN B-PP
 a DT B-NP
-64-35 JJ I-NP
 roll NN I-NP
 call NN I-NP
 -- : O
@@ -25559,7 +25552,6 @@ the DT B-NP
 House NNP I-NP
 on IN B-PP
 a DT B-NP
-383-30 JJ I-NP
 roll NN I-NP
 call NN I-NP
 yesterday NN B-NP
@@ -27334,7 +27326,7 @@ all DT B-ADVP
 fat NN B-ADJP
 . . O
 
-HUGO'S NNP B-NP
+HUGO NNP B-NP
 BLAST NN I-NP
 generates VBZ B-VP
 pleas NNS B-NP
@@ -43421,7 +43413,6 @@ weeks NNS I-NP
 -- : O
 during IN B-PP
 the DT B-NP
-1962-63 CD I-NP
 season NN I-NP
 . . O
 
@@ -47826,7 +47817,7 @@ high-performance JJ I-NP
 computers NNS I-NP
 . . O
 
-UAL'S NNP B-NP
+UAL NNP B-NP
 STOCK NN I-NP
 SKIDDED VBD B-VP
 an DT B-NP

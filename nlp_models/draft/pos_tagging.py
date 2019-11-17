@@ -1,8 +1,10 @@
-# IF THERE IS NO ANY FILE, RUN PARSE.PY FIRST
 import spacy
-import parse
-
 from spacy.tokenizer import Tokenizer
+from spacy.lang.char_classes import ALPHA, ALPHA_LOWER, ALPHA_UPPER, CONCAT_QUOTES, LIST_ELLIPSES, LIST_ICONS
+from spacy.util import compile_infix_regex
+from spacy.matcher import Matcher
+
+import parse
 
 
 # Change different dashes to the standard
@@ -26,51 +28,99 @@ def lexical_processor(mail):
 
 
 parse.parse_data('test')
-# Read from files
-# Text.txt and Pos.txt were parsed from the test dataset
 text = lexical_processor(open('./created_files/text_test.txt').read())
 pos = open('./created_files/pos_test.txt').read()
 
-nlp = spacy.load('en_core_web_sm')
-# TODO: decide and implement the correct version of tokenization
-infixes = nlp.Defaults.prefixes + tuple(r"[-]~")
-infix_re = spacy.util.compile_infix_regex(infixes)
-
 
 def custom_tokenizer(nlp):
-    return Tokenizer(nlp.vocab, infix_finditer=infix_re.finditer)
+    infixes = (
+        LIST_ELLIPSES
+        + LIST_ICONS
+        + [
+            r"(?<=[0-9])[+\-\*^](?=[0-9-])",
+            r"(?<=[{al}{q}])\.(?=[{au}{q}])".format(
+                al=ALPHA_LOWER, au=ALPHA_UPPER, q=CONCAT_QUOTES
+            ),
+            r"(?<=[{a}]),(?=[{a}])".format(a=ALPHA),
+            #r"(?<=[{a}])(?:{h})(?=[{a}])".format(a=ALPHA, h=HYPHENS),
+            r"(?<=[{a}0-9])[:<>=/](?=[{a}])".format(a=ALPHA),
+        ]
+    )
+
+    infix_re = compile_infix_regex(infixes)
+
+    return Tokenizer(nlp.vocab, prefix_search=nlp.tokenizer.prefix_search,
+                                suffix_search=nlp.tokenizer.suffix_search,
+                                infix_finditer=infix_re.finditer,
+                                token_match=nlp.tokenizer.token_match,
+                                rules=nlp.Defaults.tokenizer_exceptions)
 
 
+nlp = spacy.load('en_core_web_sm')
 nlp.tokenizer = custom_tokenizer(nlp)
 
+# #################################################################
+# ###################### SET UP MATCHER ###########################
+# #################################################################
+
+matcher = Matcher(nlp.vocab)
+
+pattern = [{'ORTH': "'"},
+           {'ORTH': 've'}]
+
+pattern_2 = [{'ORTH': "'"},
+           {'ORTH': 'm'}]
+
+# pattern_3 = [{'LIKE_NUM': "True"},
+#              {'ORTH': '-'},
+#              {'LIKE_NUM': "True"}]
+
+matcher.add('QUOTED', None, pattern, pattern_2)
+
+
+def match_merger(doc):
+    # this will be called on the Doc object in the pipeline
+    matched_spans = []
+    matches = matcher(doc)
+    for match_id, start, end in matches:
+        span = doc[start:end]
+        matched_spans.append(span)
+    for span in matched_spans:  # merge into one token after collecting all matches
+        span.merge()
+    return doc
+
+
+nlp.add_pipe(match_merger, first=True)  # add it right after the tokenizer
+# #################################################################
 doc = nlp(text)
 
-# Create Tuple (WORD, POS_TAG) with the model.
 nlp_res = []
 for token in doc:
-    if not token.is_punct and token.tag_ != '$':
-        nlp_res.append((token.text, token.tag_))
-#print(nlp_res)
+    nlp_res.append([token.text, token.tag_])
 
-#print()
 text = text.split()
 pos = pos.split()
+parse_res = []
+for word, pos_tag in zip(text, pos):
+    parse_res.append([word, pos_tag])
 
-# Create Tuple (WORD, POS_TAG) with the parsed data.
-pars_res = []
-for i in range(len(pos)):
-    if len(pos[i]) > 1:
-        pars_res.append((text[i], pos[i]))
-#print(pars_res)
 
-# TODO: fully understand the following situation
-# We ignored empty lines and lines with only non-alphabetical symbols
-print('WTF?: nlp_length', len(nlp_res),' parsed_length', len(pars_res))
+#print(abs(len(nlp_res) - len(parse_res)))
 
-# Write down results of POS-Tagging work
-# Parsed data is available in test.txt (dataset) for comparison with result
-with open('./created_files/results_nlp.txt', 'w') as fp:
-    fp.write('\n'.join('%s %s' % x for x in nlp_res))
+# For debug (create file with different lines) + ACCURACY component
+file_compare = open('./created_files/compare_res.txt', 'w')
+correct_predict = 0
+for nlp_line, parse_line in zip(nlp_res, parse_res):
+    if nlp_line[0] == parse_line[0]:
+        if nlp_line[1] == parse_line[1]:
+            correct_predict += 1
+    else:
+        file_compare.write(str(nlp_line) + '     ' + str(parse_line) + '\n')
 
-with open('./created_files/results_parse.txt', 'w') as fp:
-    fp.write('\n'.join('%s %s' % x for x in pars_res))
+file_compare.close()
+
+accuracy = correct_predict / len(parse_res) * 100
+
+print('Words found ' + str(len(nlp_res)))
+print('Test set size (words): ' + str(len(parse_res)))
+print('Accuracy (POS-tagging): ' + str(accuracy) + '%')

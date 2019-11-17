@@ -19,8 +19,18 @@ def create_test_data(path):
 
     for line in file:
         if len(line) > 1:
-            file_pos.write(line.split()[1] + ' ')
-            file_text.write(line.split()[0] + ' ')
+            line = line.split()
+            word = line[0]
+            pos = line[1]
+
+            if pos not in string.punctuation and pos not in ("''", "``", "'", "`") \
+                    or pos in ('.', '?'):
+
+                # Remove final dots in reductions
+                if word.endswith('.') and word != '.':
+                    word = word[:-1]
+                file_text.write(word + ' ')
+                file_pos.write(pos + ' ')
 
     file.close()
     file_pos.close()
