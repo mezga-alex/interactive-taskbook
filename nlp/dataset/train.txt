@@ -8585,7 +8585,6 @@ be VB I-VP
 reluctant JJ B-ADJP
 to TO B-VP
 accept VB I-VP
-50-50 JJ B-NP
 ownership NN I-NP
 in IN B-PP
 a DT B-NP
@@ -8656,7 +8655,7 @@ of IN B-PP
 consumption NN B-NP
 , , O
 the DT B-NP
-'90s NNS I-NP
+90s NNS I-NP
 will MD B-VP
 be VB I-VP
 the DT B-NP
@@ -16394,7 +16393,6 @@ bench NN I-NP
 The DT B-NP
 chamber NN I-NP
 voted VBD B-VP
-69-26 CD B-ADVP
 Friday NNP B-NP
 to TO B-VP
 convict VB I-VP
@@ -41417,7 +41415,6 @@ $ $ B-NP
 792 CD I-NP
 , , O
 but CC O
-Id NN B-NP
 get VB B-VP
 only RB B-NP
 $ $ I-NP
@@ -91794,7 +91791,6 @@ begins VBZ B-VP
 , , O
 a DT B-NP
 newly RB I-NP
-wed VBN I-NP
 Marlowe NNP I-NP
 roars VBZ B-VP
 into IN B-PP
