@@ -4,3 +4,21 @@
 nlp_models/draft/.idea/
 
 nlp_models/draft/__pycache__/
+
+nlp/.env/
+
+nlp/.idea/
+
+nlp/.ipynb_checkpoints/
+
+nlp/__pycache__/
+
+nlp/spaCy
+
+drafts/nlp_models/.idea/
+
+drafts/nlp_models/__pycache__/
+
+draft/.idea/
+
+draft/__pycache__/
