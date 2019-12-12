@@ -1,11 +1,15 @@
 import spacy
+import time
+from draft import parse
+
 from spacy.tokenizer import Tokenizer
-from spacy.lang.char_classes import ALPHA, ALPHA_LOWER, ALPHA_UPPER, CONCAT_QUOTES, LIST_ELLIPSES, LIST_ICONS
+
 from spacy.util import compile_infix_regex
 from spacy.matcher import Matcher
+from spacy.lang.char_classes import ALPHA, ALPHA_LOWER, ALPHA_UPPER, CONCAT_QUOTES, LIST_ELLIPSES, LIST_ICONS
 
-import parse
 
+start_time = time.time()
 
 # Change different dashes to the standard
 def replace_canadian_period(mail):
@@ -27,8 +31,12 @@ def lexical_processor(mail):
     return mail
 
 
-parse.parse_data('test')
+parse.parse_data('test', './dataset/test.txt')
+# parse.parse_data('test', './dataset/train.txt')
+
 text = lexical_processor(open('./created_files/text_test.txt').read())
+text_len = len(text)
+
 pos = open('./created_files/pos_test.txt').read()
 
 
@@ -58,6 +66,7 @@ def custom_tokenizer(nlp):
 
 nlp = spacy.load('en_core_web_sm')
 nlp.tokenizer = custom_tokenizer(nlp)
+nlp.max_length = 1500000
 
 # #################################################################
 # ###################### SET UP MATCHER ###########################
@@ -92,6 +101,7 @@ def match_merger(doc):
 
 nlp.add_pipe(match_merger, first=True)  # add it right after the tokenizer
 # #################################################################
+
 doc = nlp(text)
 
 nlp_res = []
@@ -101,26 +111,32 @@ for token in doc:
 text = text.split()
 pos = pos.split()
 parse_res = []
-for word, pos_tag in zip(text, pos):
-    parse_res.append([word, pos_tag])
-
+for word, tag_ in zip(text, pos):
+    parse_res.append([word, tag_])
 
 #print(abs(len(nlp_res) - len(parse_res)))
 
 # For debug (create file with different lines) + ACCURACY component
 file_compare = open('./created_files/compare_res.txt', 'w')
-correct_predict = 0
+correct_predicts = 0
 for nlp_line, parse_line in zip(nlp_res, parse_res):
     if nlp_line[0] == parse_line[0]:
         if nlp_line[1] == parse_line[1]:
-            correct_predict += 1
+            correct_predicts += 1
+        else:
+            file_compare.write(str(nlp_line) + '     ' + str(parse_line) + '\n')
     else:
         file_compare.write(str(nlp_line) + '     ' + str(parse_line) + '\n')
 
 file_compare.close()
 
-accuracy = correct_predict / len(parse_res) * 100
+accuracy = correct_predicts / len(parse_res) * 100
+
+# Count running time
+elapsed_time = time.time() - start_time
 
 print('Words found ' + str(len(nlp_res)))
 print('Test set size (words): ' + str(len(parse_res)))
 print('Accuracy (POS-tagging): ' + str(accuracy) + '%')
+print(str(text_len) + ' characters were processed')
+print('Time spent: ' + str(elapsed_time) + 's')

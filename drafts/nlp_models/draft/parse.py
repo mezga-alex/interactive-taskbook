@@ -9,6 +9,7 @@
 # #                 UPD: No, now it's quite OK
 
 import string
+import re
 
 
 # Plain text and POS-tags
@@ -23,8 +24,9 @@ def create_test_data(path):
             word = line[0]
             pos = line[1]
 
-            if pos not in string.punctuation and pos not in ("''", "``", "'", "`") \
-                    or pos in ('.', '?'):
+            if pos not in string.punctuation and re.match("^[a-zA-Z.-]+$", word):
+            # if pos not in string.punctuation and pos not in ("''", "``", "'", "`") \
+            #        or pos in ('.', '?'):
 
                 # Remove final dots in reductions
                 if word.endswith('.') and word != '.':
@@ -87,17 +89,17 @@ def find_difference(words_sents, words_pos):
     return difference
 
 
-def parse_data(dataset_type = 'train', trace = False):
+def parse_data(dataset_type='train', dir_='./dataset/train.txt', trace=False):
     """
     Parse data from train or test files
 
     :param dataset_type: str - Select 'train' or 'test'
+    :param dir_: str - Enter path to the file
     :param trace: bool   - Select True to enable validation and print.
 
     """
 
     if dataset_type == 'train':
-        dir_ = './dataset/train.txt'
         create_train_data(dir_)
 
         if trace:
@@ -114,6 +116,5 @@ def parse_data(dataset_type = 'train', trace = False):
             print(diff)
 
     else:
-        dir_ = './dataset/test.txt'
         create_test_data(dir_)
 

@@ -58,6 +58,7 @@ def main(lang="en", output_dir=None, n_iter=25):
     log.write('\n \n' + 'BATCHES:')
 
     nlp = spacy.load('en_core_web_sm')
+
     # TODO Find and fix crash for full-files
     #      Following code solved problem with hyphenated words
     def custom_tokenizer(nlp):
