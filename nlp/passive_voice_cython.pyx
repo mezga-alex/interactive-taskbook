@@ -1,5 +1,5 @@
 # cython: infer_types=True
-# distutils: include_dirs = ../spacy
+# distutils: include_dirs = spaCy/spacy
 
 cimport cython
 
@@ -12,11 +12,11 @@ cdef struct DocElement:
     TokenC* c
     int length
 
-cdef int fast_loop(DocElement* docs, int n_docs, hash_t word, hash_t tag):
+cdef int fast_loop(DocElement* docs, int n_docs, hash_t tag):
     cdef int n_out = 0
     for doc in docs[:n_docs]:
         for c in doc.c[:doc.length]:
-            if c.lex.lower == word and c.tag == tag:
+            if c.tag == tag:
                 n_out += 1
     return n_out
 
@@ -28,7 +28,6 @@ cpdef main_nlp_fast(doc_list):
     for i, doc in enumerate(doc_list): # Populate our database structure
         docs[i].c = doc.c
         docs[i].length = (<Doc>doc).length
-    word_hash = doc.vocab.strings.add('run')
     tag_hash = doc.vocab.strings.add('NN')
-    n_out = fast_loop(docs, n_docs, word_hash, tag_hash)
+    n_out = fast_loop(docs, n_docs, tag_hash)
     print(n_out)

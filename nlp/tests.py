@@ -2,6 +2,8 @@ import text_processor
 import pos_tagging
 import passive_voice as pv
 import time
+import passive_voice_cython
+import spacy
 import parse
 
 from globals import Passive, Active
@@ -64,3 +66,9 @@ if __name__ == "__main__":
     file_passive_tree_batches.close()
     file_passive_tree_batches_exp.close()
     file_passive_matcher.close()
+
+    nlp = spacy.load('en_core_web_sm')
+    n = 1000
+    text_splited = [text[i:i + n] for i in range(0, len(text), n)]
+    docs = list(nlp.pipe(text_splited))
+    passive_voice_cython.main_nlp_fast(docs)
