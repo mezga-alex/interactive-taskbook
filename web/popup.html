@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="popup_style.css">
+</head>
+
+<body>
+    <div class="popup">
+        <div class="popup-header">
+            <div id="logo">
+                <img src="skyeng.svg">
+            </div>
+            <div id="title">
+                GF
+            </div>
+
+        </div>
+        <div class="popup-main">
+            <div class="custom-select">
+                <select class="sel">
+                    <option value="0">Part of speech</option>
+                    <option value="NOUN">noun</option>
+                    <option value="PRONOUN">pronoun</option>
+                    <option value="VERB">verb</option>
+                    <option value="ADJECTIVE">adjective</option>
+                    <option value="ADVERB">adverb</option>
+                    <option value="PREPOSITION">preposition</option>
+                    <option value="CONJUNCTION">conjunction</option>
+                    <option value="INTERJECTION">interjection</option>
+
+
+                </select>
+            </div>
+            <div class="custom-select">
+                <select>
+                    <option value="0">verb tense</option>
+                    <option value="PRESENT-SIMPLE">present perfect</option>
+                    <option value="PAST-PERFECT">past perfect</option>
+                </select>
+            </div>
+            <div class="custom-select">
+                <select>
+                    <option value="0">passive voice</option>
+                    <option value="present-simple">present simple</option>
+                    <option value="past-simple">past simple</option>
+
+                </select>
+            </div>
+            <h4>Highlight Color</h4>
+            <div class="color-picker">
+                <button class="btn-color green"></button>
+                <button class="btn-color yellow"></button>
+                <button class="btn-color red"></button>
+                <button class="btn-color blue"></button>
+                <button class="btn-color purple"></button>
+            </div>
+            <h4>Matches found</h4>
+            <div id="found-count">0</div>
+        </div>
+        <div class="popup-footer">
+            <button id="btn-find">find</button>
+        </div>
+
+    </div>
+
+    <script src="popup.js"></script>
+    <script src="jquery.min.js"></script>
+
+
+
+</body>
+
+</html>
