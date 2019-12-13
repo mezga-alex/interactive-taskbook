@@ -23,7 +23,6 @@ her house was invaded
 A new system was set up
 Heart disease is considered
 The balloon is positioned
-a few gallons might have been spilled
 100 votes are required
 Over 120 different contaminants have been dumped
 Baby Sophia was delivered
@@ -46,6 +45,7 @@ The ficus will be kept
 your secret would be kept
 Your bicycle would have been kept
 a secret may be being kept
+kept
 The car can be sold
 Can a violin be played
 The house may be sold
@@ -70,9 +70,10 @@ The students’ questions are answered
 That piece is enjoyed
 The whole suburb was destroyed
 The treaty is being signed
+the office is vacuumed
 Money was donated
 My sales ad was not responded
-All the reservations will be made
+ns will be made
 two dozen cookies will be baked
 The comet was viewed
 The video was posted
@@ -90,7 +91,7 @@ The house is being cleaned
 The house has been cleaned
 The house was cleaned
 The house was being cleaned
-The house had been cleaned
+        The house had been cleaned
 The house will be cleaned
 The house will be being cleaned
 The house would be cleaned

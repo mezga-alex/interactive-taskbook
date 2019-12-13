@@ -1,8 +1,12 @@
-cimport numpy
+# cython: infer_types=True
+# distutils: include_dirs = spaCy/spacy
+
+cimport cython
+
 from cymem.cymem cimport Pool
-from .spacy.tokens.doc cimport Doc
-from .spacy.typedefs cimport hash_t
-from .spacy.structs cimport TokenC
+from spacy.tokens.doc cimport Doc
+from spacy.typedefs cimport hash_t
+from spacy.structs cimport TokenC
 
 cdef struct DocElement:
     TokenC* c

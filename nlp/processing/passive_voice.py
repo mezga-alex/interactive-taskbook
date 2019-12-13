@@ -46,7 +46,7 @@ def get_tense_rule(tense):
 #############       Naive implementation     ###############
 #############         Will be modified       ###############
 
-def passive_voice_search(text, tense = 'all'):
+def passive_voice_search(text, tense='all'):
     nlp = spacy.load('en_core_web_sm')
     nlp.max_length = 1500000
 
@@ -101,64 +101,144 @@ def passive_voice_search(text, tense = 'all'):
     return passive_phrases
 
 
-def dependency_tree_analysis(sent, tense_rule):
-    for token in sent:
-        if token.tag_ == 'VBN' and token.dep_ in DEPENDENCIES:
-            passive_match = []
-            prt_contained = False
-            subject_found = False
-
-            for child in token.children:
-                # print(child)
-                child_lower = child.text.lower()
-                if child.dep_ == 'nsubjpass':
-                    passive_match.append(child.text)
-                    subject_found = True
-
-                if child.dep_ == 'auxpass':
-                    if child_lower in tense_rule.get('auxpass'):
-                        passive_match.append(child.text)
-                    else:
-                        passive_match = []
-                        break
-
-                if child.dep_ == 'aux':
-                    if child_lower in tense_rule.get('aux') or child_lower in MODALS:
-                        passive_match.append(child.text)
-                    else:
-                        passive_match = []
-                        break
-
-                if child.dep_ == 'neg':
-                    passive_match.append(child.text)
-
-                if child.dep_ == 'prt':
-                    passive_match.append(token.text)
-                    passive_match.append(child.text)
-                    prt_contained = True
-
-            if passive_match and subject_found:
-                if not prt_contained:
-                    passive_match.append(token.text)
-
-                return ' '.join(passive_match)
-
-
-def passive_voice_search_multiprocessing(text, tense):
+def passive_voice_search_batches(text, tense='all'):
     nlp = spacy.load('en_core_web_sm')
     nlp.max_length = 1500000
 
     merge_ents = nlp.create_pipe("merge_entities")
     merge_nps = nlp.create_pipe("merge_noun_chunks")
     nlp.add_pipe(merge_nps, merge_ents)
-    doc = nlp(text)
+
+    # TODO: make flexible batches (split at the end of the sentence)
+    n = 1000
+    text_splited = [text[i:i + n] for i in range(0, len(text), n)]
+    docs = list(nlp.pipe(text_splited))
 
     tense_rule = get_tense_rule(tense)
+    passive_phrases = []
+    for doc in docs:
+        for sent in doc.sents:
+            for token in sent:
+                if token.tag_ == 'VBN' and token.dep_ in DEPENDENCIES:
+                    passive_match = []
+                    prt_contained = False
+                    subject_found = False
 
-    with multiprocessing.Pool() as pool:
-        passive_phrases = pool.starmap(dependency_tree_analysis,  zip(doc.sents, repeat(tense_rule)))
+                    for child in token.children:
+                        #print(child)
+                        child_lower = child.text.lower()
+                        if child.dep_ == 'nsubjpass':
+                            passive_match.append(child.text)
+                            subject_found = True
+
+                        if child.dep_ == 'auxpass':
+                            if child_lower in tense_rule.get('auxpass'):
+                                passive_match.append(child.text)
+                            else:
+                                passive_match = []
+                                break
+
+                        if child.dep_ == 'aux':
+                            if child_lower in tense_rule.get('aux') or child_lower in MODALS:
+                                passive_match.append(child.text)
+                            else:
+                                passive_match = []
+                                break
+
+                        if child.dep_ == 'neg':
+                            passive_match.append(child.text)
+
+                        if child.dep_ == 'prt':
+                            passive_match.append(token.text)
+                            passive_match.append(child.text)
+                            prt_contained = True
+
+                    if passive_match and subject_found:
+                        if not prt_contained:
+                            passive_match.append(token.text)
+                        passive_phrases.append(' '.join(passive_match))
 
     return passive_phrases
+
+
+def passive_voice_search_exp(text, tense='all'):
+    nlp = spacy.load('en_core_web_sm')
+
+    merge_ents = nlp.create_pipe("merge_entities")
+    merge_nps = nlp.create_pipe("merge_noun_chunks")
+    nlp.add_pipe(merge_nps, merge_ents)
+
+    # TODO: make flexible batches (split at the end of the sentence)
+    n = 1000
+    text_splited = [text[i:i + n] for i in range(0, len(text), n)]
+    docs = list(nlp.pipe(text_splited))
+
+    tense_rule = get_tense_rule(tense)
+    passive_phrases = []
+    for doc in docs:
+        i = 0
+        while i < len(doc):
+            token = doc[i]
+            if token.dep_ == 'nsubjpass':
+                passive_match = []
+                prt_contained = False
+                head_token = token.head
+
+                for child in head_token.children:
+                    # print(child)
+                    child_lower = child.text.lower()
+                    if child.dep_ == 'nsubjpass':
+                        passive_match.append(child.text)
+                        # subject_found = True
+
+                    if child.dep_ == 'auxpass':
+                        if child_lower in tense_rule.get('auxpass'):
+                            passive_match.append(child.text)
+                        else:
+                            passive_match = []
+                            break
+
+                    if child.dep_ == 'aux':
+                        if child_lower in tense_rule.get('aux') or child_lower in MODALS:
+                            passive_match.append(child.text)
+                        else:
+                            passive_match = []
+                            break
+
+                    if child.dep_ == 'neg':
+                        passive_match.append(child.text)
+
+                    if child.dep_ == 'prt':
+                        passive_match.append(head_token.text)
+                        passive_match.append(child.text)
+                        prt_contained = True
+
+                if not prt_contained:
+                    passive_match.append(head_token.text)
+                passive_phrases.append(' '.join(passive_match))
+
+                i = token.head.i + 1
+            else:
+                i += 1
+
+    return passive_phrases
+
+
+# def passive_voice_search_multiprocessing(text, tense):
+#     nlp = spacy.load('en_core_web_sm')
+#     nlp.max_length = 1500000
+#
+#     merge_ents = nlp.create_pipe("merge_entities")
+#     merge_nps = nlp.create_pipe("merge_noun_chunks")
+#     nlp.add_pipe(merge_nps, merge_ents)
+#     doc = nlp(text)
+#
+#     tense_rule = get_tense_rule(tense)
+#
+#     with multiprocessing.Pool() as pool:
+#         passive_phrases = pool.starmap(dependency_tree_analysis,  zip(doc.sents, repeat(tense_rule)))
+#
+#     return passive_phrases
 
 
 def matcher_passive_voice_search(text):
@@ -166,13 +246,18 @@ def matcher_passive_voice_search(text):
     nlp.max_length = 1500000
 
     matcher = Matcher(nlp.vocab)
-    doc = nlp(text)
+    # doc = nlp(text)
+
+    n = 1000
+    text_splited = [text[i:i + n] for i in range(0, len(text), n)]
+    docs = list(nlp.pipe(text_splited))
 
     passive_rule = [{'DEP': 'nsubjpass'}, {'DEP': 'aux', 'OP': '*'}, {'DEP': 'auxpass'}, {'TAG': 'VBN'}]
     matcher.add('Passive', None, passive_rule)
-    matches = matcher(doc)
-    passive_phrases = []
 
-    for match in matches:
-        passive_phrases.append(doc[match[1]:match[2]].text)
+    passive_phrases = []
+    for doc in docs:
+        matches = matcher(doc)
+        for match in matches:
+            passive_phrases.append(doc[match[1]:match[2]].text)
     return passive_phrases

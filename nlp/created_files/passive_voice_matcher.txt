@@ -18,7 +18,6 @@ metropolis has been scorched
 house was invaded
 disease is considered
 balloon is positioned
-gallons might have been spilled
 votes are required
 contaminants have been dumped
 Sophia was delivered
@@ -58,7 +57,7 @@ video will be watched
 house was painted
 suburb was destroyed
 treaty is being signed
-reservations will be made
+ns will be made
 cookies will be baked
 comet was viewed
 video was posted
