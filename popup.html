@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="popup_style.css">
+</head>
+
+<body>
+    <div class="popup">
+        <div class="popup-header">
+            <div id="logo">
+                <img src="skyeng.svg">
+            </div>
+            <div id="title">
+                GF
+            </div>
+
+        </div>
+        <div class="popup-main">
+
+            <select id="POS">
+                <option value="0">PART OF SPEECH</option>
+                <option value="NOUN">NOUN</option>
+                <option value="PRONOUN">PRONOUN</option>
+                <option value="VERB">VERB</option>
+                <option value="ADJECTIVE">ADJECTIVE</option>
+                <option value="ADVERB">ADVERB</option>
+                <option value="PREPOSITION">PREPOSITION</option>
+                <option value="CONJUNCTION">CONJUNCTION</option>
+                <option value="INTERJECTION">INTERJECTION</option>
+
+
+            </select>
+
+
+            <select id="ACTIVE">
+                <option value="0">VERB TENSE</option>
+                <option value="ACTIVE_PRESENT_PERFECT">PRESENT PERFECT</option>
+                <option value="ACTIVE_PAST_PERFECT">PAST PERFECT</option>
+            </select>
+
+
+            <select id="PASSIVE">
+                <option value="0">PASSIVE VOICE</option>
+                <option value="PRESENT_SIMPLE">PRESENT SIMPLE</option>
+                <option value="PRESENT_CONTINUOUS">PRESENT CONTINUOUS</option>
+                <option value="PRESENT_PERFECT">PRESENT PERFECT</option>
+                <option value="PAST_SIMPLE">PAST SIMPLE</option>
+                <option value="PAST_CONTINUOUS">PAST CONTINUOUS</option>
+                <option value="PAST_PERFECT">PAST PERFECT</option>
+                <option value="FUTURE_SIMPLE">FUTURE SIMPLE</option>
+                <option value="FUTURE_CONTINUOUS">FUTURE CONTINUOUS</option>
+                <option value="FUTURE_PERFECT">FUTURE PERFECT</option>
+               <!-- <option value="FUTURE_IN_THE_PAST_SIMPLE">FUTURE SIMPLE</option>
+                <option value="FUTURE_IN_THE_PAST_PERFECT">FUTURE SIMPLE</option>
+                -->
+            </select>
+
+            <h4>Highlight Color</h4>
+            <div class="color-picker">
+                <button class="btn-color green"></button>
+                <button class="btn-color yellow"></button>
+                <button class="btn-color red"></button>
+                <button class="btn-color blue"></button>
+                <button class="btn-color purple"></button>
+            </div>
+            <h4>Matches found</h4>
+            <div id="found-count">0</div>
+        </div>
+        <div class="popup-footer">
+            <button id="btn-find">find</button>
+        </div>
+
+    </div>
+
+    <script src="popup.js"></script>
+    <script src="jquery.min.js"></script>
+    <script src="getSelection.js"></script>
+
+
+</body>
+
+</html>

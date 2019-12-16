@@ -1,0 +1,95 @@
+div,
+h4 {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 400px;
+    box-shadow: 0 0 5px #333;
+    font-family: Helvetica, sans-serif;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+h4 {
+    margin: 10px;
+}
+
+.popup-header {
+    background-color: #4a89dc;
+    padding: 5px 15px 15px 15px;
+    height: 40px;
+}
+
+#logo {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+#title {
+    display: inline-block;
+    color: white;
+    font-size: 35px;
+}
+
+select {
+    display: block;
+    font-family: Helvetica;
+    width: 380px;
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 10px;
+    border: 2px solid #4a89dc;
+    border-radius: 5px;
+}
+
+.btn-color {
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 1%;
+}
+
+.green {
+    background-color: mediumspringgreen;
+    opacity: 0.7;
+}
+
+.yellow {
+    background-color: #FFFD5F;
+    opacity: 0.7;
+}
+
+.red {
+    background-color: #E84A51;
+    opacity: 0.7;
+}
+
+.blue {
+    background-color: #4C92FF;
+    opacity: 0.7;
+}
+
+.purple {
+    background-color: #AE60FF;
+    opacity: 0.7;
+}
+
+.popup-footer {
+    margin-top: 25px;
+    background-color: #4a89dc;
+    padding: 12px;
+}
+
+#btn-find {
+    background-color: #4a89dc;
+    color: white;
+    border: 1px solid white;
+    text-transform: uppercase;
+    padding: 10px 40px;
+    margin: 0 auto;
+}

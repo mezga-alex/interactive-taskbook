@@ -1,0 +1,37 @@
+{
+    "manifest_version": 2,
+    "name": "skyeng",
+    "version": "1.0",
+    "browser_action": {
+        "default_title": "Skyeng Grammar Filter",
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "tabs",
+        "activeTab",
+        "storage",
+        "cookies",
+        "webRequest",
+        "webRequestBlocking",
+        "proxy",
+        "notifications",
+        "http://*/*",
+        "https://*/*",
+        "<all_urls>"
+    ],
+    "background": {
+        "scripts": ["background.js",
+            "jquery.min.js"
+        ]
+    },
+    "content_scripts": [{
+        "matches": [
+            "<all_urls>"
+        ],
+        "js": [
+            "jquery.min.js",
+            "modal.js"
+        ]
+    }],
+    "web_accessible_resources": ["modal.js"]
+}
