@@ -8,18 +8,16 @@
 <body>
     <div class="popup">
         <div class="popup-header">
-            <div id="logo">
-                <img src="skyeng.svg">
-            </div>
+
             <div id="title">
-                GF
+                IT Book
             </div>
 
         </div>
         <div class="popup-main">
             <div class="custom-select">
-                <select class="sel">
-                    <option value="0">Part of speech</option>
+                <select class="sel" id="speech">
+                    <option value="NONE">Part of speech</option>
                     <option value="NOUN">noun</option>
                     <option value="PRONOUN">pronoun</option>
                     <option value="VERB">verb</option>
@@ -33,27 +31,40 @@
                 </select>
             </div>
             <div class="custom-select">
-                <select>
-                    <option value="0">verb tense</option>
+                <select id="tense">
+                    <option value="NONE">verb tense</option>
                     <option value="PRESENT-SIMPLE">present perfect</option>
                     <option value="PAST-PERFECT">past perfect</option>
                 </select>
             </div>
             <div class="custom-select">
-                <select>
-                    <option value="0">passive voice</option>
-                    <option value="present-simple">present simple</option>
-                    <option value="past-simple">past simple</option>
+                <select id="passive_voice">
+                    <option value="NONE">passive voice</option>
+                    <option value="ALL">all</option>
 
+                    <option value="PRESENT_SIMPLE">present simple</option>
+                    <option value="PRESENT_CONTINUOUS">past continuous</option>
+                    <option value="PRESENT_PERFECT">present perfect</option>
+
+                    <option value="PAST_SIMPLE">past simple</option>
+                    <option value="PAST_CONTINUOUS">past continuous</option>
+                    <option value="PAST_PERFECT">past perfect</option>
+
+                    <option value="FUTURE_SIMPLE">future simple</option>
+                    <option value="FUTURE_PERFECT">future perfect</option>
+                    <option value="FUTURE_CONTINUOUS">future continuous</option>
+
+                    <option value="FUTURE_IN_THE_PAST_SIMPLE">future in the past simple</option>
+                    <option value="FUTURE_IN_THE_PAST_PERFECT">future in the past perfect</option>
                 </select>
             </div>
             <h4>Highlight Color</h4>
             <div class="color-picker">
-                <button class="btn-color green"></button>
-                <button class="btn-color yellow"></button>
-                <button class="btn-color red"></button>
-                <button class="btn-color blue"></button>
-                <button class="btn-color purple"></button>
+                <button id="color_choice" data-color="green" class="btn-color green"></button>
+                <button id="color_choice" data-color="yellow" class="btn-color yellow"></button>
+                <button id="color_choice" data-color="red" class="btn-color red"></button>
+                <button id="color_choice" data-color="blue" class="btn-color blue"></button>
+                <button id="color_choice" data-color="purple" class="btn-color purple"></button>
             </div>
             <h4>Matches found</h4>
             <div id="found-count">0</div>
@@ -63,11 +74,13 @@
         </div>
 
     </div>
-
-    <script src="popup.js"></script>
+    <!-- <script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script> -->
     <script src="jquery.min.js"></script>
-
-
+    <script type="text/javascript" src="parse_mercury.js"></script>
+    <script type="text/javascript" src="popup.js"></script>
 
 </body>
 

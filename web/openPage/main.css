@@ -1,0 +1,14 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+}
+
+div{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+}
+
+.alert-heading{
+    font-size: 32px;
+    font-style: oblique;
+}
