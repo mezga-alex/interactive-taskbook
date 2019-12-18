@@ -7,7 +7,8 @@ h4 {
 body {
     margin: 0;
     padding: 0;
-    width: 400px;
+    width: 350px;
+    height: 500px;
     box-shadow: 0 0 5px #333;
     font-family: Helvetica, sans-serif;
     text-align: center;
@@ -18,38 +19,53 @@ h4 {
     margin: 10px;
 }
 
+.divider {
+    width: 300px;
+    height: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+    border: solid 1px rgba(0, 0, 0, 0.2);
+}
+
 .popup-header {
-    background-color: #4a89dc;
-    padding: 5px 15px 15px 15px;
-    height: 40px;
+    width: 350px;
+    height: 60px;
+    vertical-align: middle;
+    display: table-cell;
+    background-color: #3176f5;
 }
 
 #logo {
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto;
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 5px;
 }
-
-#title {
-    display: inline-block;
-    color: white;
-    font-size: 35px;
-}
-
 
 /*the container must be positioned relative:*/
 
 .custom-select {
     position: relative;
     display: block;
-    font-family: Helvetica;
-    width: 380px;
-    padding: 5px 5px 0 5px;
+    width: 327px;
+    height: 48px;
+    border-radius: 8px;
+    border: solid 2px #3176f5;
+    padding: 5px 5px 5px 5px;
     box-sizing: border-box;
     margin: 10px;
+    margin-top: 15px;
     text-align: center;
-    border: 2px solid #4a89dc;
-    border-radius: 5px;
     text-transform: uppercase;
+
+    font-family: Helvetica;
+    font-size: 14px;
+    font-style: normal;
+    line-height: normal;
+    text-align: center;
+
 }
 
 .custom-select select {
@@ -74,6 +90,8 @@ h4 {
     transform: rotate(45deg) translateY(-50%);
     transition: all .4s ease-in-out;
     transform-origin: 50% 0;
+    overflow-y: scroll;
+
 }
 
 
@@ -89,12 +107,13 @@ h4 {
 
 .select-items div,
 .select-selected {
+    overflow: scroll;
     color: #333;
     padding: 10px;
-    border: 1px solid transparent;
+    background-color: white;
+    border: 1px solid ;
     border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
     cursor: pointer;
-    background-color: white;
 }
 
 
@@ -105,7 +124,7 @@ h4 {
     top: 100%;
     left: 0;
     right: 0;
-    z-index: 99;
+    z-index: 9;
 }
 
 
@@ -117,7 +136,7 @@ h4 {
 
 .select-items div:hover,
 .same-as-selected {
-    background-color: #ddd;
+    background-color: #E3F8E4;
 }
 
 .btn-color {
@@ -125,45 +144,73 @@ h4 {
     height: 20px;
     margin: 10px;
     border: none;
-    border-radius: 1%;
+    border-radius: 50%;
 }
 
 .green {
-    background-color: mediumspringgreen;
-    opacity: 0.7;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #2ed474;
+    opacity: 0.9;
+
 }
 
 .yellow {
-    background-color: #FFFD5F;
-    opacity: 0.7;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #FA9408;
+    opacity: 0.9;
+
 }
 
 .red {
-    background-color: #E84A51;
-    opacity: 0.7;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #dc0d1e;
+    opacity: 0.9;
 }
 
 .blue {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
     background-color: #4C92FF;
-    opacity: 0.7;
+    opacity: 0.9;
 }
 
 .purple {
-    background-color: #AE60FF;
-    opacity: 0.7;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #b72bc3;
+    opacity: 0.9;
 }
 
 .popup-footer {
-    margin-top: 25px;
-    background-color: #4a89dc;
-    padding: 12px;
+    margin-top: 20px;
 }
 
 #btn-find {
-    background-color: #4a89dc;
-    color: white;
-    border: 1px solid white;
+    width: 328px;
+    height: 47px;
+    border-radius: 8px;
+    background-color: #027aff;
+
+    border: 0px solid white;
     text-transform: uppercase;
-    padding: 10px 40px;
-    margin: 0 auto;
+    padding: 0px;
+    margin: auto;
+
+    font-family: Helvetica;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #ffffff;
 }
