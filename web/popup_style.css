@@ -19,6 +19,13 @@ h4 {
     margin: 10px;
 }
 
+hr {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+}
+
 .divider {
     width: 300px;
     height: 0px;
