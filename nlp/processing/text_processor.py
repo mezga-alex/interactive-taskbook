@@ -1,7 +1,7 @@
 from spacy.lang.char_classes import ALPHA, ALPHA_LOWER, ALPHA_UPPER, CONCAT_QUOTES, LIST_ELLIPSES, LIST_ICONS
 from spacy.util import compile_infix_regex
 from spacy.tokenizer import Tokenizer
-
+import os
 
 def replace_canadian_period(mail):
     mail = mail.replace(u"\u1427", ".")
@@ -17,6 +17,7 @@ def replace_fancy_hyphens(mail):
 
 
 def lexical_processor(mail):
+    mail = os.linesep.join([s for s in mail.splitlines() if s])
     mail = replace_canadian_period(mail)
     mail = replace_fancy_hyphens(mail)
     return mail
