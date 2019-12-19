@@ -226,59 +226,129 @@ $( document ).ready(() => {
     console.log(passive_phrases_sents);
     console.log(passive_phrases_lexemes);
 
-    const sents_check_const = passive_phrases_sents.length - 1;
-    for(var i = 0; i < passive_phrases.length - 1; i++){
-        var para = document.createElement("p");
-        console.log(passive_phrases[i]);
-        if (i < sents_check_const) {
-            if (passive_phrases_sents[i + 1] !== passive_phrases_sents[i]) {
+    if (passive_phrases.length > 0) {
+        // FIRST phrase appending
+        let passive_phrases_space = "1) " + passive_phrases[0].join(" ").toUpperCase();
+        let para = document.createElement("p");
+        let node = document.createTextNode(passive_phrases_space);
+        para.appendChild(node);
+        let element = document.getElementById("put_passive");
+        if (element !== null)
+            element.appendChild(para);
+
+        // ANOTHER phrases appending
+        for(var i = 1; i < passive_phrases.length; i++){
+            let passive_phrases_space = passive_phrases[i].join(" ").toUpperCase();
+            if (passive_phrases_sents[i] !== passive_phrases_sents[i-1]) {
+                passive_phrases_space = (i+1).toString() + ") " + passive_phrases_space;
+                //bkg.console.log(passive_phrases_space);
+            }
+            let para = document.createElement("p");
+            let node = document.createTextNode(passive_phrases_space);
+            para.appendChild(node);
+            let element = document.getElementById("put_passive");
+            if (element !== null)
+                element.appendChild(para);
+        }
+
+
+        // ANOTHER sentences appending
+        var passive_phrases_sent_proc;
+        var coun = 0;
+        var is_similar = false;
+        for(var i = 0; i < passive_phrases_sents.length; i++) {
+            if (!is_similar) {
+                passive_phrases_sent_proc = passive_phrases_sents[i];
+            }
+            coun += 1;
+
+            for (var j = 0; j < passive_phrases_indexes[i].length; j++) {
+                let left_index = passive_phrases_indexes[i][j][0];
+                let right_index = passive_phrases_indexes[i][j][1];
+                let substr = passive_phrases_sent_proc.substring(left_index, right_index);
+
+                passive_phrases_sent_proc = passive_phrases_sent_proc.substring(0, left_index) + "_".repeat(substr.length)
+                    + passive_phrases_sent_proc.substring(right_index, passive_phrases_sent_proc.length);
 
             }
-        };
 
-        passive_phrases_space = passive_phrases[i].join(" ");
-        var node = document.createTextNode((i+1).toString() + ") " + passive_phrases_space.toUpperCase());
-        para.appendChild(node);
-        var element = document.getElementById("put_passive");
-        element.appendChild(para);
-    }
-    var coun = 0;
-    var is_similar = false;
-    for(var i = 0; i < passive_phrases_sents.length - 1; i++) {
-        if (!is_similar) {
-            var passive_phrases_sent_proc = passive_phrases_sents[i];
-        }
-        coun += 1;
-
-        for (var j = 0; j < passive_phrases_indexes[i].length; j++) {
-            var left_index = passive_phrases_indexes[i][j][0];
-            var right_index = passive_phrases_indexes[i][j][1];
-            var substr = passive_phrases_sent_proc.substring(left_index, right_index);
-
-            passive_phrases_sent_proc = passive_phrases_sent_proc.substring(0, left_index) + "_".repeat(substr.length)
-                + passive_phrases_sent_proc.substring(right_index, passive_phrases_sent_proc.length);
-
+            let passive_phrases_lexeme_build = "( " + passive_phrases_lexemes[i].join(", ") + " )";
+            if ((passive_phrases_sents[i] !== passive_phrases_sents[i+1]) || (i === passive_phrases_sents.length)) {
+                // console.log(passive_phrases_sent_proc);
+                para = document.createElement("p");
+                node = document.createTextNode((coun).toString() + ") " + passive_phrases_sent_proc + '\n' + passive_phrases_lexeme_build );
+                para.appendChild(node);
+                element = document.getElementById("put_text");
+                if (element !== null)
+                    element.appendChild(para);
+                is_similar = false;
+            } else {
+                is_similar = true;
+            }
+            bkg.console.log(passive_phrases_sent_proc);
         }
 
-        var passive_phrases_lexeme_build = "( " + passive_phrases_lexemes[i].join(", ") + " )";
-        if (passive_phrases_sents[i] !== passive_phrases_sents[i+1]) {
-            // console.log(passive_phrases_sent_proc);
-            var para = document.createElement("p");
-            var node = document.createTextNode((coun).toString() + ") " + passive_phrases_sent_proc + '\n' + passive_phrases_lexeme_build);
-            para.appendChild(node);
-            var element = document.getElementById("put_text");
-            element.appendChild(para);
-            is_similar = false;
-        } else {
-            is_similar = true;
-        }
 
     }
-
-    // var reportRecipients = ['AAA', 'XYZ', 'AAA', 'ABC', 'XXX', 'XYZ', 'PQR'];
-    // var recipientsArray = reportRecipients.sort();
-
-    //var reportRecipientsDuplicate = [];
-
 });
 
+
+
+
+// if (passive_phrases.length > 0) {
+//     const sents_check_const = passive_phrases_sents.length - 1;
+//     for(var i = 0; i < passive_phrases.length - 1; i++){
+//         var passive_phrases_space = passive_phrases[i].join(" ");
+//
+//
+//
+//         var para = document.createElement("p");
+//         console.log(passive_phrases[i]);
+//         if (i < sents_check_const) {
+//             if (passive_phrases_sents[i + 1] !== passive_phrases_sents[i]) {
+//
+//             }
+//         };
+//
+//         passive_phrases_space = passive_phrases[i].join(" ");
+//         var node = document.createTextNode((i+1).toString() + ") " + passive_phrases_space.toUpperCase());
+//         para.appendChild(node);
+//         var element = document.getElementById("put_passive");
+//         if (element !== null)
+//             element.appendChild(para);
+//     }
+//
+//     var coun = 0;
+//     var is_similar = false;
+//     for(var i = 0; i < passive_phrases_sents.length - 1; i++) {
+//         if (!is_similar) {
+//             var passive_phrases_sent_proc = passive_phrases_sents[i];
+//         }
+//         coun += 1;
+//
+//         for (var j = 0; j < passive_phrases_indexes[i].length; j++) {
+//             var left_index = passive_phrases_indexes[i][j][0];
+//             var right_index = passive_phrases_indexes[i][j][1];
+//             var substr = passive_phrases_sent_proc.substring(left_index, right_index);
+//
+//             passive_phrases_sent_proc = passive_phrases_sent_proc.substring(0, left_index) + "_".repeat(substr.length)
+//                 + passive_phrases_sent_proc.substring(right_index, passive_phrases_sent_proc.length);
+//
+//         }
+//
+//         var passive_phrases_lexeme_build = "( " + passive_phrases_lexemes[i].join(", ") + " )";
+//         if (passive_phrases_sents[i] !== passive_phrases_sents[i+1]) {
+//             // console.log(passive_phrases_sent_proc);
+//             para = document.createElement("p");
+//             node = document.createTextNode((coun).toString() + ") " + passive_phrases_sent_proc + '\n' + passive_phrases_lexeme_build);
+//             para.appendChild(node);
+//             element = document.getElementById("put_text");
+//             if (element !== null)
+//                 element.appendChild(para);
+//             is_similar = false;
+//         } else {
+//             is_similar = true;
+//         }
+//
+//     }
+// }
