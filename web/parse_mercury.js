@@ -3,7 +3,7 @@
 // //import Mercury from @postlight/mercury-parser
 // var url = "https://www.nytimes.com/2019/12/13/business/liu-jingyao-interview-richard-liu.html";
 // Mercury.parse(url).then(result => console.log(result));
- var bkg = chrome.extension.getBackgroundPage();
+//  var bkg = chrome.extension.getBackgroundPage();
 
 
 var PARSE_UTILS = {
@@ -127,7 +127,7 @@ var PARSE_UTILS = {
         // bkg.console.log(resp);
       },
       error: (e) => {
-         bkg.console.log("Ajax error: " + e);
+         // bkg.console.log("Ajax error: " + e);
       }
     });
   },
@@ -151,7 +151,7 @@ $("#btn-find").on("click", () => {
   var tense = $('#tense').val();
   var passive_voice = $('#passive_voice').val();
 
-   bkg.console.log(speech + "|" + tense + "|" + passive_voice + "|" + color);
+   // bkg.console.log(speech + "|" + tense + "|" + passive_voice + "|" + color);
 
   chrome.tabs.getSelected(null, (tab) => {
         var tabId = tab.id;
@@ -285,7 +285,7 @@ $( document ).ready(() => {
             } else {
                 is_similar = true;
             }
-            bkg.console.log(passive_phrases_sent_proc);
+            // bkg.console.log(passive_phrases_sent_proc);
         }
 
 
