@@ -139,9 +139,6 @@ $('#color_choice').on('click', () => {
   color = $(this).attr('data-color');
 })
 
-$('#btn-find1').on("click", () => {
-    chrome.tabs.create({'url': './openPage/result.html' });
-});
 
 
 
@@ -165,8 +162,9 @@ $("#btn-find").on("click", () => {
                 "passive_voice": passive_voice,
                 "color": color
             });
-
-            fetch("http://poltavsky.pythonanywhere.com/process", {
+            // for local inference use:
+            // http://127.0.0.1:5000/process
+            fetch("http://127.0.0.1:5000/process", {
                 method: "POST",
                 credentials: "include",
                 body: data,
@@ -179,11 +177,11 @@ $("#btn-find").on("click", () => {
             .then( (response) => {
               if (response.status !== 200) {
                 console.log(`Looks like there was a problem. Status code: ${response.status}`);
-                return;
+                return null;
               }
 
               response.json().then( (data) => {
-                Object.keys(data).forEach(key => {
+                // Object.keys(data).forEach(key => {
                   let url_resp = data["url"];
                   let result = data["result"];
 
@@ -203,7 +201,7 @@ $("#btn-find").on("click", () => {
                   localStorage.setItem('passive_phrases_sents', JSON.stringify(result[3]));
 
                   chrome.tabs.create({'url': './openPage/result.html' }, (tab) =>{
-                  });
+                  // });
 
                 });
               });
