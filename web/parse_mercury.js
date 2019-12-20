@@ -4,7 +4,7 @@
 // var url = "https://www.nytimes.com/2019/12/13/business/liu-jingyao-interview-richard-liu.html";
 // Mercury.parse(url).then(result => console.log(result));
 //  var bkg = chrome.extension.getBackgroundPage();
-
+// var flag = false;
 
 var PARSE_UTILS = {
    minBodyTailLength: function () {
@@ -162,6 +162,7 @@ $("#btn-find").on("click", () => {
                 "passive_voice": passive_voice,
                 "color": color
             });
+            // chrome.tabs.create({'url': './openPage/result.html' });
             // for local inference use:
             // http://127.0.0.1:5000/process
             fetch("http://127.0.0.1:5000/process", {
@@ -199,11 +200,7 @@ $("#btn-find").on("click", () => {
                   localStorage.setItem('passive_phrases_indexes', JSON.stringify(result[1]));
                   localStorage.setItem('passive_phrases_lexemes', JSON.stringify(result[2]));
                   localStorage.setItem('passive_phrases_sents', JSON.stringify(result[3]));
-
-                  chrome.tabs.create({'url': './openPage/result.html' }, (tab) =>{
-                  // });
-
-                });
+                  chrome.tabs.create({'url': './openPage/result.html' }, (tab) => {});
               });
             })
               .catch(function (error) {
@@ -213,7 +210,8 @@ $("#btn-find").on("click", () => {
   });
 });
 
-$( document ).ready(() => {
+$(document).ready(() => {
+// $(".task-click").click(function(){
     var passive_phrases = JSON.parse(localStorage.getItem("passive_phrases"));
     var passive_phrases_indexes = JSON.parse(localStorage.getItem("passive_phrases_indexes"));
     var passive_phrases_lexemes = JSON.parse(localStorage.getItem("passive_phrases_lexemes"));
@@ -288,7 +286,7 @@ $( document ).ready(() => {
 
 
     }
-});
+  });
 
 
 
