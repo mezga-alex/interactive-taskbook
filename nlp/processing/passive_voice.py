@@ -57,23 +57,40 @@ def passive_voice_search(text, tense='all'):
 
     tense_rule = get_tense_rule(tense)
     passive_phrases = []
+    passive_phrases_lexemes = []
+    passive_phrases_indexes = []
+    passive_phrases_sents = []
+
     for sent in doc.sents:
         for token in sent:
             if token.tag_ == 'VBN' and token.dep_ in DEPENDENCIES:
                 passive_match = []
+                passive_match_indexes = []
+                passive_match_lexemes = []
+
                 prt_contained = False
                 subject_found = False
 
                 for child in token.children:
-                    #print(child)
+                    # print(child)
                     child_lower = child.text.lower()
                     if child.dep_ == 'nsubjpass':
                         passive_match.append(child.text)
+                        if child.lemma_ == "-PRON-":
+                            passive_match_lexemes.append(child.text)
+                        else:
+                            passive_match_lexemes.append(child.lemma_)
+                        passive_match_indexes.append([child.idx - sent.start_char,
+                                                      child.idx + len(child) - sent.start_char])
                         subject_found = True
 
                     if child.dep_ == 'auxpass':
                         if child_lower in tense_rule.get('auxpass'):
                             passive_match.append(child.text)
+                            passive_match_lexemes.append(child.lemma_)
+                            passive_match_indexes.append([child.idx - sent.start_char,
+                                                          child.idx + len(child) - sent.start_char])
+
                         else:
                             passive_match = []
                             break
@@ -81,29 +98,57 @@ def passive_voice_search(text, tense='all'):
                     if child.dep_ == 'aux':
                         if child_lower in tense_rule.get('aux') or child_lower in MODALS:
                             passive_match.append(child.text)
+                            passive_match_lexemes.append(child.lemma_)
+                            passive_match_indexes.append([child.idx - sent.start_char,
+                                                          child.idx + len(child) - sent.start_char])
                         else:
                             passive_match = []
+                            passive_match_lexemes = []
+                            passive_match_indexes = []
                             break
 
                     if child.dep_ == 'neg':
                         passive_match.append(child.text)
+                        passive_match_lexemes.append(child.lemma_)
+                        passive_match_indexes.append([child.idx - sent.start_char,
+                                                      child.idx + len(child) - sent.start_char])
 
                     if child.dep_ == 'prt':
                         passive_match.append(token.text)
                         passive_match.append(child.text)
+
+                        passive_match_lexemes.append(token.lemma_)
+                        passive_match_lexemes.append(child.lemma_)
+
+                        passive_match_indexes.append([token.idx - sent.start_char,
+                                                      token.idx + len(token) - sent.start_char])
+                        passive_match_indexes.append([child.idx - sent.start_char,
+                                                      child.idx + len(child) - sent.start_char])
+
                         prt_contained = True
 
                 if passive_match and subject_found:
                     if not prt_contained:
                         passive_match.append(token.text)
-                    passive_phrases.append(' '.join(passive_match))
+                        passive_match_lexemes.append(token.lemma_)
+                        passive_match_indexes.append([token.idx - sent.start_char,
+                                                      token.idx + len(token) - sent.start_char])
 
-    return passive_phrases
+                    passive_phrases.append(passive_match)
+                    passive_phrases_lexemes.append(passive_match_lexemes)
+                    passive_phrases_indexes.append(passive_match_indexes)
+                    passive_phrases_sents.append(text[sent.start_char:sent.end_char].strip())
+                    pass
+    result = [passive_phrases, passive_phrases_indexes, passive_phrases_lexemes, passive_phrases_sents]
+    # for el in result:
+    #     print(el)
+    #     print("\n")
+    return result
 
 
 def passive_voice_search_batches(text, tense='all'):
     nlp = spacy.load('en_core_web_sm')
-    nlp.max_length = 1500000
+    #nlp.max_length = 1500000
 
     merge_ents = nlp.create_pipe("merge_entities")
     merge_nps = nlp.create_pipe("merge_noun_chunks")
@@ -113,14 +158,21 @@ def passive_voice_search_batches(text, tense='all'):
     n = 1000
     text_splited = [text[i:i + n] for i in range(0, len(text), n)]
     docs = list(nlp.pipe(text_splited))
+    # doc = nlp(text)
 
     tense_rule = get_tense_rule(tense)
     passive_phrases = []
+    passive_phrases_lexemes = []
+    passive_phrases_indexes = []
+    passive_phrases_sents = []
     for doc in docs:
         for sent in doc.sents:
             for token in sent:
                 if token.tag_ == 'VBN' and token.dep_ in DEPENDENCIES:
                     passive_match = []
+                    passive_match_indexes = []
+                    passive_match_lexemes = []
+
                     prt_contained = False
                     subject_found = False
 
@@ -129,11 +181,21 @@ def passive_voice_search_batches(text, tense='all'):
                         child_lower = child.text.lower()
                         if child.dep_ == 'nsubjpass':
                             passive_match.append(child.text)
+                            if child.lemma_ == "-PRON-":
+                                passive_match_lexemes.append(child.text)
+                            else:
+                                passive_match_lexemes.append(child.lemma_)
+                            passive_match_indexes.append([child.idx - sent.start_char,
+                                                          child.idx + len(child) - sent.start_char])
                             subject_found = True
 
                         if child.dep_ == 'auxpass':
                             if child_lower in tense_rule.get('auxpass'):
                                 passive_match.append(child.text)
+                                passive_match_lexemes.append(child.lemma_)
+                                passive_match_indexes.append([child.idx - sent.start_char,
+                                                              child.idx+len(child) - sent.start_char])
+
                             else:
                                 passive_match = []
                                 break
@@ -141,24 +203,53 @@ def passive_voice_search_batches(text, tense='all'):
                         if child.dep_ == 'aux':
                             if child_lower in tense_rule.get('aux') or child_lower in MODALS:
                                 passive_match.append(child.text)
+                                passive_match_lexemes.append(child.lemma_)
+                                passive_match_indexes.append([child.idx - sent.start_char,
+                                                              child.idx + len(child) - sent.start_char])
                             else:
                                 passive_match = []
+                                passive_match_lexemes = []
+                                passive_match_indexes = []
                                 break
 
                         if child.dep_ == 'neg':
                             passive_match.append(child.text)
+                            passive_match_lexemes.append(child.lemma_)
+                            passive_match_indexes.append([child.idx - sent.start_char,
+                                                          child.idx + len(child) - sent.start_char])
 
                         if child.dep_ == 'prt':
                             passive_match.append(token.text)
                             passive_match.append(child.text)
+
+                            passive_match_lexemes.append(token.lemma_)
+                            passive_match_lexemes.append(child.lemma_)
+
+                            passive_match_indexes.append([token.idx - sent.start_char,
+                                                          token.idx + len(token) - sent.start_char])
+                            passive_match_indexes.append([child.idx - sent.start_char,
+                                                          child.idx + len(child) - sent.start_char])
+
                             prt_contained = True
 
                     if passive_match and subject_found:
                         if not prt_contained:
                             passive_match.append(token.text)
-                        passive_phrases.append(' '.join(passive_match))
+                            passive_match_lexemes.append(token.lemma_)
+                            passive_match_indexes.append([token.idx - sent.start_char,
+                                                          token.idx + len(token) - sent.start_char])
 
-    return passive_phrases
+                        passive_phrases.append(passive_match)
+                        passive_phrases_lexemes.append(passive_match_lexemes)
+                        passive_phrases_indexes.append(passive_match_indexes)
+                        passive_phrases_sents.append(text[sent.start_char:sent.end_char].strip())
+                        pass
+
+    result = [passive_phrases, passive_phrases_indexes, passive_phrases_lexemes, passive_phrases_sents]
+    # for el in result:
+    #     print(el)
+    #     print("\n")
+    return result
 
 
 def passive_voice_search_exp(text, tense='all'):
