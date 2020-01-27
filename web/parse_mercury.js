@@ -217,10 +217,10 @@ $(document).ready(() => {
     var passive_phrases_lexemes = JSON.parse(localStorage.getItem("passive_phrases_lexemes"));
     var passive_phrases_sents = JSON.parse(localStorage.getItem("passive_phrases_sents"));
 
-    console.log(passive_phrases);
-    console.log(passive_phrases_indexes);
-    console.log(passive_phrases_sents);
-    console.log(passive_phrases_lexemes);
+    // console.log(passive_phrases);
+    // console.log(passive_phrases_indexes);
+    // console.log(passive_phrases_sents);
+    // console.log(passive_phrases_lexemes);
 
     if (passive_phrases !== null && passive_phrases.length > 0) {
         // FIRST phrase appending

@@ -1,0 +1,263 @@
+
+@media screen  {
+    body {
+        height: 100vh;
+        overflow: auto;
+    }
+}
+
+.rtl {
+    direction: rtl;
+}
+
+.simple-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding-top: 70px;
+    padding-bottom: 20px;
+}
+.content-container > *:not(script):not(style) {
+    display: block !important;
+}
+
+.simple-ui-container {
+    position: fixed;
+    top: 10px;
+    right: 8px;
+    display: flex;
+    flex-direction: row-reverse;
+    user-select: none;
+}
+.rtl .simple-ui-container {
+    right: auto;
+    left: 8px;
+}
+
+.simple-control {
+    cursor: pointer;
+    transition: 0.2s;
+    margin: 0 3px;
+    padding: 1px 6px;
+
+    color: black;
+    fill: black;
+    opacity: 0.3;
+}
+.simple-control:hover,
+.simple-control.active {
+    opacity: 1;
+}
+
+.simple-close {
+    font-size: 25px;
+    height: 37px;
+
+    background: none;
+    border: 1px solid black;
+    padding: 0px 10px 5px;
+    margin-left: 8px;
+}
+.rtl .simple-close {
+    margin-left: auto;
+    margin-right: 8px;
+}
+
+.simple-print,
+.simple-edit-theme,
+.simple-delete,
+.simple-undo {
+    width: 40px;
+    height: 40px;
+    
+    border: 0;
+    background: none;
+    font-size: 0; /* Hide the print text */
+}
+.simple-print svg,
+.simple-edit-theme svg,
+.simple-delete svg {
+    width: 100%;
+    height: 100%;
+}
+
+.simple-undo {
+    display: none;
+    padding: 7px;
+}
+.simple-undo.shown {
+    display: inline;
+}
+
+.simple-delete {
+    width: 43px;
+}
+
+.simple-edit-theme {
+    margin: 0;
+}
+
+.simple-edit {
+    width: 30px;
+    height: 20px;
+    position: absolute;
+    top: 10px;
+    right: 100%;
+    padding-right: 10px;
+    
+    cursor: pointer;
+
+    display: none;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+.simple-edit:hover {
+    opacity: 1;
+}
+.rtl .simple-edit {
+    right: auto;
+    padding-right: 0;
+    left: 100%;
+    padding-left: 10px;
+}
+
+
+.simple-author .simple-edit {
+    right: auto;
+    padding-right: 0;
+    left: 100%;
+    padding-left: 10px;
+}
+.rtl .simple-author .simple-edit {
+    left: auto;
+    right: 100%;
+    padding-right: 10px;
+    padding-left: 0;
+}
+
+.simple-meta > * {
+    position: relative;
+}
+.simple-date:hover .simple-edit,
+.simple-author:hover .simple-edit,
+.simple-title:hover .simple-edit {
+    display: block;
+}
+
+.simple-ext-info {
+    text-align: center;
+    border-top: 1px solid black;
+    padding-top: 28px;
+}
+
+.simple-viewed-using {
+    margin-bottom: 0;
+}
+
+.simple-bug-reporter {
+    margin-top: 0;
+    font-size: 12px;
+}
+.simple-bug-reporter a[href] {
+    color: #282828;
+    opacity: 0.5;
+}
+.simple-bug-reporter a[href]:hover {
+    color: #282828;
+    opacity: 1;
+}
+
+/* LaTeX plain text show on hover */
+.mwe-math-fallback-image-inline:hover + .simple-plain-text,
+.simple-plain-text:hover {
+    display: block;
+}
+.simple-plain-text {
+    display: none;
+    margin-top: -5px;
+}
+
+@media (max-width: 750px) {
+    .simple-container {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+}
+
+@media (max-width: 450px) {
+    .simple-container {
+        padding-top: 30px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+@media print {
+    .simple-control,
+    .simple-bug-reporter,
+    .jr-tooltip {
+        display: none !important;
+    }
+    *:not(.simple-title *) { overflow: auto !important; }
+    @page :first { margin-top: 0; }
+}
+
+
+/* For the element deletion feature */
+.jr-hovered,
+.jr-hovered *:not(.simple-close):not(.simple-print) {
+    cursor: pointer !important;
+    color: black !important;
+    background-color: #ff5050 !important;
+}
+
+/* For the GUI theme editor */
+.saturation-field { margin-right: 1px !important; }
+
+/* For the premium notifier */
+.right-align-buttons {
+    text-align: right;
+}
+
+.jr-tooltip {
+    font-family: sans-serif;
+    width: 320px;
+    padding: 20px;
+    font-size: 0.8em;
+    line-height: 1.4;
+    background-color: white;
+    color: black;
+    box-shadow: 0 3px 3px rgba(0,0,0,0.15);
+}
+
+.jr-notifier {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    padding: 20px;
+}
+
+.jr-primary,
+.jr-secondary {
+    outline: none;
+    background-color: white;
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid black;
+    opacity: 0.5;
+    border-radius: 5px;
+    transition: 0.1s;
+}
+
+.jr-primary {
+    background-color: #27AAE1;
+    color: white;
+    opacity: 1;
+    margin-left: 10px;
+    border-color: transparent;
+}
+.jr-primary:hover {
+    background-color: #4ECAFF;
+}
+.jr-secondary:hover {
+    opacity: 1;
+}
