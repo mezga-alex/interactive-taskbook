@@ -1,5 +1,6 @@
 import spacy
 import multiprocessing
+import text_processor
 
 from spacy.matcher import Matcher
 from itertools import repeat
@@ -140,6 +141,10 @@ def passive_voice_search(text, tense='all'):
                     passive_phrases_sents.append(text[sent.start_char:sent.end_char].strip())
                     pass
     result = [passive_phrases, passive_phrases_indexes, passive_phrases_lexemes, passive_phrases_sents]
+
+    # print("\nSimple")
+    # for ppidx in passive_phrases_indexes:
+    #     print(str(ppidx) + " ")
     # for el in result:
     #     print(el)
     #     print("\n")
@@ -154,17 +159,19 @@ def passive_voice_search_batches(text, tense='all'):
     merge_nps = nlp.create_pipe("merge_noun_chunks")
     nlp.add_pipe(merge_nps, merge_ents)
 
-    # TODO: make flexible batches (split at the end of the sentence)
-    n = 1000
-    text_splited = [text[i:i + n] for i in range(0, len(text), n)]
-    docs = list(nlp.pipe(text_splited))
-    # doc = nlp(text)
+    # make flexible batches (split at the end of the sentence)
+    batch_indices = text_processor.flexible_batch_indices(text, 1000)
+    text_split = [text[batch_indices[i-1]:batch_indices[i]] for i in range(1, len(batch_indices))]
+
+    docs = list(nlp.pipe(text_split))
 
     tense_rule = get_tense_rule(tense)
     passive_phrases = []
     passive_phrases_lexemes = []
     passive_phrases_indexes = []
     passive_phrases_sents = []
+    cur_batch = 0
+
     for doc in docs:
         for sent in doc.sents:
             for token in sent:
@@ -194,7 +201,7 @@ def passive_voice_search_batches(text, tense='all'):
                                 passive_match.append(child.text)
                                 passive_match_lexemes.append(child.lemma_)
                                 passive_match_indexes.append([child.idx - sent.start_char,
-                                                              child.idx+len(child) - sent.start_char])
+                                                              child.idx + len(child) - sent.start_char])
 
                             else:
                                 passive_match = []
@@ -239,16 +246,15 @@ def passive_voice_search_batches(text, tense='all'):
                             passive_match_indexes.append([token.idx - sent.start_char,
                                                           token.idx + len(token) - sent.start_char])
 
+                        batch_idx = batch_indices[cur_batch]
                         passive_phrases.append(passive_match)
                         passive_phrases_lexemes.append(passive_match_lexemes)
                         passive_phrases_indexes.append(passive_match_indexes)
-                        passive_phrases_sents.append(text[sent.start_char:sent.end_char].strip())
+                        passive_phrases_sents.append(text[batch_idx + sent.start_char:batch_idx + sent.end_char].strip())
                         pass
+        cur_batch += 1
 
     result = [passive_phrases, passive_phrases_indexes, passive_phrases_lexemes, passive_phrases_sents]
-    # for el in result:
-    #     print(el)
-    #     print("\n")
     return result
 
 
