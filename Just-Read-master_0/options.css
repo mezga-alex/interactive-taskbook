@@ -1,0 +1,136 @@
+* { box-sizing: border-box; }
+
+body {
+    padding: 0 50px 20px;
+}
+h1 {
+    border-bottom: 1px solid #d8d8d8;
+    padding-bottom: 13px;
+}
+h1 i {
+    color: #27AAE1;
+}
+input[type="checkbox"] {
+    margin-bottom: 0;
+    vertical-align: bottom;
+}
+label {
+    margin-top: 3px;
+}
+
+
+.theme-section {
+    border: 1px solid;
+    padding: 8px;
+    white-space: nowrap;
+    margin-bottom: 10px;
+}
+.stylesheets {
+    padding-left: 15px;
+}
+.stylesheets li {
+    cursor: pointer;
+    padding-bottom: 3px;
+}
+.stylesheets .active {
+    background: lightblue;
+}
+.stylesheets .used {
+    font-weight: bold;
+    font-style: italic;
+}
+.stylesheets .locked {
+    color: grey;
+}
+
+.theme-section h4 {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+#domainList {
+    width: 515px;
+}
+
+.controls-container {
+    margin: 10px 0;
+}
+
+
+.editor-container {
+    margin-bottom: 2em;
+}
+.editor {
+    height: 300px;
+    position: relative;
+    border: 1px solid;
+    overflow: auto;
+}
+
+
+
+.view-other-stylesheets {
+    margin-top: 7px;
+}
+
+
+#css-editor {
+    width: 100%;
+    height: 100%;
+    resize: none;
+    padding: 5px;
+    margin-top: 0;
+}
+
+#save,
+#use {
+    position: relative;
+}
+#save::before,
+#use::before {
+    content: "Saved!";
+    position: absolute;
+    left: 50%;
+    margin-left: -29px;
+    bottom: 180%;
+    padding: 6px 8px;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: white;
+    opacity: 0;
+    height: 0;
+    pointer-events: none;
+}
+#save.saved::before,
+#use.used::before {
+    animation: fadeInAndOut 2s forwards;
+}
+#use::before {
+    content: 'Done!';
+}
+
+.additional-options {
+    background-color: white;
+    border: 1px solid;
+    padding: 8px;
+    overflow: auto;
+}
+.additional-options label {
+    display: block;
+}
+.additional-options .theme-section {
+    border: none;
+    padding: 0;
+}
+
+@keyframes fadeInAndOut {
+    0%, 100% {
+        height: auto;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    
+    10%, 90% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}

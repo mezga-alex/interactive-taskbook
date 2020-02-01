@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Options - Just Read</title>
+    <meta name="author" content="Zach Saucier">
+    <link href="/icons/icon16.png" rel="icon">
+    <link href="options.css" rel="stylesheet"/>
+</head>
+<body>
+    <h1>Configure <i>Just Read</i></h1>
+
+    <div class="flex-container">
+        <div class="theme-section">
+            <div class="stylesheet-list-container">
+                <input type="text" id="new-file" placeholder="New stylesheet..."/>
+                <button id="add">+</button>
+
+                <div class="controls-container">
+                    <button id="use">Use as current theme</button>
+                    <button id="remove">Remove theme</button>
+                </div>
+
+                <ul class="stylesheets">
+                    <!-- This is populated by our JS -->
+                </ul>
+            </div>
+
+            <a class= "view-other-stylesheets" target="blank" href="https://github.com/ZachSaucier/Just-Read/issues/4">View more themes</a>
+
+            <h4>Auto-run domain list:</h4>
+            <textarea name="domainList" id="domainList"></textarea>
+
+            <div>This list is checked using regex. <br/>For more info, see <a href="https://github.com/ZachSaucier/Just-Read/issues/15#issuecomment-262255204">this post</a>.</div>
+        </div>
+
+        <div class="editor-container">
+            <div class="editor">
+                <div id="css-editor"></div>
+            </div>
+            <div class="controls-container">
+                <button id="save">Save style changes</button>
+            </div>
+            <label><input id="hideSegments" type="checkbox" checked /> Use hide-segments.css</label>
+        </div>
+    </div>
+
+    <div class="additional-options">
+        <h3>Context menu entries</h3>
+        <label><input id="pageCM" type="checkbox" checked /> Enable page context menu entry.</label>
+        <label><input id="highlightCM" type="checkbox" checked /> Enable highlight context menu entry.</label>
+        <label><input id="linkCM" type="checkbox" checked /> Enable link context menu entry.</label>
+        <label><input id="autorunCM" type="checkbox" checked /> Enable auto-run context menu entry.</label>
+
+        <h3>Additional preferences</h3>
+        <label><input id="backup" type="checkbox" /> Backup the most recent Just Read page (in case of accidental closure).</label>
+        <label><input id="leavePres" type="checkbox" /> Never reformat pre tags.</label>
+        <label><input id="addTimeEstimate" type="checkbox" /> Always add the estimated time to read the article.</label>
+        <label><input id="addOrigURL" type="checkbox" /> Always add the original URL.</label>
+        <label><input id="alwaysAddAR" type="checkbox" /> Always add current site to Just Read's autorun list when Just Read is started on a page.</label>
+
+        <p><strong>For more additional features, check out <a href="https://justread.link">Just Read Premium</a>!</strong></p>
+    </div>
+
+    <script src="external-libraries/ace/ace.js"></script>
+    <script src="options.js"></script>
+</body>
+</html>
