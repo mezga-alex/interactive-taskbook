@@ -561,7 +561,7 @@ function getContainer() {
     if(selectedContainer.tagName === "P") {
         selectedContainer = selectedContainer.parentNode;
     }
-
+    // alert(selectedContainer.innerText);
     return selectedContainer;
 }
 
@@ -688,6 +688,16 @@ function getStyles() {
     });
 }
 
+function addScript(doc, link) {
+    var path = chrome.extension.getURL(link),
+        styleScript = document.createElement("script");
+
+    styleScript.setAttribute("type", "text/javascript");
+    styleScript.setAttribute("src", path);
+
+    doc.head.appendChild(styleScript);
+}
+
 // Add our styles to the page
 function addStylesheet(doc, link, classN) {
     var path = chrome.extension.getURL(link),
@@ -767,6 +777,81 @@ function addArticleMeta() {
 
     return metaContainer;
 }
+// function addExtensionScript(){
+//     let popup_script = document.createElement("script");
+//     const markup = `
+//     var color;
+//     alert('working now');
+//     // $('#color_choice').on('click', () => {
+//     // color = $(this).attr('data-color');
+//     // })
+//     var speech = $('#speech').val();
+//     var tense = $('#tense').val();
+//     var passive_voice = $('#passive_voice').val();
+
+//     alert(speech + "|" + tense + "|" + passive_voice + "|" + color);
+//     data = JSON.stringify({
+//                     "text": text,
+//                     "pos": speech,
+//                     "tense": tense,
+//                     "passive_voice": passive_voice,
+//                     "color": color
+//     });
+//     fetch("http://127.0.0.1:5000/process", {
+//                     method: "POST",
+//                     credentials: "include",
+//                     body: data,
+//                     cache: "no-cache",
+//                     headers: new Headers({
+//                     'Access-Control-Allow-Origin':'*',
+//                     "content-type": "application/json"
+//                     })
+//     })
+//     .then( (response) => {
+//         if (response.status !== 200) {
+//                     console.log('Looks like there was a problem');
+//                     return null;
+//         }
+
+//         response.json().then( (data) => {
+//                     // Object.keys(data).forEach(key => {
+//         let url_resp = data["url"];
+//         let result = data["result"];
+
+//         //alert(result);
+//         });
+//     })
+//     .catch(function (error) {
+//         console.log("Fetch error: " + error);
+//     }); 
+//     `
+//     popup_script.innerHTML = markup;
+//     return popup_script
+// }
+
+function addExtensionScript(){
+    var color;
+    alert('working now');
+    // $('#color_choice').on('click', () => {
+    // color = $(this).attr('data-color');
+    // })
+    var speech = simpleArticleIframe.getElementById("speech");
+    var speechStr = speech.options[speech.selectedIndex].text;
+
+    var tense = simpleArticleIframe.getElementById("tense");
+    var tenseStr = tense.options[tense.selectedIndex].text;
+
+    var passive_voice = simpleArticleIframe.getElementById("passive_voice");
+    var passive_voice_str = passive_voice.options[passive_voice.selectedIndex].text;
+
+    // var speech = $('#speech').val();
+    // var tense = $('#tense').val();
+    // var passive_voice = $('#passive_voice').val();
+
+    alert(speechStr + "|" + tenseStr + "|" + passive_voice_str);
+    
+}
+
 
 // Add the close button
 function addExtensionPopup() {
@@ -844,6 +929,36 @@ function addExtensionPopup() {
     return popup;
 }
 
+function sendText(text) {
+    data = JSON.stringify({
+        "text": text
+    });
+    alert(data);
+    fetch("http://127.0.0.1:5000/process", {
+            method: "POST",
+            credentials: "include",
+            body: data,
+            cache: "no-cache",
+            headers: new Headers({
+            'Access-Control-Allow-Origin':'*',
+            "content-type": "application/json"
+            })
+    })
+    .then( (response) => {
+        if (response.status !== 200) {
+                console.log('Looks like there was a problem');
+                return null;
+        }
+
+        response.json().then( (data) => {
+            let result = data["result"];
+        alert(result);
+        });
+    })
+    .catch(function (error) {
+        console.log("Fetch error: " + error);
+    }); 
+}
 
 // Add the close button
 function addCloseButton() {
@@ -1197,13 +1312,14 @@ function addPremiumNofifier() {
 /////////////////////////////////////
 
 var simpleArticle,
+    popupFooter,
     simpleArticleIframe,
     undoBtn,
     isInDelMode = false;
 function createSimplifiedOverlay() {
     // Disable scroll on main page until closed
     document.documentElement.classList.add("simple-no-scroll");
-
+    addScript(document, "jquery.min.js");
     // Create an iframe so we don't use old styles
     simpleArticle = document.createElement("iframe");
     simpleArticle.id = "simple-article";
@@ -1224,11 +1340,12 @@ function createSimplifiedOverlay() {
     // If there is no text selected, auto-select the content
     if(!pageSelectedContainer) {
         pageSelectedContainer = getContainer();
-
+        sendText(pageSelectedContainer.innerHTML);
+        // alert();
         var pattern =  new RegExp ("<br/?>[ \r\n\s]*<br/?>", "g");
         pageSelectedContainer.innerHTML = pageSelectedContainer.innerHTML.replace(pattern, "</p><p>");
     }
-
+    // alert(pageSelectedContainer.innerHTML);
     selected = pageSelectedContainer;
 
     // Get the title, author, etc.
@@ -1316,7 +1433,7 @@ function createSimplifiedOverlay() {
     if(direction === "rtl" || isRTL(contentContainer.firstChild.innerText)) {
         container.classList.add("rtl");
     }
-
+    // alert(contentContainer.innerHTML);
     container.appendChild(contentContainer);
 
     // Remove the elements we flagged earlier
@@ -1337,6 +1454,7 @@ function createSimplifiedOverlay() {
     setTimeout(function() { // Fix a bug in FF
     // Append our custom HTML to the iframe
     simpleArticleIframe = document.getElementById("simple-article").contentWindow.document;
+    
     simpleArticleIframe.body.appendChild(container);
 
     simpleArticleIframe.body.className = window.location.hostname.replace(/\./g, "-");
@@ -1352,9 +1470,8 @@ function createSimplifiedOverlay() {
     // Create a container for the UI buttons
     let uiContainer = document.createElement("div");
     uiContainer.className = "simple-ui-container";
-
     uiContainer.appendChild(addExtensionPopup());
-    
+
     // Add the close button
     uiContainer.appendChild(addCloseButton());
 
@@ -1372,11 +1489,11 @@ function createSimplifiedOverlay() {
     container.appendChild(uiContainer);
     
     // Add the notification of premium if necessary
-    if((jrCount === 5
-    || jrCount % 15 === 0)
-    && jrCount < 151) {
-        container.appendChild(addPremiumNofifier());
-    }
+    // if((jrCount === 5
+    // || jrCount % 15 === 0)
+    // && jrCount < 151) {
+    //     container.appendChild(addPremiumNofifier());
+    // }
 
     // Add MathJax support
     var mj = document.querySelector("script[src *= 'mathjax");
@@ -1413,6 +1530,11 @@ function createSimplifiedOverlay() {
             startDeleteElement(simpleArticleIframe);
         };
     }
+    // Extension script
+    // popupFooter = document.getElementById("popup-footer").contentWindow.document;
+    simpleArticleIframe.querySelector("#btn-find").addEventListener('click', function() {
+        addExtensionScript();
+    });
 
     // The undo button
     undoBtn.addEventListener('click', popStack);

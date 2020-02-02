@@ -4,7 +4,8 @@
   "manifest_version": 2,
   "description": "A feature-packed, customizable reader extension.",
   "homepage_url": "https://poltavski.github.io",
-
+  "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'",
+  
   "browser_action": {
     "default_icon": "icons/icon19.png",
     "default_title": "Just Read"
@@ -38,7 +39,7 @@
   },
 
   "background": {
-    "page": "popup.html"
+    "scripts": ["jquery.min.js", "background.js"]
   },
 
   "options_ui": {
@@ -47,6 +48,7 @@
 
   "web_accessible_resources": [
     "popup_style.css",
+    "jquery.min.js",
     "skyeng.svg",
     "print.svg",
     "required-styles.css",
