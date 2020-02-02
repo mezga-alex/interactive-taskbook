@@ -1,10 +1,7 @@
-import text_processor
 import pos_tagging
 import passive_voice
-import time
 
-from globals import Passive, Active
-import parse
+from experiments.globals import Passive
 
 if __name__ == "__main__":
     # parse.parse_data('test', path)

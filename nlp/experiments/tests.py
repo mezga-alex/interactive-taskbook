@@ -4,9 +4,8 @@ import passive_voice as pv
 import time
 import passive_voice_cython
 import spacy
-import parse
 
-from globals import Passive, Active
+from experiments.globals import Passive
 
 if __name__ == "__main__":
     # path = './dataset/train.txt'
