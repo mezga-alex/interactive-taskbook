@@ -22,44 +22,26 @@ app = Flask(__name__)
 def index():
 	return render_template("index.html")
 
+
 @app.route('/process',methods=["POST"])
 def process():
 	## JSON Request
 	req = request.get_json()
-	print(req["pos"])
 	print("text", req["text"])
-	print("passive", req["passive_voice"])
 	text = req["text"]
-	pos = req["pos"]
-	_passive_voice = req["passive_voice"]
-	tense = req["tense"]
-	##JSON ENDS
-
-	passive_result = []
-	results = []
-
-	if pos != "NONE":
-		pos_tagging.pos_tag_search(pos, text)
-
+	_passive_voice = "all"
 	if passive_voice != 'NONE':
 		start_time = time.time()
-		passive_result = passive_voice.passive_voice_search_batches(text, _passive_voice)
+		passive_result = passive_voice.passive_voice_search_batches(text)
 		elapsed_time = time.time() - start_time
 		print("tree batches:", elapsed_time)
 
 		start_time = time.time()
-		passive_result = passive_voice.passive_voice_search(text, _passive_voice)
+		passive_result = passive_voice.passive_voice_search(text)
 		elapsed_time = time.time() - start_time
 		print("tree single:", elapsed_time)
 
-
-# 	return render_template("index.html", results=results, num_of_results=len(results), text=text)
-    # dict_url = {"url": "http://poltavsky.pythonanywhere.com/"}
-# 	res = make_response(jsonify(dict_url), 200)
-	url_gen = "http://poltavsky.pythonanywhere.com"
-	res = make_response(jsonify(url=url_gen, result=passive_result), 200)
-
-# 	answer(results, text)
+	res = make_response(jsonify(result=passive_result), 200)
 	return res
 
 @app.route('/answer',methods=["POST"])
