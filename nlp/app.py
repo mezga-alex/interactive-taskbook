@@ -36,7 +36,7 @@ def process():
 	results = []
 
 	if pos != "NONE":
-		pos_tagging.pos_tag_search(pos, text)
+		pos_tagging.pos_tag_search(text, pos)
 
 	if passive_voice != 'NONE':
 		start_time = time.time()
