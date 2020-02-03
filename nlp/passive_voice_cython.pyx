@@ -20,14 +20,15 @@ cdef int fast_loop(DocElement* docs, int n_docs, hash_t tag):
                 n_out += 1
     return n_out
 
-cpdef main_nlp_fast(doc_list):
-    cdef int i, n_out, n_docs = len(doc_list)
+cpdef main_nlp_fast(doc_list, tag):
+    cdef int i, n_docs = len(doc_list)
     cdef Pool mem = Pool()
     cdef DocElement* docs = <DocElement*>mem.alloc(n_docs, sizeof(DocElement))
+    cdef tokens = []
     cdef Doc doc
     for i, doc in enumerate(doc_list): # Populate our database structure
         docs[i].c = doc.c
         docs[i].length = (<Doc>doc).length
-    tag_hash = doc.vocab.strings.add('NN')
+    tag_hash = doc.vocab.strings.add(tag)
     n_out = fast_loop(docs, n_docs, tag_hash)
     print(n_out)

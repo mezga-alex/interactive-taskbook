@@ -1,4 +1,4 @@
-from flask import Flask,render_template,url_for,request, make_response, jsonify
+from flask import Flask,render_template, request, make_response, jsonify
 # import re
 # import pandas as pd
 import spacy
@@ -8,14 +8,11 @@ nlp = spacy.load('en_core_web_sm')
 import sys
 # sys.path.append("/home/art/Desktop/code/skyeng-grammar-filter-master/skyeng-grammar-filter-master/nlp/processing")
 sys.path.append("/home/poltavsky/InteractiveTaskBook/processing")
-import text_processor
 import pos_tagging
 import passive_voice
+import passive_voice_exp
+
 import time
-
-from globals import Passive, Active
-import parse
-
 
 app = Flask(__name__)
 @app.route('/')
@@ -48,9 +45,11 @@ def process():
 		print("tree batches:", elapsed_time)
 
 		start_time = time.time()
-		passive_result = passive_voice.passive_voice_search(text, _passive_voice)
+		passive_result = passive_voice_exp.passive_voice_search(text, _passive_voice)
 		elapsed_time = time.time() - start_time
 		print("tree single:", elapsed_time)
+
+		pos_tagging.pos_tag_search(text, "ALL")
 
 
 # 	return render_template("index.html", results=results, num_of_results=len(results), text=text)

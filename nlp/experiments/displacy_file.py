@@ -1,16 +1,16 @@
 import spacy
+from spacy import displacy
 import text_processor as tp
 from spacy.matcher import Matcher
 
 
-def pos_tag_search(text, pos_tag):
+def displacy_func(text):
     nlp = spacy.load('en_core_web_sm')
 
     nlp.tokenizer = tp.custom_tokenizer(nlp)
-    #nlp = tp.custom_matcher(nlp)
+    # nlp = tp.custom_matcher(nlp)
 
     # ############## Custom Matcher #########################
-
     matcher = Matcher(nlp.vocab)
 
     pattern = [{'ORTH': "'"},
@@ -35,22 +35,14 @@ def pos_tag_search(text, pos_tag):
     nlp.add_pipe(match_merger, first=True)
     # ########################################################
 
-    batch_indices = tp.flexible_batch_indices(text, 1000)
-    text_split = [text[batch_indices[i-1]:batch_indices[i]] for i in range(1, len(batch_indices))]
+    # batch_indices = tp.flexible_batch_indices(text, 1000)
+    # text_split = [text[batch_indices[i - 1]:batch_indices[i]] for i in range(1, len(batch_indices))]
+    #
+    # docs = list(nlp.pipe(text_split))
 
-    docs = list(nlp.pipe(text_split))
-    tokens = []
-    tokens_indexes = []
+    doc = nlp(text[0:500])
+    html = displacy.render(doc, style="ent", page=True)
 
-    for cur_batch, doc in enumerate(docs):
-        batch_idx = batch_indices[cur_batch]
-        for token in doc:
-            if token.pos_ == pos_tag or (pos_tag == 'ALL' and token.pos_ != 'PUNCT'):
-                tokens.append(token.text)
-                tokens_indexes.append([batch_idx + token.idx,
-                                       batch_idx + token.idx + len(token)])
-
-    result = [tokens, tokens_indexes]
-
-    return result
-
+    Html_file = open("displacy.html", "w")
+    Html_file.write(html)
+    Html_file.close()
