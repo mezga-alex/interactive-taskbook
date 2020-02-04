@@ -10,15 +10,15 @@ if __name__ == "__main__":
     # path = './dataset/nyt_text.txt'
     # text = text_processor.lexical_processor(open(path).read().lower())
 
-    task = 'passive_voice'
+    task = 'pos'
     tense = 'ALL'
-    pos = 'VBN'
+    pos = 'ALL'
     text = Passive
 
     displacy_file.displacy_func(text)
 
-    # if task == 'pos':
-    #     pos_tagging.pos_tag_search(pos, text)
+    if task == 'pos':
+        pos_tagging.pos_tag_search(text, pos)
     #
     # if task == 'passive_voice':
     #     passive_phrases = passive_voice_exp.passive_voice_search(text, tense)

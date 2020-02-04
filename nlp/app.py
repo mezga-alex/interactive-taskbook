@@ -23,9 +23,9 @@ def index():
 def process():
 	## JSON Request
 	req = request.get_json()
-	print(req["pos"])
-	print("text", req["text"])
-	print("passive", req["passive_voice"])
+	# print(req["pos"])
+	# print("text", req["text"])
+	# print("passive", req["passive_voice"])
 	text = req["text"]
 	pos = req["pos"]
 	_passive_voice = req["passive_voice"]
@@ -39,17 +39,17 @@ def process():
 		pos_tagging.pos_tag_search(text, pos)
 
 	if passive_voice != 'NONE':
-		start_time = time.time()
-		passive_result = passive_voice.passive_voice_search_batches(text, _passive_voice)
-		elapsed_time = time.time() - start_time
-		print("tree batches:", elapsed_time)
+		# start_time = time.time()
+		# passive_result = passive_voice.passive_voice_search_batches(text, _passive_voice)
+		# elapsed_time = time.time() - start_time
+		# print("tree batches:", elapsed_time)
 
 		start_time = time.time()
 		passive_result = passive_voice_exp.passive_voice_search(text, _passive_voice)
 		elapsed_time = time.time() - start_time
 		print("tree single:", elapsed_time)
 
-		pos_tagging.pos_tag_search(text, "ALL")
+		# pos_tagging.pos_tag_search(text, "ALL")
 
 
 # 	return render_template("index.html", results=results, num_of_results=len(results), text=text)
