@@ -2,7 +2,7 @@ import text_processor
 import pos_tagging
 import passive_voice as pv
 import time
-import passive_voice_cython
+from cython_module import passive_voice_cython
 import spacy
 
 from experiments.globals import Passive

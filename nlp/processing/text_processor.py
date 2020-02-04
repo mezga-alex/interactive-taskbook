@@ -89,7 +89,6 @@ def flexible_batch_indices(text, approximate_batch_size):
         if find_end > len(text):
             find_end = len(text)
 
-        #print(find_start, find_end)
         match = re.search(exp, text[find_start:find_end])
         if match:
             cur_index = match.end() + find_start
@@ -102,6 +101,4 @@ def flexible_batch_indices(text, approximate_batch_size):
     if sentence_found:
         batch_indices.append(len(text))
 
-    # for index in batch_indices:
-    #     print(str(index) + " ")
     return batch_indices
