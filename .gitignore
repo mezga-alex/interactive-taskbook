@@ -24,3 +24,5 @@ draft/.idea/
 draft/__pycache__/
 
 nlp/processing/__pycache__/
+
+nlp/experiments/__pycache__/

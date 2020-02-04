@@ -178,7 +178,7 @@ merge_nps = nlp.create_pipe("merge_noun_chunks")
 nlp.add_pipe(merge_nps, merge_ents)
 matcher = Matcher(nlp.vocab)
 Passive = "A camera is bought by him.\
-            Water was drunk by her.\
+            Water is drunk by her.\
             He is known to me.\
             A tub is filled with water.\
             Sugar is sold in kilograms.\
@@ -269,7 +269,25 @@ Passive = "A camera is bought by him.\
             The victory will be celebrated by the team tomorrow.\
             The metal beams were eventually corroded by the saltwater.\
             The baby was carried by the kangaroo in her pouch.\
-            The last cookie was eaten by whom?"
+            The last cookie was eaten by whom?\
+            Tea is not liked by me.\
+            The walls aren't painted by my mother.\
+            The house is cleaned every day.\
+            The house is being cleaned at the moment.\
+            The house has been cleaned since you left.\
+            The house was cleaned yesterday.\
+            The house was being	cleaned	last week.\
+            The house had been cleaned before they arrived.\
+            The house will be cleaned next week.\
+            The house will be being cleaned tomorrow.\
+            The house would be cleaned if they had visitors.\
+            The house would have been cleaned if it had been dirty.\
+            The house must be cleaned before we arrive.\
+            Dishes may be used, but they must not be left dirty in the sink.\
+            What have you been given lately?\
+            Have you or a friend ever been attacked or robbed? What happened?\
+            What was done to it?\
+            Who was it probably eaten by?"
 
 # #Passive = "EBay Inc. said it agreed to sell its StubHub business to Geneva-based Viagogo Entertainment Inc. for $4.05 billion, a deal that would create a global ticketing giant in the booming live-events business.StubHub and smaller rival Viagogo are already among the largest players in the growing secondary market for sports, music and live-entertainment tickets, in which brokers and fans resell tickets purchased from primary vendors such as Live Nation Entertainment Inc.’s Ticketmaster."
 # doc = nlp(Passive)
@@ -459,10 +477,41 @@ text = "Who was it probably eaten by?\
         Including the night before he was detained."
 
 text = "By whom was this book written?\
-        this book was written\Have they been invited by you?"
+        This book was written \
+        Have they been invited by you?"
 passive_phrases = passive_voice_search(text, 'ALL')
 for phr in passive_phrases:
     print(phr)
 
+text = Passive
 doc = nlp(text)
-displacy.serve(doc)
+sentence_spans = list(doc.sents)
+# displacy.serve(sentence_spans, style="dep")
+
+doc = nlp("I was sucked into this internal U.S. fight.")
+print(len(doc))
+for token in doc:
+    print(token.text + " -> " + token.head.text)
+
+passive_phrases = []
+i = 0
+while i < len(doc):
+    token = doc[i]
+    if token.dep_ == 'nsubjpass':
+        passive_match = []
+        for child in token.head.children:
+            passive_match.append(child.text)
+        passive_phrases.append(' '.join(passive_match))
+        i = token.head.i + 1
+    else:
+        i += 1
+print(passive_phrases)
+# for i in range(doc)
+# for token in sent:
+#     if token.dep_ == 'nsubjpass':
+#
+#         passive_match = []
+#         for child in token.head.children:
+#             passive_match.append(child.text)
+#         passive_phrases.append(' '.join(passive_match))
+# displacy.serve(doc)
