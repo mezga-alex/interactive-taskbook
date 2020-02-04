@@ -6,6 +6,87 @@
 //  var bkg = chrome.extension.getBackgroundPage();
 // var flag = false;
 
+function output_pos(){
+  var pos_words = JSON.parse(localStorage.getItem("pos_result"));
+      // SANYA REALISE THIS FUNCTION
+      // WILL BE SIMILIAR TO 
+      // for(var i = 1; i < passive_phrases.length; i++){
+        //  let para = document.createElement("p");
+        // etc..
+}
+
+
+function output_passive_voice(){
+  var passive_phrases = JSON.parse(localStorage.getItem("passive_phrases"));
+      var passive_phrases_indexes = JSON.parse(localStorage.getItem("passive_phrases_indexes"));
+      var passive_phrases_lexemes = JSON.parse(localStorage.getItem("passive_phrases_lexemes"));
+      var passive_phrases_sents = JSON.parse(localStorage.getItem("passive_phrases_sents"));
+
+      if (passive_phrases !== null && passive_phrases.length > 0) {
+        // FIRST phrase appending
+        let passive_phrases_space = "1) " + passive_phrases[0].join(" ").toUpperCase();
+        let para = document.createElement("p");
+        let node = document.createTextNode(passive_phrases_space);
+        para.appendChild(node);
+        let element = document.getElementById("put_passive");
+        if (element !== null)
+            element.appendChild(para);
+
+        // ANOTHER phrases appending
+        for(var i = 1; i < passive_phrases.length; i++){
+            let passive_phrases_space = passive_phrases[i].join(" ").toUpperCase();
+            if (passive_phrases_sents[i] !== passive_phrases_sents[i-1]) {
+                passive_phrases_space = (i+1).toString() + ") " + passive_phrases_space;
+                //bkg.console.log(passive_phrases_space);
+            }
+            let para = document.createElement("p");
+            let node = document.createTextNode(passive_phrases_space);
+            para.appendChild(node);
+            let element = document.getElementById("put_passive");
+            if (element !== null)
+                element.appendChild(para);
+        }
+
+
+        // ANOTHER sentences appending
+        var passive_phrases_sent_proc;
+        var coun = 0;
+        var is_similar = false;
+        for(var i = 0; i < passive_phrases_sents.length; i++) {
+            if (!is_similar) {
+                passive_phrases_sent_proc = passive_phrases_sents[i];
+            }
+            coun += 1;
+
+            for (var j = 0; j < passive_phrases_indexes[i].length; j++) {
+                let left_index = passive_phrases_indexes[i][j][0];
+                let right_index = passive_phrases_indexes[i][j][1];
+                let substr = passive_phrases_sent_proc.substring(left_index, right_index);
+
+                passive_phrases_sent_proc = passive_phrases_sent_proc.substring(0, left_index) + "_".repeat(substr.length)
+                    + passive_phrases_sent_proc.substring(right_index, passive_phrases_sent_proc.length);
+
+            }
+
+            let passive_phrases_lexeme_build = "( " + passive_phrases_lexemes[i].join(", ") + " )";
+            if ((passive_phrases_sents[i] !== passive_phrases_sents[i+1]) || (i === passive_phrases_sents.length)) {
+                // console.log(passive_phrases_sent_proc);
+                para = document.createElement("p");
+                node = document.createTextNode((coun).toString() + ") " + passive_phrases_sent_proc + '\n' + passive_phrases_lexeme_build );
+                para.appendChild(node);
+                element = document.getElementById("put_text");
+                if (element !== null)
+                    element.appendChild(para);
+                is_similar = false;
+            } else {
+                is_similar = true;
+            }
+            // bkg.console.log(passive_phrases_sent_proc);
+        }
+    }
+}
+
+
 var PARSE_UTILS = {
    minBodyTailLength: function () {
       return 100;
@@ -164,7 +245,8 @@ $("#btn-find").on("click", () => {
             });
             // chrome.tabs.create({'url': './openPage/result.html' });
             // for local inference use:
-            // http://127.0.0.1:5000/process
+            // http://poltavsky.pythonanywhere.com/process
+            // 
             fetch("http://127.0.0.1:5000/process", {
                 method: "POST",
                 credentials: "include",
@@ -183,23 +265,27 @@ $("#btn-find").on("click", () => {
 
               response.json().then( (data) => {
                 // Object.keys(data).forEach(key => {
-                  let url_resp = data["url"];
-                  let result = data["result"];
+                  let pos_result = data["pos_result"];
+                  let passive_result = data["passive_result"];
+                  var exercise_mode = 0; 
+                  
+                  // alert(pos_result);
+                  // alert(passive_result);
+                  
+                  if (pos_result != "") {
+                    exercise_mode +=1;
+                    localStorage.setItem('pos_words', JSON.stringify(pos_result));
+                  } 
+                  if (passive_result != "") {
+                    exercise_mode +=2;
+                    localStorage.setItem('passive_phrases', JSON.stringify(passive_result[0]));
+                    localStorage.setItem('passive_phrases_indexes', JSON.stringify(passive_result[1]));
+                    localStorage.setItem('passive_phrases_lexemes', JSON.stringify(passive_result[2]));
+                    localStorage.setItem('passive_phrases_sents', JSON.stringify(passive_result[3]));
+                  } 
 
-                  // alert(result);
-                  // bkg.console.log(url_resp);
-                  // bkg.console.log(result);
-                  // a = ["pass", "fsaf"];
-                  //
-                  // a = 0;
-                  // a.forEach((el, key) => {
-                  //     localStorage.setItem(el, JSON.stringify(result[a]));
-                  //     a++;
-                  // });
-                  localStorage.setItem('passive_phrases', JSON.stringify(result[0]));
-                  localStorage.setItem('passive_phrases_indexes', JSON.stringify(result[1]));
-                  localStorage.setItem('passive_phrases_lexemes', JSON.stringify(result[2]));
-                  localStorage.setItem('passive_phrases_sents', JSON.stringify(result[3]));
+                  // alert(exercise_mode);         
+                  localStorage.setItem('exercise_mode', JSON.stringify(exercise_mode));
                   chrome.tabs.create({'url': './openPage/result.html' }, (tab) => {});
               });
             })
@@ -211,82 +297,21 @@ $("#btn-find").on("click", () => {
 });
 
 $(document).ready(() => {
-// $(".task-click").click(function(){
-    var passive_phrases = JSON.parse(localStorage.getItem("passive_phrases"));
-    var passive_phrases_indexes = JSON.parse(localStorage.getItem("passive_phrases_indexes"));
-    var passive_phrases_lexemes = JSON.parse(localStorage.getItem("passive_phrases_lexemes"));
-    var passive_phrases_sents = JSON.parse(localStorage.getItem("passive_phrases_sents"));
+    var exercise_mode = JSON.parse(localStorage.getItem("exercise_mode"));
 
-    // console.log(passive_phrases);
-    // console.log(passive_phrases_indexes);
-    // console.log(passive_phrases_sents);
-    // console.log(passive_phrases_lexemes);
-
-    if (passive_phrases !== null && passive_phrases.length > 0) {
-        // FIRST phrase appending
-        let passive_phrases_space = "1) " + passive_phrases[0].join(" ").toUpperCase();
-        let para = document.createElement("p");
-        let node = document.createTextNode(passive_phrases_space);
-        para.appendChild(node);
-        let element = document.getElementById("put_passive");
-        if (element !== null)
-            element.appendChild(para);
-
-        // ANOTHER phrases appending
-        for(var i = 1; i < passive_phrases.length; i++){
-            let passive_phrases_space = passive_phrases[i].join(" ").toUpperCase();
-            if (passive_phrases_sents[i] !== passive_phrases_sents[i-1]) {
-                passive_phrases_space = (i+1).toString() + ") " + passive_phrases_space;
-                //bkg.console.log(passive_phrases_space);
-            }
-            let para = document.createElement("p");
-            let node = document.createTextNode(passive_phrases_space);
-            para.appendChild(node);
-            let element = document.getElementById("put_passive");
-            if (element !== null)
-                element.appendChild(para);
-        }
-
-
-        // ANOTHER sentences appending
-        var passive_phrases_sent_proc;
-        var coun = 0;
-        var is_similar = false;
-        for(var i = 0; i < passive_phrases_sents.length; i++) {
-            if (!is_similar) {
-                passive_phrases_sent_proc = passive_phrases_sents[i];
-            }
-            coun += 1;
-
-            for (var j = 0; j < passive_phrases_indexes[i].length; j++) {
-                let left_index = passive_phrases_indexes[i][j][0];
-                let right_index = passive_phrases_indexes[i][j][1];
-                let substr = passive_phrases_sent_proc.substring(left_index, right_index);
-
-                passive_phrases_sent_proc = passive_phrases_sent_proc.substring(0, left_index) + "_".repeat(substr.length)
-                    + passive_phrases_sent_proc.substring(right_index, passive_phrases_sent_proc.length);
-
-            }
-
-            let passive_phrases_lexeme_build = "( " + passive_phrases_lexemes[i].join(", ") + " )";
-            if ((passive_phrases_sents[i] !== passive_phrases_sents[i+1]) || (i === passive_phrases_sents.length)) {
-                // console.log(passive_phrases_sent_proc);
-                para = document.createElement("p");
-                node = document.createTextNode((coun).toString() + ") " + passive_phrases_sent_proc + '\n' + passive_phrases_lexeme_build );
-                para.appendChild(node);
-                element = document.getElementById("put_text");
-                if (element !== null)
-                    element.appendChild(para);
-                is_similar = false;
-            } else {
-                is_similar = true;
-            }
-            // bkg.console.log(passive_phrases_sent_proc);
-        }
-
-
+    if (exercise_mode == 1){
+      output_pos();
     }
-  });
+
+    if (exercise_mode == 2){
+      output_passive_voice();
+    }
+
+    if (exercise_mode == 3){
+      output_passive_voice();
+      output_pos();
+    }  
+});
 
 
 

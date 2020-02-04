@@ -6,11 +6,11 @@ import spacy
 # import en_core_web_sm
 nlp = spacy.load('en_core_web_sm')
 import sys
-# sys.path.append("/home/art/Desktop/code/skyeng-grammar-filter-master/skyeng-grammar-filter-master/nlp/processing")
-sys.path.append("/home/poltavsky/InteractiveTaskBook/processing")
+sys.path.append("/home/art/Downloads/code/skyeng-grammar-filter/nlp/processing")
+# sys.path.append("/home/poltavsky/InteractiveTaskBook/processing")
 import pos_tagging
 import passive_voice
-import passive_voice_exp
+# import passive_voice_exp
 
 import time
 
@@ -34,16 +34,16 @@ def process():
 	##JSON ENDS
 
 	passive_result = []
-	results = []
+	pos_result = []
 
 	if pos != "NONE":
-		pos_tagging.pos_tag_search(text, pos)
+		pos_result = pos_tagging.pos_tag_search(text, pos)
 
 	if passive_voice != 'NONE':
-		start_time = time.time()
-		passive_result = passive_voice.passive_voice_search_batches(text)
-		elapsed_time = time.time() - start_time
-		print("tree batches:", elapsed_time)
+		# start_time = time.time()
+		passive_result = passive_voice.passive_voice_search_batches(text, _passive_voice)
+		# elapsed_time = time.time() - start_time
+		# print("tree batches:", elapsed_time)
 
 		# start_time = time.time()
 		# passive_result = passive_voice_exp.passive_voice_search(text, _passive_voice)
@@ -56,8 +56,8 @@ def process():
 # 	return render_template("index.html", results=results, num_of_results=len(results), text=text)
     # dict_url = {"url": "http://poltavsky.pythonanywhere.com/"}
 # 	res = make_response(jsonify(dict_url), 200)
-	url_gen = "http://poltavsky.pythonanywhere.com"
-	res = make_response(jsonify(url=url_gen, result=passive_result), 200)
+	# url_gen = "http://poltavsky.pythonanywhere.com"
+	res = make_response(jsonify(pos_result=pos_result, passive_result=passive_result), 200)
 
 # 	answer(results, text)
 	return res
