@@ -3,17 +3,17 @@
 // //import Mercury from @postlight/mercury-parser
 // var url = "https://www.nytimes.com/2019/12/13/business/liu-jingyao-interview-richard-liu.html";
 // Mercury.parse(url).then(result => console.log(result));
-var bkg = chrome.extension.getBackgroundPage();
+//var bkg = chrome.extension.getBackgroundPage();
 // var flag = false;
 
 function output_pos(pos){
   var posWords = JSON.parse(localStorage.getItem("pos_words"));
   // For future work
   var posIndices = JSON.parse(localStorage.getItem("pos_indices"));
-  para = document.createElement("p");
-  node = document.createTextNode($('#speech').val());
-  para.appendChild(node);
-  element = document.getElementById("put_text");
+  // para = document.createElement("p");
+  // node = document.createTextNode($('#speech').val());
+  // para.appendChild(node);
+  // element = document.getElementById("put_text");
   if (element !== null)
       element.appendChild(para);
 
