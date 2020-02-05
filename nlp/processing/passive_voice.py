@@ -1,41 +1,46 @@
 import spacy
 import text_processor as tp
 
-MODALS = ["must", "can", "should", "could", "may", "might"]
+#MODALS = ["must", "can", "should", "could", "may", "might"]
 DEPENDENCIES = ["ROOT", "conj", "ccomp", "relcl", "acl", "advcl"]
 
 
 def get_tense_rule(tense):
     tense_list = {
         "PRESENT_SIMPLE":
-            dict(aux=[], auxpass=["am", "is", "are"]),
+            dict(aux=[], auxpass=["am", "is", "are"], num_of_aux=0),
         "PRESENT_CONTINUOUS":
-            dict(aux=["am", "is", "are"], auxpass=["being"]),
+            dict(aux=["am", "is", "are"], auxpass=["being"], num_of_aux=1),
         "PRESENT_PERFECT":
-            dict(aux=["have", "has"], auxpass=["been"]),
+            dict(aux=["have", "has"], auxpass=["been"], num_of_aux=1),
 
         "PAST_SIMPLE":
-            dict(aux=[], auxpass=["was", "were"]),
+            dict(aux=[], auxpass=["was", "were"], num_of_aux=0),
         "PAST_CONTINUOUS":
-            dict( aux=["was", "were"], auxpass=["being"]),
+            dict( aux=["was", "were"], auxpass=["being"], num_of_aux=1),
         "PAST_PERFECT":
-            dict(aux=["had"], auxpass=["been"]),
+            dict(aux=["had"], auxpass=["been"], num_of_aux=1),
 
         "FUTURE_SIMPLE":
-            dict(aux=["shall", "will"], auxpass=["be"]),
+            dict(aux=["shall", "will"], auxpass=["be"], num_of_aux=1),
         "FUTURE_PERFECT":
-            dict(aux=["shall", "will", "have", "has"], auxpass=["been"]),
+            dict(aux=["shall", "will", "have", "has"], auxpass=["been"], num_of_aux=2),
         "FUTURE_CONTINUOUS":
-            dict(aux=["shall", "will", "be"], auxpass=["being"]),
+            dict(aux=["shall", "will", "be"], auxpass=["being"], num_of_aux=2),
 
         "FUTURE_IN_THE_PAST_SIMPLE":
-            dict(aux=["would", "should"], auxpass=["be"]),
+            dict(aux=["would", "should"], auxpass=["be"], num_of_aux=1),
         "FUTURE_IN_THE_PAST_PERFECT":
-            dict(aux=["would", "should", "have", "has"], auxpass=["been"]),
+            dict(aux=["should", "would", "have", "has"], auxpass=["been"], num_of_aux=2),
+
+        "MODALS":
+            dict(aux=["must", "can", "should", "could", "would", "may", "might", "have"],
+                 auxpass=["be", "been"], num_of_aux=1),
 
         "ALL":
-            dict(aux=["am", "is", "are", "have", "has", "was", "were", "had", "shall", "will", "would", "should", "be"],
-                 auxpass=["am", "is", "are", "was", "were", "being", "been", "be"])
+            dict(aux=["am", "is", "are", "have", "has", "was", "were", "had", "shall", "will", "would", "should", "be",
+                      "must", "can", "could", "may", "might"],
+                 auxpass=["am", "is", "are", "was", "were", "being", "been", "be"], num_of_aux=0)
     }
     return tense_list.get(tense, "ALL")
 
@@ -66,6 +71,7 @@ def passive_voice_search_batches(text, tense='ALL'):
                     passive_match = []
                     passive_match_indices = []
                     passive_match_lexemes = []
+                    num_of_aux = 0
 
                     prt_contained = False
                     subject_found = False
@@ -93,7 +99,8 @@ def passive_voice_search_batches(text, tense='ALL'):
                                 break
 
                         if child.dep_ == 'aux':
-                            if child_lower in tense_rule.get('aux') or child_lower in MODALS:
+                            if child_lower in tense_rule.get('aux'):
+                                num_of_aux += 1
                                 passive_match.append(child.text)
                                 passive_match_lexemes.append(child.lemma_)
                                 passive_match_indices.append([child.idx - sent.start_char,
@@ -102,6 +109,7 @@ def passive_voice_search_batches(text, tense='ALL'):
                                 passive_match = []
                                 passive_match_lexemes = []
                                 passive_match_indices = []
+                                num_of_aux = 0
                                 break
 
                         if child.dep_ == 'neg':
@@ -123,13 +131,12 @@ def passive_voice_search_batches(text, tense='ALL'):
 
                             prt_contained = True
 
-                    if passive_match and subject_found:
+                    if passive_match and subject_found and num_of_aux >= tense_rule.get('num_of_aux'):
                         if not prt_contained:
                             passive_match.append(token.text)
                             passive_match_lexemes.append(token.lemma_)
                             passive_match_indices.append([token.idx - sent.start_char,
                                                           token.idx + len(token) - sent.start_char])
-
                         batch_idx = batch_indices[cur_batch]
                         passive_phrases.append(passive_match)
                         passive_phrases_lexemes.append(passive_match_lexemes)
