@@ -23,7 +23,7 @@ def process():
 	text = req["text"]
 	pos = req["pos"]
 	passive_voice_tense = req["passive_voice"]
-	tense = req["tense"]
+	tense = req["tense"]  # For the future
 	##JSON ENDS
 
 	passive_result = []
