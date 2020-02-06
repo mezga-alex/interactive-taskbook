@@ -14,8 +14,8 @@ function output_pos(pos){
   // node = document.createTextNode($('#speech').val());
   // para.appendChild(node);
   // element = document.getElementById("put_text");
-  if (element !== null)
-      element.appendChild(para);
+  // if (element !== null)
+  //     element.appendChild(para);
 
   if (posWords !== null && posWords.length > 0) {
       let setOfWords = new Set(posWords);
