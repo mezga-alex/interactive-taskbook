@@ -10,12 +10,6 @@ function output_pos(pos){
   var posWords = JSON.parse(localStorage.getItem("pos_words"));
   // For future work
   var posIndices = JSON.parse(localStorage.getItem("pos_indices"));
-  // para = document.createElement("p");
-  // node = document.createTextNode($('#speech').val());
-  // para.appendChild(node);
-  // element = document.getElementById("put_text");
-  // if (element !== null)
-  //     element.appendChild(para);
 
   if (posWords !== null && posWords.length > 0) {
       let setOfWords = new Set(posWords);
@@ -36,7 +30,7 @@ function output_pos(pos){
 
 function output_passive_voice(){
   var passive_phrases = JSON.parse(localStorage.getItem("passive_phrases"));
-  var passive_phrases_indexes = JSON.parse(localStorage.getItem("passive_phrases_indexes"));
+  var passive_phrases_indices = JSON.parse(localStorage.getItem("passive_phrases_indices"));
   var passive_phrases_lexemes = JSON.parse(localStorage.getItem("passive_phrases_lexemes"));
   var passive_phrases_sents = JSON.parse(localStorage.getItem("passive_phrases_sents"));
 
@@ -76,9 +70,9 @@ function output_passive_voice(){
             }
             coun += 1;
 
-            for (var j = 0; j < passive_phrases_indexes[i].length; j++) {
-                let left_index = passive_phrases_indexes[i][j][0];
-                let right_index = passive_phrases_indexes[i][j][1];
+            for (var j = 0; j < passive_phrases_indices[i].length; j++) {
+                let left_index = passive_phrases_indices[i][j][0];
+                let right_index = passive_phrases_indices[i][j][1];
                 let substr = passive_phrases_sent_proc.substring(left_index, right_index);
 
                 passive_phrases_sent_proc = passive_phrases_sent_proc.substring(0, left_index) + "_".repeat(substr.length)
@@ -283,7 +277,7 @@ $("#btn-find").on("click", () => {
                   if (passive_result != "") {
                     exercise_mode += 2;
                     localStorage.setItem('passive_phrases', JSON.stringify(passive_result[0]));
-                    localStorage.setItem('passive_phrases_indexes', JSON.stringify(passive_result[1]));
+                    localStorage.setItem('passive_phrases_indices', JSON.stringify(passive_result[1]));
                     localStorage.setItem('passive_phrases_lexemes', JSON.stringify(passive_result[2]));
                     localStorage.setItem('passive_phrases_sents', JSON.stringify(passive_result[3]));
                   } 
