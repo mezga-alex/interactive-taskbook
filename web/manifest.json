@@ -7,7 +7,7 @@
         "default_popup": "popup.html"
     },
     "background": {
-      "scripts": ["jquery.min.js", "parse_mercury.js"],
+      "scripts": ["jquery.min.js", "parse_and_process.js"],
       "persistent": false
     },
     "icons": {
@@ -33,7 +33,7 @@
         "js": [
             "jquery.min.js",
             "parcer.js",
-            "parse_mercury.js"
+            "parse_and_process.js"
         ]
     }]
 }

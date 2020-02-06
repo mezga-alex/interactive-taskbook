@@ -3,26 +3,38 @@
 // //import Mercury from @postlight/mercury-parser
 // var url = "https://www.nytimes.com/2019/12/13/business/liu-jingyao-interview-richard-liu.html";
 // Mercury.parse(url).then(result => console.log(result));
-//  var bkg = chrome.extension.getBackgroundPage();
+//var bkg = chrome.extension.getBackgroundPage();
 // var flag = false;
 
-function output_pos(){
-  var pos_words = JSON.parse(localStorage.getItem("pos_result"));
-      // SANYA REALISE THIS FUNCTION
-      // WILL BE SIMILIAR TO 
-      // for(var i = 1; i < passive_phrases.length; i++){
-        //  let para = document.createElement("p");
-        // etc..
+function output_pos(pos){
+  var posWords = JSON.parse(localStorage.getItem("pos_words"));
+  // For future work
+  var posIndices = JSON.parse(localStorage.getItem("pos_indices"));
+
+  if (posWords !== null && posWords.length > 0) {
+      let setOfWords = new Set(posWords);
+      let count = 1;
+      // то же, что: for(let value of set)
+      for(let word of setOfWords) {
+          para = document.createElement("p");
+          node = document.createTextNode((count).toString() + ") " + word.toUpperCase());
+          para.appendChild(node);
+          element = document.getElementById("put_text");
+          if (element !== null)
+              element.appendChild(para);
+          count += 1;
+      }
+  }
 }
 
 
 function output_passive_voice(){
   var passive_phrases = JSON.parse(localStorage.getItem("passive_phrases"));
-      var passive_phrases_indexes = JSON.parse(localStorage.getItem("passive_phrases_indexes"));
-      var passive_phrases_lexemes = JSON.parse(localStorage.getItem("passive_phrases_lexemes"));
-      var passive_phrases_sents = JSON.parse(localStorage.getItem("passive_phrases_sents"));
+  var passive_phrases_indices = JSON.parse(localStorage.getItem("passive_phrases_indices"));
+  var passive_phrases_lexemes = JSON.parse(localStorage.getItem("passive_phrases_lexemes"));
+  var passive_phrases_sents = JSON.parse(localStorage.getItem("passive_phrases_sents"));
 
-      if (passive_phrases !== null && passive_phrases.length > 0) {
+    if (passive_phrases !== null && passive_phrases.length > 0) {
         // FIRST phrase appending
         let passive_phrases_space = "1) " + passive_phrases[0].join(" ").toUpperCase();
         let para = document.createElement("p");
@@ -58,9 +70,9 @@ function output_passive_voice(){
             }
             coun += 1;
 
-            for (var j = 0; j < passive_phrases_indexes[i].length; j++) {
-                let left_index = passive_phrases_indexes[i][j][0];
-                let right_index = passive_phrases_indexes[i][j][1];
+            for (var j = 0; j < passive_phrases_indices[i].length; j++) {
+                let left_index = passive_phrases_indices[i][j][0];
+                let right_index = passive_phrases_indices[i][j][1];
                 let substr = passive_phrases_sent_proc.substring(left_index, right_index);
 
                 passive_phrases_sent_proc = passive_phrases_sent_proc.substring(0, left_index) + "_".repeat(substr.length)
@@ -128,23 +140,10 @@ var PARSE_UTILS = {
       html = this.getStrippedBody(html);
       // Удаляем все, кроме текста
       html = html.replace(/<(script|style|object|embed|applet)[^>]*>[^]*?<\/\1>/g, '');
-      // Заменяем теги <img> с источниками, чтобы удалить этот тег без потери изображения.
-      // html = html.replace(/<img[^>]*src\s*=\s*['"]?([^<>"' ]+)['"]?[^>]*>/g,
-      //     '{startimg:$1:endimg}');
+     
       // Удаляем теги
       html = html.replace(/<[^>]*>/g, '');
-      // Сворачиваем пробелы
-
-      // Удаляем номера с общими суффиксами.
-      // html = html.replace(/\d+ ?(st|nd|rd|th|am|pm|seconds?|minutes?|hours?|days?|weeks?|months?)\b/g, '');
-      // Удаляем все кроме букв
-      // html = html.replace(/[\x00-\x40\x5B-\x60\x7B-\xBF]/g, '');
-      // html = html.replace(/&#x[0-9]*;/g, "'");
-      // str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '')
-      // var temp = $('<textarea />').html(html).text();
-      // html = html.replace(/&#x[0-9]*/gmi, "'");
-
-
+    
       if (callback)
           callback(html);
       else
@@ -205,10 +204,8 @@ var PARSE_UTILS = {
 
         var html = PARSE_UTILS.cleanHtmlPage(resp).replaceAll('&#x27', "'").replaceAll(";", "");
         callback(html);
-        // bkg.console.log(resp);
       },
       error: (e) => {
-         // bkg.console.log("Ajax error: " + e);
       }
     });
   },
@@ -246,7 +243,7 @@ $("#btn-find").on("click", () => {
             // chrome.tabs.create({'url': './openPage/result.html' });
             // for local inference use:
             // http://poltavsky.pythonanywhere.com/process
-            // 
+            // http://127.0.0.1:5000/process
             fetch("http://127.0.0.1:5000/process", {
                 method: "POST",
                 credentials: "include",
@@ -258,33 +255,33 @@ $("#btn-find").on("click", () => {
                 })
             })
             .then( (response) => {
-              if (response.status !== 200) {
+              if (response.status != 200) {
                 console.log(`Looks like there was a problem. Status code: ${response.status}`);
                 return null;
               }
 
               response.json().then( (data) => {
-                // Object.keys(data).forEach(key => {
                   let pos_result = data["pos_result"];
                   let passive_result = data["passive_result"];
                   var exercise_mode = 0; 
                   
-                  // alert(pos_result);
-                  // alert(passive_result);
-                  
                   if (pos_result != "") {
-                    exercise_mode +=1;
-                    localStorage.setItem('pos_words', JSON.stringify(pos_result));
+                    //bkg.console.log(speech);
+                    exercise_mode += 1;
+                    localStorage.setItem('pos_words', JSON.stringify(pos_result[0]));
+                    localStorage.setItem('pos_indices', JSON.stringify(pos_result[1]));
+                    if (speech == "all")
+                      localStorage.setItem('pos_tags', JSON.stringify(pos_result[2]));
                   } 
+
                   if (passive_result != "") {
-                    exercise_mode +=2;
+                    exercise_mode += 2;
                     localStorage.setItem('passive_phrases', JSON.stringify(passive_result[0]));
-                    localStorage.setItem('passive_phrases_indexes', JSON.stringify(passive_result[1]));
+                    localStorage.setItem('passive_phrases_indices', JSON.stringify(passive_result[1]));
                     localStorage.setItem('passive_phrases_lexemes', JSON.stringify(passive_result[2]));
                     localStorage.setItem('passive_phrases_sents', JSON.stringify(passive_result[3]));
                   } 
-
-                  // alert(exercise_mode);         
+       
                   localStorage.setItem('exercise_mode', JSON.stringify(exercise_mode));
                   chrome.tabs.create({'url': './openPage/result.html' }, (tab) => {});
               });
@@ -312,64 +309,3 @@ $(document).ready(() => {
       output_pos();
     }  
 });
-
-
-
-
-// if (passive_phrases.length > 0) {
-//     const sents_check_const = passive_phrases_sents.length - 1;
-//     for(var i = 0; i < passive_phrases.length - 1; i++){
-//         var passive_phrases_space = passive_phrases[i].join(" ");
-//
-//
-//
-//         var para = document.createElement("p");
-//         console.log(passive_phrases[i]);
-//         if (i < sents_check_const) {
-//             if (passive_phrases_sents[i + 1] !== passive_phrases_sents[i]) {
-//
-//             }
-//         };
-//
-//         passive_phrases_space = passive_phrases[i].join(" ");
-//         var node = document.createTextNode((i+1).toString() + ") " + passive_phrases_space.toUpperCase());
-//         para.appendChild(node);
-//         var element = document.getElementById("put_passive");
-//         if (element !== null)
-//             element.appendChild(para);
-//     }
-//
-//     var coun = 0;
-//     var is_similar = false;
-//     for(var i = 0; i < passive_phrases_sents.length - 1; i++) {
-//         if (!is_similar) {
-//             var passive_phrases_sent_proc = passive_phrases_sents[i];
-//         }
-//         coun += 1;
-//
-//         for (var j = 0; j < passive_phrases_indexes[i].length; j++) {
-//             var left_index = passive_phrases_indexes[i][j][0];
-//             var right_index = passive_phrases_indexes[i][j][1];
-//             var substr = passive_phrases_sent_proc.substring(left_index, right_index);
-//
-//             passive_phrases_sent_proc = passive_phrases_sent_proc.substring(0, left_index) + "_".repeat(substr.length)
-//                 + passive_phrases_sent_proc.substring(right_index, passive_phrases_sent_proc.length);
-//
-//         }
-//
-//         var passive_phrases_lexeme_build = "( " + passive_phrases_lexemes[i].join(", ") + " )";
-//         if (passive_phrases_sents[i] !== passive_phrases_sents[i+1]) {
-//             // console.log(passive_phrases_sent_proc);
-//             para = document.createElement("p");
-//             node = document.createTextNode((coun).toString() + ") " + passive_phrases_sent_proc + '\n' + passive_phrases_lexeme_build);
-//             para.appendChild(node);
-//             element = document.getElementById("put_text");
-//             if (element !== null)
-//                 element.appendChild(para);
-//             is_similar = false;
-//         } else {
-//             is_similar = true;
-//         }
-//
-//     }
-// }
