@@ -150,8 +150,12 @@ def passive_voice_search_batches(text, tense='ALL'):
                                 passive_match_indices.append([child.idx - sent.start_char,
                                                               child.idx + len(child) - sent.start_char])
                             else:
-                                # If we find a match but from another tense, skip the sentence
+                                # If we find a match but from another tense => skip
                                 passive_match = []
+                                passive_match_lexemes = []
+                                passive_match_indices = []
+                                num_of_aux = 0
+                                num_of_aux_rule = tense_rule.get('num_of_aux')
                                 break
 
                         # 3: An auxiliary of a clause
@@ -167,11 +171,12 @@ def passive_voice_search_batches(text, tense='ALL'):
                                 if tense == 'MODALS' and child_lower == 'have':
                                     num_of_aux_rule += 1
                             else:
-                                # If we find a match but from another tense, skip the sentence
+                                # If we find a match but from another tense => skip
                                 passive_match = []
                                 passive_match_lexemes = []
                                 passive_match_indices = []
                                 num_of_aux = 0
+                                num_of_aux_rule = tense_rule.get('num_of_aux')
                                 break
 
                         # 4: The negation modifier
