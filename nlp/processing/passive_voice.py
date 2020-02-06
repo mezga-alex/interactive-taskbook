@@ -115,6 +115,7 @@ def passive_voice_search_batches(text, tense='ALL'):
                     passive_match_indices = []
                     passive_match_lexemes = []
                     num_of_aux = 0
+                    num_of_aux_rule = tense_rule.get('num_of_aux')  #It is necessary for correct work with modals.
 
                     prt_contained = False
                     subject_found = False
@@ -161,6 +162,10 @@ def passive_voice_search_batches(text, tense='ALL'):
                                 passive_match_lexemes.append(child.lemma_)
                                 passive_match_indices.append([child.idx - sent.start_char,
                                                               child.idx + len(child) - sent.start_char])
+
+                                # If Modals with Passive in past tense the number of aux is more than 2
+                                if tense == 'MODALS' and child_lower == 'have':
+                                    num_of_aux_rule += 1
                             else:
                                 # If we find a match but from another tense, skip the sentence
                                 passive_match = []
@@ -194,7 +199,7 @@ def passive_voice_search_batches(text, tense='ALL'):
 
                     # Check if a relevant phrase was found in which the subject was found
                     # with an additional check to avoid conflicts
-                    if passive_match and subject_found and num_of_aux >= tense_rule.get('num_of_aux'):
+                    if passive_match and subject_found and num_of_aux >= num_of_aux_rule:
                         # If The phrasal verb particle is contained, the word order is changed and taken into account
                         if not prt_contained:
                             passive_match.append(token.text)
