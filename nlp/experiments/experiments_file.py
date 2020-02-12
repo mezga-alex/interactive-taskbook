@@ -33,11 +33,11 @@ def batch_length_time_measurement(text, min_batch, max_batch=0, step=100, trace=
     if max_batch == 0 or max_batch < min_batch:
         max_batch = min_batch
 
+    # Outer loop for batch size
     time_arr = []
     size_arr = []
-
-    # Outer loop for batch size
-    for batch_size in range(min_batch, max_batch, step):
+    batch_size = min_batch
+    while batch_size <= max_batch:
         text_batches = []
         start_span = 0
 
@@ -57,6 +57,7 @@ def batch_length_time_measurement(text, min_batch, max_batch=0, step=100, trace=
         elapsed_time = time.time() - start_time
 
         time_arr.append(elapsed_time)
+
         size_arr.append(batch_size)
 
         if trace:
@@ -69,6 +70,8 @@ def batch_length_time_measurement(text, min_batch, max_batch=0, step=100, trace=
             print("Last batch:")
             print(last_batch + "\n")
 
+        batch_size += step
+
     return time_arr, size_arr
 
 
@@ -80,14 +83,14 @@ text_full = open(path).read()
 nlp = spacy.load('en_core_web_sm')
 nlp.max_length = 1500000
 
-start_time = time.time()
-doc = nlp(text_full)
-elapsed_time_plain = time.time() - start_time
-print("plain text: ", elapsed_time_plain)
-print(sum(1 for i in doc.sents))
+# start_time = time.time()
+# doc = nlp(text_full)
+# elapsed_time_plain = time.time() - start_time
+# print("plain text: ", elapsed_time_plain)
+# print(sum(1 for i in doc.sents))
 
 # ######## PARSING WITH BATCHES ######
-time, size = batch_length_time_measurement(text_full, 200, 200000, 1000, True)
+time, size = batch_length_time_measurement(text_full, 200, 5000, 200, True)
 min_index = time.index(min(time))
 
 fig = plt.figure()
