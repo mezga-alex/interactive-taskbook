@@ -10,11 +10,22 @@ import text_processor
 import os
 
 
-def time_measurement(text, nlp, min_batch, max_batch=0, step=100, trace=False):
-    time_arr = []
-    size_arr = []
-    num_batches = []
+def time_measurement(text, nlp, min_batch, max_batch=0, step=100, verbose=False):
+    """
+    measures time of given text and params for it's evaluation
+    Parameters
+    ----------
+    text
+    nlp
+    min_batch
+    max_batch
+    step
+    verbose
 
+    Returns
+    -------
+
+    """
     text_len = len(text)
 
     # Check the boundaries
@@ -28,6 +39,7 @@ def time_measurement(text, nlp, min_batch, max_batch=0, step=100, trace=False):
     # Outer loop for batch size
     time_arr = []
     size_arr = []
+    num_batches = []
     batch_size = min_batch
     while batch_size <= max_batch:
         text_batches = []
@@ -52,7 +64,7 @@ def time_measurement(text, nlp, min_batch, max_batch=0, step=100, trace=False):
         num_batches.append(len(text_batches))
         size_arr.append(batch_size)
 
-        if trace:
+        if verbose:
             last_batch = text_batches[len(text_batches) - 1]
             print("-" * 30)
             print("Text length = ", text_len)
@@ -67,24 +79,52 @@ def time_measurement(text, nlp, min_batch, max_batch=0, step=100, trace=False):
     return [time_arr, size_arr, num_batches]
 
 
-def plot_results(path_to_csv, plt_show=False):
+def plot_results(path_to_csv, type='len', plt_show=False, verbose=True):
     """
-    plot results by provided path of csv file
-    :param path_to_csv:
-    :param plt_show: True for showing on IDE, False for better look in jupyter notebook
-    :return:
+    plot results by provided path of csv file and type of result to plot
+    Parameters
+    ----------
+    path_to_csv
+    type
+    plt_show True for showing on IDE, False for better look in jupyter notebook
+
+    Returns
+    -------
+
     """
-    df = pd.read_csv(path_to_csv, index_col="size")
-    f, axes = plt.subplots(1, 1, figsize=(10, 10), sharex=True)
+    if type == "len":
+        index_col = "size"
+    elif type == "num":
+        index_col = "num_batch"
+    else:
+        print("provided type: {} is not supported. Exiting".format(type))
+        return
+    df = pd.read_csv(path_to_csv, index_col=index_col)
+    f, axes = plt.subplots(1, 1, figsize=(20, 10))
     f.canvas.set_window_title(path_to_csv)
     plt.title(path_to_csv)
     ax = sns.lineplot(x=df.index, y="time", data=df)
-    f.savefig('./'+path_to_csv.split('.')[0]+'.png')
+    file_path = './'+path_to_csv.split('.')[0]+'_'+type+'.png'
+    if verbose:
+        print('image saved in: ', file_path)
+    f.savefig(file_path)
     if plt_show:
         plt.show()
 
 
 def export_csv(result, param, continue_df):
+    """
+    export results to csv
+    Parameters
+    ----------
+    result list of results parameters
+    param number of iterations
+    continue_df signs of continuous experiment. Getting N times to illustrate mean expectance perfomance with deviation
+
+    Returns path of saved csv table
+    -------
+
+    """
     indexes = ['time', 'size', 'num_batch']
 
     path = param + '_batch_result.csv'
@@ -95,7 +135,6 @@ def export_csv(result, param, continue_df):
         df = pd.concat([df_default, df], axis=0)
         print(df.shape)
     else:
-        print(result[0], result[1], result[2])
         df = pd.DataFrame(list(zip(result[0], result[1], result[2])),
                           columns=indexes)
 
@@ -103,7 +142,18 @@ def export_csv(result, param, continue_df):
     return path
 
 
-def parsing_no_batch(path, text_full):
+def test_full_text(path):
+    """
+    test full text by it's given path
+    Parameters
+    ----------
+    path
+    text_full
+
+    Returns
+    -------
+
+    """
     text_full = open(path).read().lower()
     text_lines = open(path).readlines()
     nlp = spacy.load('en_core_web_sm')
@@ -116,7 +166,21 @@ def parsing_no_batch(path, text_full):
     print(sum(1 for i in doc.sents))
 
 
-def test_len_batch(path, num):
+def test_batch(path, num):
+    """
+    test text splitted by batches for given number of times
+    Parameters
+    ----------
+    path of given text
+    num of times to measure
+
+    Returns saves csv and png file with results
+    -------
+
+    """
+    #extract name of text file
+    text_name = path.split('/')[-1].split('.')[0]
+
     # ######## PARSING WITH BATCHES ######
     text_full = open(path).read().lower()
     # text_lines = open(path).readlines()
@@ -124,33 +188,18 @@ def test_len_batch(path, num):
     nlp.max_length = 1500000
     for i in range(num):
         result = time_measurement(text_full, nlp, 100, 5000, 100)
-        csv_path = export_csv(result, str(num)+"_len", continue_df=True)
-    print("done: ", csv_path)
-    plot_results(csv_path, True)
-
-
-# def matplot(text_full):
-#     time, size = time_measurement(text_full, 100, 5000, 100)
-#     min_index = time.index(min(time))
-#     fig = plt.figure()
-#     plt.plot(size, time, label="divided into batches")
-#     plt.scatter(size[min_index], time[min_index], s=15, c='red', label="minimum time")
-#     plt.legend()
-#     plt.xlabel('batch size', fontsize=16)
-#     plt.ylabel('time', fontsize=16)
-#     plt.title(str(len(text_full)) + " characters of text", fontsize=18)
-#
-#     fig.savefig('/home/art/Downloads/pipe/skyeng-grammar-filter/nlp/experiments/nyt_text_small_batches.png')
-#     plt.show()
+        csv_path = export_csv(result, text_name+'_'+str(num), continue_df=True)
+    print("csv saved in: ", csv_path)
+    plot_results(csv_path, plt_show=True)
 
 
 def main():
     path = '../dataset/nyt_text.txt'
-    test_len_batch(path, 10)
+    test_batch(path, 10)
 
     # example of showing existing csv
     # csv_path = '10_len_batch_result.csv'
-    # plot_results(csv_path, True)
+    # plot_results(csv_path, "num", True)
 
 
 if __name__ == '__main__':
@@ -172,3 +221,18 @@ if __name__ == '__main__':
 # doc = nlp(text)
 # displacy.serve(doc, style="dep")
 #
+
+
+# def matplot(text_full):
+#     time, size = time_measurement(text_full, 100, 5000, 100)
+#     min_index = time.index(min(time))
+#     fig = plt.figure()
+#     plt.plot(size, time, label="divided into batches")
+#     plt.scatter(size[min_index], time[min_index], s=15, c='red', label="minimum time")
+#     plt.legend()
+#     plt.xlabel('batch size', fontsize=16)
+#     plt.ylabel('time', fontsize=16)
+#     plt.title(str(len(text_full)) + " characters of text", fontsize=18)
+#
+#     fig.savefig('/home/art/Downloads/pipe/skyeng-grammar-filter/nlp/experiments/nyt_text_small_batches.png')
+#     plt.show()
