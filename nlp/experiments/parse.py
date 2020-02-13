@@ -12,6 +12,26 @@ import string
 import re
 
 
+def create_text_files(path, output_path):
+    file_text = open(path, 'r').read()
+
+    for size in range(5000, 65000, 5000):
+        file_header = 'text_' + str(size)
+
+        i = 1
+        while i <= 20 and i * size < len(file_text):
+            span_start = i * size
+            span_end = span_start + size
+
+            file_name = file_header + '_' + str(i) + '.txt'
+            path_name = output_path + file_name
+            file = open(path_name, 'w')
+            file.write(file_text[span_start:span_end] + ' ')
+            file.close()
+
+            i += 1
+
+
 # Plain text and POS-tags
 def create_test_data(path):
     file = open(path, 'r')
@@ -89,17 +109,19 @@ def find_difference(words_sents, words_pos):
     return difference
 
 
-def parse_data(dataset_type='train', dir_='./dataset/train.txt', trace=False):
+def parse_data(parse_type='train', dir_='./dataset/train.txt', output_dir='./test', trace=False):
     """
     Parse data from train or test files
 
-    :param dataset_type: str - Select 'train' or 'test'
+    :param dataset_type: str - Select 'train', 'test' or 'files'
     :param dir_: str - Enter path to the file
+    :param output_dir: - Enter output path to save the files
     :param trace: bool   - Select True to enable validation and print.
 
     """
-
-    if dataset_type == 'train':
+    if parse_type == 'files':
+        create_text_files(dir_, output_dir)
+    if parse_type == 'train':
         create_train_data(dir_)
 
         if trace:
@@ -115,6 +137,6 @@ def parse_data(dataset_type='train', dir_='./dataset/train.txt', trace=False):
             print('find difference')
             print(diff)
 
-    else:
+    if parse_type == 'test':
         create_test_data(dir_)
 
