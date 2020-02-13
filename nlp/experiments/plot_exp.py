@@ -104,7 +104,7 @@ def plot_results(path_to_csv, type='len', plt_show=False, verbose=True):
     f.canvas.set_window_title(path_to_csv)
     plt.title(path_to_csv)
     ax = sns.lineplot(x=df.index, y="time", data=df)
-    file_path = './'+path_to_csv.split('.')[0]+'_'+type+'.png'
+    file_path = '../results/img/'+path_to_csv.split('/')[-1].split('.')[0]+'_'+type+'.png'
     if verbose:
         print('image saved in: ', file_path)
     f.savefig(file_path)
@@ -183,19 +183,32 @@ def test_batch(path, num):
 
     # ######## PARSING WITH BATCHES ######
     text_full = open(path).read().lower()
-    # text_lines = open(path).readlines()
     nlp = spacy.load('en_core_web_sm')
     nlp.max_length = 1500000
     for i in range(num):
         result = time_measurement(text_full, nlp, 100, 5000, 100)
-        csv_path = export_csv(result, text_name+'_'+str(num), continue_df=True)
-    print("csv saved in: ", csv_path)
-    plot_results(csv_path, plt_show=True)
+        csv_path_name = '../results/csv/'+text_name+'_'+str(num)
+        csv_file = export_csv(result, csv_path_name, continue_df=True)
+    print("csv saved in: ", csv_file)
+
+    # plot results by csv files
+    plot_results(csv_file, type='len', plt_show=False)
+    plot_results(csv_file, type='num', plt_show=False)
 
 
 def main():
-    path = '../dataset/nyt_text.txt'
-    test_batch(path, 10)
+    # for text folders
+    folder_path = '../test/'
+    text_files = os.listdir(folder_path)
+    print('files to process: ', len(text_files))
+    for file in text_files:
+        file_path = folder_path+file
+        print('processing: ', file_path)
+        test_batch(file_path, 10)
+
+    # for single text
+    # path = '../dataset/nyt_text.txt'
+    # test_batch(path, 10)
 
     # example of showing existing csv
     # csv_path = '10_len_batch_result.csv'
