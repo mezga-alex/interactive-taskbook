@@ -1,0 +1,125 @@
+and easy to interpret .
+The beta of the broad market typically defined as the Standard & Poor 's 500-stock index is always 1.0 .
+So a stock with a beta of 0.5 is half as volatile one at 1.5 is 50 % more volatile and so on .
+Cautious investors should generally go with stocks that have low betas .
+Go with high-beta stocks to get the biggest payoff from a bet on a bull market .
+Remember though that beta also has important limitations .
+Beta is only part of the risk in a stock says William F. Sharpe the Stanford University emeritus professor who developed the measure .
+There is risk that is not associated with market moves and the beta does n't tell you the magnitude of that .
+In particular beta does n't measure the company and industry-specific risk associated with an individual stock .
+That business risk is very significant for an investor with only a few stocks but it virtually disappears in a large and well-diversified portfolio .
+Beta is also a poor indicator of the risk in stock groups that march to their own drummer .
+In particular the prices of gold and other precious-metals stocks shoot up and down but the stocks tend to have low betas because their moves are not market-inspired .
+Concern that investors could misinterpret such readings led the American Association of Individual Investors to eliminate beta figures for precious-metals funds in the 1989 edition of its mutual-fund guide .
+Our fear was people would look just at the beta of a gold fund and say here is an investment with very low risk says John Markese director of research for the Chicago-based group .
+In reality it 's very volatile but the movements are not because of market movements .
+READY TO REVIEW the riskiness of your investment portfolio .
+First a pop quiz .
+When you think of the words risk and investment what 's the specific peril that comes to mind .
+Pencils down .
+If you 're like most people you said it 's a holding that goes completely sour maybe a bond that defaults or a stock whose value disappears in a bankruptcy proceeding .
+People tend to see risk primarily on that one dimension says Timothy Kochis national director of personal financial planning for accountants Deloitte Haskins & Sells .
+But therein lies another aspect of investment risk the hazard of shaping your portfolio to avoid one or more types of risk and being blind-sided by others .
+This is clearly not good news to all you people who sleep like babies every night lulled by visions of your money sitting risk-free in six-month CDs .
+Risk wears many disguises and investments that are low in one type of obvious risk can be distressingly high in other less obvious kinds .
+U.S. Treasury bonds for example are supersafe when it comes to returning money at maturity .
+But their value as investments can be decimated by inflation which erodes the purchasing power of bonds ' fixed-dollar interest payments .
+Risk is also a function of time .
+When financial professionals measure risk mathematically they usually focus on the volatility of short-term returns .
+Stocks are much riskier than Treasury bills for example because the range in performance from the best years to the worst is much wider .
+That is usually measured by the standard deviation or divergence of annual results from the average return over time .
+But investors who are preoccupied with short-term fluctuations may be paying too little attention to another big risk not generating enough money to meet long-term financial and life-style goals .
+For instance some investors have sworn off stocks since the 1987 market crash last Friday 's debacle only reinforced those feelings .
+But the stock market despite some stomach-churning declines has far outperformed other securities over extended periods .
+By retreating to the apparent security of say money-market funds investors may not be earning enough investment return to pay for a comfortable retirement .
+That 's the biggest risk of all the risk of not meeting your objectives says Steven B. Enright a New York financial planner with Seidman Financial Services .
+As a result financial advisers say they take several steps when evaluating the riskiness of clients ' portfolios .
+They estimate the return a person 's current portfolio is likely to generate over time along with a standard deviation that suggests how much the return will vary year by year .
+They try to figure out the long-term results the person needs to meet major goals .
+And they eyeball types of risk that are not easily quantified .
+The portfolios of two hypothetical families one a couple at retirement age and another a two-income couple at age 45 illustrate several types of risk that investors need to consider .
+For instance the insured municipal bonds that dominate the older couple 's portfolio were probably selected in large part for their low repayment risk .
+But they expose the holders to a lot of inflation risk and interest-rate risk .
+The younger couple 's stockholdings involve more risk than a diversified stock portfolio because the bulk of the money is in a single issue .
+Note that the younger couple 's portfolio has a higher expected annual return 10.1 % vs. 8.8 % as calculated by Seidman Financial Services which is the financial-planning affiliate of BDO Seidman .
+That largely reflects the heavy stockholdings .
+But one price paid for the higher expected return is greater short-term volatility as reflected in the higher standard deviation that Seidman estimates for the younger couple 's portfolio .
+Here 's how to interpret a standard deviation figure Take the expected return and add one standard deviation to it .
+Then take the expected return and subtract one standard deviation .
+In two of three years the actual result should fall within that range if all the assumptions were accurate .
+Then add and subtract two standard deviations to get a wider range .
+There 's a 95 % probability any year 's result will fall in the range .
+Of course the greater volatility of the younger couple 's portfolio does n't necessarily mean those investments are riskier in terms of meeting the holders ' long-term goals .
+Indeed the older couple 's portfolio could actually be riskier in that sense if the expected return wo n't generate enough dollars to meet their spending plans .
+They may feel emotionally secure now because they are not heavily in the stock market says John H. Cammack a financial planner with Alexandra Armstrong Advisors Inc. in Washington .
+But they may pay a price 10 or 20 years in the future .
+Ms. Slater reports on personal finance from The Wall Street Journal 's New York bureau .
+When it comes to investing trying to weigh risk and reward can seem like throwing darts blindfolded Investors do n't know the actual returns that securities will deliver or the ups and downs that will occur along the way .
+Looking to the past can provide some clues .
+Over several decades for instance investors who put up with the stock market 's gyrations earned returns far in excess of those on bonds and cash investments like Treasury bills .
+But while history can suggest what is reasonable to expect there 's no guarantee that the past will repeat itself .
+For instance some analysts believe bond returns and volatility have moved permanently closer to those of the stock market .
+And returns on cash investments may continue to exceed inflation by a wider margin than they did over the long-term past .
+Portfolio A Retired couple age 65 400,000 portfolio .
+Portfolio B Two-income couple age 45 150,000 portfolio .
+A letter from Senator John Kerry chides us today for implying that he had flip-flopped on Manuel Noriega .
+He correctly says he has been down on Noriega for some time hence his criticism of administration mishandling of the attempted coup .
+Our October 12 editorial should have been more precise .
+It meant to convey our hope that the Senator and other members of the congressional left are broadening their dislike of Noriega to include other notorious Central American drug runners .
+The Sandinistas of Nicaragua for example also are part of the Castro-Medellin cartel nexus .
+In his letter and on the basis of his losing vote Tuesday against U.S. aid for the Nicaraguan opposition Senator Kerry makes clear he has not made that intellectual leap .
+We were wrong .
+THROUGHOUT THE 1980s investors have been looking for creative alternatives to traditional modes of financial planning .
+Capital has been democratized and people want in .
+Too often however small investors are left with the same stale solutions that appealed to previous generations of fiduciary strategists .
+Now a startling new approach is available to building your financial portfolio without undue risk without extensive planning and without hurting your life style one bit .
+This is particularly good news for those who hate risk who are incapable of doing extensive amounts of planning and who refuse to see their life styles hurt in any way .
+You know who you are .
+My revolutionary system is also useful for those who have tried customary forms of growing their currency cushion .
+Like all Americans seeking chronic prosperity I do find it necessary to plunge certain funds into conservative monetary tools if only to assuage my father-in-law who believes in such things .
+So throughout the decade I have maintained my share of individual retirement accounts and CDs and tinkered with stocks bonds and mutual funds as well as preserving my necessary position in the residential real-estate market .
+Return on this fine portfolio has been modest when it has not been negative .
+Figure 1 demonstrates the performance of those businesses I 've invested in during this prosperous decade see accompanying illustration WSJ Oct. 20 1989 .
+Oil-related properties suffered a huge decline until I divested myself of all such stocks in 1985 at which point the industry while not lighting up any Christmas trees began a slow recovery .
+Likewise mutual funds remained relatively flat until I made what was for me a serious investment .
+By 1987 these properties were in a tailspin causing my broker at Pru-Bache to remark that she 'd never seen anything like it .
+Concerned for her state of mind I dropped them and the market instantly began its steady climb back to health .
+Perhaps most dramatic was the performance of the metropolitan New York real-estate market which was booming until I entered it in late 1988 at which time it posted the first negative compound annual growth rate in years .
+Disgusted I cast around for a different way to plan my asset distribution and with hardly any heavy breathing the answer struck me I was doing it already .
+We 've all got money to spend some of it clearly disposable since we keep disposing of it .
+Bank it .
+Not really .
+Sock it away in long-term instruments .
+Nonsense .
+Daily living is the best possible investment .
+Your priorities may be different but here in Figure 2 is where I 've chosen to build for the future personal space automotive pursuits children 's toys gardening equipment bulbs and shrubs and finally entertainment perhaps the best investment of all .
+All have paid off for me in double-digit annual growth and continue to provide significant potential .
+At least according to my calculations .
+Personal space Figure 3 has grown 35 % annually over the course of the decade a performance that would compare positively with an investment in say synthetic-leather products for the interiors of cold-weather vehicles which my cousin got into and sort of regrets to this day .
+The assortment of expensive children 's toys that I have purchased wisely at a host of discount-toy brokerage firms Figure 4 has increased handsomely in total asset value far beyond any personal investment except perhaps for my record collection whose worth I think it 's safe to say is incalculable .
+Continued investment in my 1984 subcompact has been part of my strategy Figure 5 with present annual contributions now equaling more than 60 % of the car 's original value .
+According to my calculations these outlays should have brought the value of my sedan to more than 22,000 on the open market Figure 6 where I plan to offer it shortly .
+Expansion of my living space has produced an obvious need for maintenance and construction of suitable lawns shrubs and bushes fitting to its suburban locale .
+I have thus committed sufficient personal outlay to ensure that my grounds and lodgings will never be short of greens and flowers .
+My initial stake in this blooming enterprise has grown tenfold according to my conservative calculations .
+At the same time my share in a wide variety of entertainment pursuits has given perhaps the most dramatic demonstration of the benefits of creative personal financial planning .
+Over the course of the decade for instance my return on investment in the area of poker alone Figures 7A and 7B has been most impressive showing bodacious annual expansion with given the way my associates play no sign of abatement into the 1990s and beyond .
+With this personal strategy firmly in place I look forward to years of fine life-style investments and increasing widespread leverage .
+My kids ' college education looms as perhaps the greatest future opportunity for spending although I 'll probably have to cash in their toy portfolio to take advantage of it .
+But with every step I take I 'm building wealth .
+You can too if you like me refuse to bite the bullet .
+So go out there and eat that debt .
+You 're right there in the mainstream of American business building value on the back of insupportable expenditures .
+Henry Kravis watch out .
+Mr. Schwartz is a business executive and writer in New York .
+WHEN JAMES SCHWARTZ was just a lad his father gave him a piece of career advice .
+He told me to choose an area where just by being mediocre I could be great recalls Mr. Schwartz now 40 .
+He tried management consulting traded in turquoise for a while and even managed professional wrestlers .
+Now he has settled into a career that fits the bill financial planning .
+It should be noted that Mr. Schwartz who operates out of Englewood Colo. is a puckish sort who likes to give his colleagues the needle .
+But in this case the needle has a very sharp point .
+Though it 's probably safe to assume that the majority of financial planners are honest and even reasonably competent the fact remains that as one wag puts it anybody who can fog a mirror can call himself a financial planner .
+Planners now influence the investment of several hundred billion dollars but in effect they operate in the dark .
+There is no effective regulation of planners no accepted standard for admission into their ranks a dog got into one trade group no way to assess their performance no way even to know how many of them there are estimates range from 60,000 to 450,000 .
+All anyone need do is hang up a shingle and start planning .
+So it should come as no shock that the profession if that 's what it is has attracted a lot of people whose principal talents seem  
