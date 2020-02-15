@@ -19,8 +19,7 @@ The project allows you to form tasks in English grammar.
 ## Installation <a name="env"></a>
 To create virtual environment and download dependencies of project run from terminal:
 ```
-cd utils
-bash install.sh
+bash utils/install.sh
 ```
 
 For running model with GPU you will required to have: 
@@ -31,21 +30,18 @@ To update your drivers, follow this user-friendly [medium article](https://mediu
 
 To install spacy GPU version and check the capability to use it run:
 ```
-cd utils
-bash install_GPU.sh
+bash utils/install_GPU.sh
 ```
 
 Dependencies of project can be also installed with requirements.txt:
 ```
-cd utils
-pip install -r requirements.txt
+pip install -r utils/requirements.txt
 ```
 
 ## Usage <a name="usage"><a>
 To run the server:
 ```
-cd utils
-bash run_server.sh
+bash utils/run_server.sh
 ```
 
 To install chrome-extension follow this rules:
