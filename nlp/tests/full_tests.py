@@ -271,14 +271,14 @@ def main():
     text_files = os.listdir(folder_path)
     print('Files in a folder: ', len(text_files))
 
-    # for file in text_files:
-    #     if file.endswith(".txt"):
-    #         file_path = folder_path + file
-    #         print('processing: ', file_path)
-    #         test_batch(file_path, num_of_times=3, min_batch_size=500, max_batch_size=10000, step=100, gpu=False)
+    for file in text_files:
+        if file.endswith(".txt"):
+            file_path = folder_path + file
+            print('processing: ', file_path)
+            test_batch(file_path, num_of_times=3, min_batch_size=500, max_batch_size=10000, step=100, gpu=False)
 
     csv_path = './results/cpu/csv/'
-    img_path = './results/cpu/img/mean/'
+    img_path = './results/cpu/img/mean'
     merged_paths = merge_csv(csv_path)
     for merged_csv in merged_paths:
         plot_results(merged_csv, save_path=img_path, res_type='len', computation_type='cpu', plt_show=False)
