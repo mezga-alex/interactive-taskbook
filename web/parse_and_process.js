@@ -198,6 +198,21 @@ $('#color_choice').on('click', () => {
   color = $(this).attr('data-color');
 })
 
+var server = "http://poltavsky.pythonanywhere.com/process";
+
+$("#switch-id").click(function() {
+    // this function will get executed every time the #switch-id element is clicked (or tab-spacebar changed)
+    if($(this).is(":checked")) // "this" refers to the element that fired the event
+    {
+        server = 'http://127.0.0.1:5000/process';
+        alert('Be sure to run your localhost to evaluate results: '+ server);
+    }  else {
+        server = "http://poltavsky.pythonanywhere.com/process";
+        alert ("Running on remote server: "+ server);
+
+    }
+});
+
 
 $("#btn-find").on("click", () => {
 
@@ -219,12 +234,12 @@ $("#btn-find").on("click", () => {
                 "passive_voice": passive_voice,
                 "color": color
             });
-            // TODO: create a switcher to localhost, server side
             // chrome.tabs.create({'url': './openPage/result.html' });
             // for local inference use:
             // http://poltavsky.pythonanywhere.com/process
             // http://127.0.0.1:5000/process
-            fetch("http://127.0.0.1:5000/process", {
+            // alert(server);
+            fetch(server, {
                 method: "POST",
                 credentials: "include",
                 body: data,
