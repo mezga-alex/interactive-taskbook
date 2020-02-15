@@ -44,6 +44,18 @@ def export_csv(result, param, continue_df):
 
 
 def gather_csv(path):
+    """
+    Gather csv files by certain length of text
+
+    Parameters
+    ----------
+    path_to_csv : str
+        The path to the csv file
+
+    Returns
+    -------
+    Nested list of csv file paths
+    """
     all_size_file = []
     csv_files = os.listdir(path)
     for i in range(5000, 65000, 5000):
@@ -57,6 +69,18 @@ def gather_csv(path):
 
 
 def merge_csv(path):
+    """
+    Merge csv files by certain length of text
+
+    Parameters
+    ----------
+    path_to_csv : str
+        The path to the csv file
+
+    Returns
+    -------
+    List of merged csv file paths
+    """
     merged_paths = []
     all_size_file = gather_csv(path)
     print(all_size_file)
