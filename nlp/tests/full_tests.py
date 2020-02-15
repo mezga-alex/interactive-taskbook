@@ -278,7 +278,7 @@ def main():
             test_batch(file_path, num_of_times=3, min_batch_size=500, max_batch_size=10000, step=100, gpu=False)
 
     csv_path = './results/cpu/csv/'
-    img_path = './results/cpu/img/'
+    img_path = './results/cpu/img/mean'
     merged_paths = merge_csv(csv_path)
     for merged_csv in merged_paths:
         plot_results(merged_csv, save_path=img_path, res_type='len', computation_type='cpu', plt_show=False)
