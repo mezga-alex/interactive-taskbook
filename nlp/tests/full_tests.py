@@ -1,13 +1,9 @@
 import spacy
-from spacy import displacy
 import matplotlib.pyplot as plt
 import time
-import sys
 import pandas as pd
 import seaborn as sns
 import os
-from os import listdir
-from os.path import isfile, join
 import platform
 
 
@@ -183,9 +179,8 @@ def plot_results(path_to_csv, save_path='', res_type='len', computation_type='cp
     """
     if save_path == '':
         save_path = os.path.dirname(os.path.abspath(path_to_csv)) + '/img/'
-        if not os.path.exists(save_path):
-            os.makedirs(save_path)
-        print(save_path)
+    if not os.path.exists(save_path):
+        os.makedirs(save_path)
 
     if res_type == "len":
         index_col = "size"
@@ -216,7 +211,7 @@ def test_batch(path, num_of_times=3, min_batch_size=500, max_batch_size=5000, st
     ----------
     path : str
         Path of given text
-    nunum_of_timesm : int
+    num_of_times : int
         Number of times to measure
     min_batch_size : int
     max_batch_size : int
@@ -276,29 +271,18 @@ def main():
     text_files = os.listdir(folder_path)
     print('Files in a folder: ', len(text_files))
 
-    for file in text_files:
-        if file.endswith(".txt"):
-            file_path = folder_path + file
-            print('processing: ', file_path)
-            test_batch(file_path, num_of_times=3, min_batch_size=500, max_batch_size=10000, step=100, gpu=False)
+    # for file in text_files:
+    #     if file.endswith(".txt"):
+    #         file_path = folder_path + file
+    #         print('processing: ', file_path)
+    #         test_batch(file_path, num_of_times=3, min_batch_size=500, max_batch_size=10000, step=100, gpu=False)
 
-
-    path = '../results/csv/'
-    merged_paths = merge_csv(path)
+    csv_path = './results/cpu/csv/'
+    img_path = './results/cpu/img/mean/'
+    merged_paths = merge_csv(csv_path)
     for merged_csv in merged_paths:
-        plot_results(merged_csv, res_type='len', computation_type='cpu', plt_show=False)
-        plot_results(merged_csv, res_type='num', computation_type='cpu', plt_show=False)
-
-
-    # print(all_size_file)
-
-    # for single text
-    # path = '../dataset/nyt_text.txt'
-    # test_batch(path, 10)
-
-    # example of showing existing csv
-    # csv_path = '10_len_batch_result.csv'
-    # plot_results(csv_path, "num", True)
+        plot_results(merged_csv, save_path=img_path, res_type='len', computation_type='cpu', plt_show=False)
+        plot_results(merged_csv, save_path=img_path, res_type='num', computation_type='cpu', plt_show=False)
 
 
 if __name__ == '__main__':
