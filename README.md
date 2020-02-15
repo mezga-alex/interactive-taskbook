@@ -19,6 +19,7 @@ The project allows you to form tasks in English grammar.
 ## Installation <a name="env"></a>
 To create virtual environment and download dependencies of project run from terminal:
 ```
+cd utils
 bash install.sh
 ```
 
@@ -30,17 +31,20 @@ To update your drivers, follow this user-friendly [medium article](https://mediu
 
 To install spacy GPU version and check the capability to use it run:
 ```
+cd utils
 bash install_GPU.sh
 ```
 
 Dependencies of project can be also installed with requirements.txt:
 ```
+cd utils
 pip install -r requirements.txt
 ```
 
 ## Usage <a name="usage"><a>
 To run the server:
 ```
+cd utils
 bash run_server.sh
 ```
 
