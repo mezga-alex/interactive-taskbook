@@ -1,12 +1,13 @@
 from flask import Flask,render_template, request, make_response, jsonify
 import spacy
 import sys
+sys.path.append("/home/art/Downloads/code/skyeng-grammar-filter/nlp/processing")
 import pos_tagging
 import passive_voice
 
 import time
 
-sys.path.append("/home/art/Downloads/code/skyeng-grammar-filter/nlp/processing")
+
 nlp = spacy.load('en_core_web_sm')
 
 
