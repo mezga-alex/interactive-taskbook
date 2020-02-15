@@ -7,21 +7,148 @@ import os
 import platform
 
 
-def time_measurement(text, nlp, min_batch_size=500, max_batch_size=5000, step=100, verbose=False):
+def export_csv(result, param, continue_df):
     """
-    measures time of given text and params for it's evaluation
+    Export results to csv
+
     Parameters
     ----------
-    text
-    nlp
-    min_batch_size
-    max_batch_size
-    step
-    verbose
+    result : list
+        List of results parameters
+    param : str
+        Num of iterations
+    continue_df : bool
+        Signs of continuous experiment. Getting N times to illustrate mean expectance perfomance with deviation
 
     Returns
     -------
+    path : str
+        Path of saved csv table
+    """
 
+    indexes = ['time', 'size', 'num_batch']
+
+    path = param + '_batch_result.csv'
+    if continue_df and os.path.exists(path):
+        df_default = pd.read_csv(path)
+        df = pd.DataFrame(list(zip(result[0], result[1], result[2])),
+                          columns=indexes)
+        df = pd.concat([df_default, df], axis=0)
+        print(df.shape)
+    else:
+        df = pd.DataFrame(list(zip(result[0], result[1], result[2])),
+                          columns=indexes)
+
+    df.to_csv(path, index=False, index_label=None)
+    return path
+
+
+def gather_csv(path):
+    all_size_file = []
+    csv_files = os.listdir(path)
+    for i in range(5000, 65000, 5000):
+        current_size_file = []
+        for file in csv_files:
+            result = file.split('_')[1]
+            if result == str(i):
+                current_size_file.append(file)
+        all_size_file.append(current_size_file)
+    return all_size_file
+
+
+def merge_csv(path):
+    merged_paths = []
+    all_size_file = gather_csv(path)
+    print(all_size_file)
+    for count in range(len(all_size_file)):
+        df_all = pd.read_csv(path + all_size_file[count][0])
+        for i in range(len(all_size_file[count])):
+            cur_file = path+all_size_file[count][i]
+            df_cur = pd.read_csv(cur_file)
+            df_all = pd.concat([df_all, df_cur], axis=0)
+        cur_csv_name = path+'text_all_'+str((count+1)*5000)+'.csv'
+        df_all.to_csv(cur_csv_name)
+        print(cur_csv_name)
+        merged_paths.append(cur_csv_name)
+    return merged_paths
+
+
+def plot_results(path_to_csv, save_path='', res_type='len', computation_type='cpu', plt_show=False, verbose=True):
+    """
+    Plot results by provided path of csv file and type of result to plot
+
+    Parameters
+    ----------
+    path_to_csv : str
+        The path to the csv file
+    save_path : str
+        The path to save the plot.
+    res_type : str
+        'len' or 'num' - Build plot by length or number of batches.
+    computation_type : str
+        'cpu', 'gpu' - The type was used.
+    plt_show : bool
+        True for showing on IDE, False for better look in jupyter notebook.
+    verbose : bool
+        Detailed description.
+
+    Returns
+    -------
+    Saved plot image
+    """
+
+    if save_path == '':
+        save_path = os.path.dirname(os.path.abspath(path_to_csv)) + '/img/'
+    os.makedirs(save_path, exist_ok=True)
+
+    if res_type == "len":
+        index_col = "size"
+    elif res_type == "num":
+        index_col = "num_batch"
+    else:
+        print("provided type: {} is not supported. Exiting".format(res_type))
+        return
+
+    df = pd.read_csv(path_to_csv, index_col=index_col)
+    f, axes = plt.subplots(1, 1, figsize=(20, 10))
+    f.canvas.set_window_title(path_to_csv)
+    plt.title(path_to_csv)
+    ax = sns.lineplot(x=df.index, y="time", data=df)
+    file_path = save_path+path_to_csv.split('/')[-1].split('.')[0]+'_'+res_type+'_'+computation_type+'.png'
+    f.savefig(file_path)
+
+    if verbose:
+        print('image saved in: ', file_path)
+    if plt_show:
+        plt.show()
+
+
+def time_measurement(text, nlp, min_batch_size=500, max_batch_size=5000, step=100, verbose=False):
+    """
+    Measures time of given text and params for it's evaluation
+
+    Parameters
+    ----------
+    text : str
+        Text for analysis.
+    nlp :
+        Loaded NLP Model.
+    min_batch_size : int
+        Minimum batch size.
+    max_batch_size : int
+        Maximum batch size.
+    step : int
+        Step to iterate over size.
+    verbose : bool
+        Detailed description
+
+    Returns
+    -------
+    list:
+        List contains:
+        1. Runtime list
+        2. Batches size list.
+        3. Number of batches list.
     """
     text_len = len(text)
 
@@ -53,8 +180,10 @@ def time_measurement(text, nlp, min_batch_size=500, max_batch_size=5000, step=10
             text_batches.append(batch)
 
             start_span = end_span
+
+        # Runtime Measure
         start_time = time.time()
-        docs = list(nlp.pipe(text_batches))
+        list(nlp.pipe(text_batches))
         elapsed_time = time.time() - start_time
 
         time_arr.append(elapsed_time)
@@ -68,159 +197,33 @@ def time_measurement(text, nlp, min_batch_size=500, max_batch_size=5000, step=10
             print("Batch size = ", batch_size)
             print("Num of batches = ", len(text_batches))
             print("Last batch size = ", len(last_batch))
-            print("Last batch:")
-            print(last_batch + "\n")
 
         batch_size += step
 
     return [time_arr, size_arr, num_batches]
 
 
-def export_csv(result, param, continue_df):
-    """
-    export results to csv
-    Parameters
-    ----------
-    result list of results parameters
-    param number of iterations
-    continue_df signs of continuous experiment. Getting N times to illustrate mean expectance perfomance with deviation
-
-    Returns path of saved csv table
-    -------
-
-    """
-    indexes = ['time', 'size', 'num_batch']
-
-    path = param + '_batch_result.csv'
-    if continue_df and os.path.exists(path):
-        df_default = pd.read_csv(path)
-        df = pd.DataFrame(list(zip(result[0], result[1], result[2])),
-                          columns=indexes)
-        df = pd.concat([df_default, df], axis=0)
-        print(df.shape)
-    else:
-        df = pd.DataFrame(list(zip(result[0], result[1], result[2])),
-                          columns=indexes)
-
-    df.to_csv(path, index=False, index_label=None)
-    return path
-
-
-def gather_csv(path):
-    all_size_file = []
-    csv_files = os.listdir(path)
-    for i in range(5000, 65000, 5000):
-        current_size_file = []
-        name = str(i)
-        # print(name)
-        for file in csv_files:
-            result = file.split('_')[1]
-            # print(result)
-            if result == str(i):
-                current_size_file.append(file)
-        all_size_file.append(current_size_file)
-    return all_size_file
-
-
-def merge_csv(path):
-    merged_paths = []
-    all_size_file = gather_csv(path)
-    print(all_size_file)
-    for count in range(len(all_size_file)):
-        df_all = pd.read_csv(path + all_size_file[count][0])
-        for i in range(len(all_size_file[count])):
-            cur_file = path+all_size_file[count][i]
-            df_cur = pd.read_csv(cur_file)
-            df_all = pd.concat([df_all, df_cur], axis=0)
-        cur_csv_name = path+'text_all_'+str((count+1)*5000)+'.csv'
-        df_all.to_csv(cur_csv_name)
-        print(cur_csv_name)
-        merged_paths.append(cur_csv_name)
-    return merged_paths
-
-
-def test_full_text(path):
-    """
-    test full text by it's given path
-    Parameters
-    ----------
-    path
-
-    Returns
-    -------
-
-    """
-    text_full = open(path).read().lower()
-    nlp = spacy.load('en_core_web_sm')
-    nlp.max_length = 1500000
-
-    start_time = time.time()
-    doc = nlp(text_full)
-    elapsed_time_plain = time.time() - start_time
-    print("plain text: ", elapsed_time_plain)
-    print(sum(1 for i in doc.sents))
-
-
-def plot_results(path_to_csv, save_path='', res_type='len', computation_type='cpu', plt_show=False, verbose=True):
-    """
-    plot results by provided path of csv file and type of result to plot
-    Parameters
-    ----------
-    path_to_csv
-    save_path
-    res_type
-    computation_type
-    plt_show
-        True for showing on IDE, False for better look in jupyter notebook
-    verbose
-    Returns
-    -------
-
-    """
-    if save_path == '':
-        save_path = os.path.dirname(os.path.abspath(path_to_csv)) + '/img/'
-    if not os.path.exists(save_path):
-        os.makedirs(save_path)
-
-    if res_type == "len":
-        index_col = "size"
-    elif res_type == "num":
-        index_col = "num_batch"
-    else:
-        print("provided type: {} is not supported. Exiting".format(res_type))
-        return
-
-    df = pd.read_csv(path_to_csv, index_col=index_col)
-    f, axes = plt.subplots(1, 1, figsize=(20, 10))
-    f.canvas.set_window_title(path_to_csv)
-    plt.title(path_to_csv)
-    ax = sns.lineplot(x=df.index, y="time", data=df)
-    file_path = save_path+path_to_csv.split('/')[-1].split('.')[0]+'_'+res_type+'_'+computation_type+'.png'
-    f.savefig(file_path)
-
-    if verbose:
-        print('image saved in: ', file_path)
-    if plt_show:
-        plt.show()
-
-
 def test_batch(path, num_of_times=3, min_batch_size=500, max_batch_size=5000, step=100, gpu=False):
     """
-    test text splitted by batches for given number of times
+    Test text splitted by batches for given number of times
     Parameters
     ----------
     path : str
-        Path of given text
+        Path of given text.
     num_of_times : int
-        Number of times to measure
+        Number of times to measure each text.
     min_batch_size : int
+        Minimum size of batches.
     max_batch_size : int
+        Maximum size of batches.
     step : int
+        Step to increase the size of the batch.
     gpu : bool
+        Flag to enable calculations on GPU.
 
-    Returns saves csv and png file with results
+    Returns
     -------
-
+    Saves csv and png file with results
     """
     comp_type = 'cpu'
     if gpu:
@@ -230,7 +233,6 @@ def test_batch(path, num_of_times=3, min_batch_size=500, max_batch_size=5000, st
             print('GPU is activated.')
         else:
             print('GPU is not activated. Running on the CPU.')
-
 
     os.chdir(os.path.dirname(os.path.abspath(path)))
     os.chdir('..')
@@ -244,7 +246,7 @@ def test_batch(path, num_of_times=3, min_batch_size=500, max_batch_size=5000, st
     if not os.path.exists(csv_res_path):
         os.makedirs(csv_res_path)
 
-    #extract name of text file
+    # extract name of text file
     text_name = path.split('/')[-1].split('.')[0]
 
     # ######## PARSING WITH BATCHES ######
@@ -263,6 +265,30 @@ def test_batch(path, num_of_times=3, min_batch_size=500, max_batch_size=5000, st
     # plot results by csv files
     plot_results(csv_file, save_path=img_res_path, res_type='len', computation_type=comp_type, plt_show=False)
     plot_results(csv_file, save_path=img_res_path, res_type='num', computation_type=comp_type, plt_show=False)
+
+
+def test_full_text(path):
+    """
+    Test full text by it's given path
+
+    Parameters
+    ----------
+    path : str
+        Path to the text
+
+    Returns
+    -------
+    elapsed_time :
+        Execution time in seconds
+    """
+    text_full = open(path).read().lower()
+    nlp = spacy.load('en_core_web_sm')
+    nlp.max_length = 1500000
+
+    start_time = time.time()
+    doc = nlp(text_full)
+    elapsed_time = time.time() - start_time
+    return elapsed_time
 
 
 def main():
