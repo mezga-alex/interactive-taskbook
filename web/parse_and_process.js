@@ -1,20 +1,12 @@
-// const Mercury = require('@postlight/mercury-parser');
-
-// //import Mercury from @postlight/mercury-parser
-// var url = "https://www.nytimes.com/2019/12/13/business/liu-jingyao-interview-richard-liu.html";
-// Mercury.parse(url).then(result => console.log(result));
-//var bkg = chrome.extension.getBackgroundPage();
-// var flag = false;
-
 function output_pos(pos){
   var posWords = JSON.parse(localStorage.getItem("pos_words"));
-  // For future work
+  // For future logic
   var posIndices = JSON.parse(localStorage.getItem("pos_indices"));
 
   if (posWords !== null && posWords.length > 0) {
       let setOfWords = new Set(posWords);
       let count = 1;
-      // то же, что: for(let value of set)
+      // same as: for(let value of set)
       for(let word of setOfWords) {
           para = document.createElement("p");
           node = document.createTextNode((count).toString() + ") " + word.toUpperCase());
@@ -62,13 +54,13 @@ function output_passive_voice(){
 
         // ANOTHER sentences appending
         var passive_phrases_sent_proc;
-        var coun = 0;
+        var count = 0;
         var is_similar = false;
         for(var i = 0; i < passive_phrases_sents.length; i++) {
             if (!is_similar) {
                 passive_phrases_sent_proc = passive_phrases_sents[i];
             }
-            coun += 1;
+            count += 1;
 
             for (var j = 0; j < passive_phrases_indices[i].length; j++) {
                 let left_index = passive_phrases_indices[i][j][0];
@@ -84,7 +76,7 @@ function output_passive_voice(){
             if ((passive_phrases_sents[i] !== passive_phrases_sents[i+1]) || (i === passive_phrases_sents.length)) {
                 // console.log(passive_phrases_sent_proc);
                 para = document.createElement("p");
-                node = document.createTextNode((coun).toString() + ") " + passive_phrases_sent_proc + '\n' + passive_phrases_lexeme_build );
+                node = document.createTextNode((count).toString() + ") " + passive_phrases_sent_proc + '\n' + passive_phrases_lexeme_build );
                 para.appendChild(node);
                 element = document.getElementById("put_text");
                 if (element !== null)
@@ -127,37 +119,26 @@ var PARSE_UTILS = {
   },
 
   /**
-   * Чистим Html страницу.
+   * Clean HTML Page
    *
    * @param html
    * @param callback
    * @returns {string}
    */
   cleanHtmlPage: function (html, callback) {
-      // Переводим все в нижний регистр
+      // Transmit text to lowercase
       // html = html.toLowerCase();
-      // Выполняем описанную ранее функцию
       html = this.getStrippedBody(html);
-      // Удаляем все, кроме текста
+      // Get rid of everything besides letters
       html = html.replace(/<(script|style|object|embed|applet)[^>]*>[^]*?<\/\1>/g, '');
      
-      // Удаляем теги
+      // Remove tags
       html = html.replace(/<[^>]*>/g, '');
     
       if (callback)
           callback(html);
       else
           return html;
-  },
-
-  c1: function(text, result) {
-    var para = document.createElement("p");
-    var node = document.createTextNode("This is new.");
-    para.appendChild(node);
-    
-    var element = document.getElementById("div1");
-    element.appendChild(para);
-  
   },
 
   keywordInterval: function(url, callback) {
@@ -218,8 +199,6 @@ $('#color_choice').on('click', () => {
 })
 
 
-
-
 $("#btn-find").on("click", () => {
 
   var speech = $('#speech').val();
@@ -240,6 +219,7 @@ $("#btn-find").on("click", () => {
                 "passive_voice": passive_voice,
                 "color": color
             });
+            // TODO: create a switcher to localhost, server side
             // chrome.tabs.create({'url': './openPage/result.html' });
             // for local inference use:
             // http://poltavsky.pythonanywhere.com/process

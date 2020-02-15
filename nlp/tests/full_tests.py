@@ -179,8 +179,7 @@ def plot_results(path_to_csv, save_path='', res_type='len', computation_type='cp
     """
     if save_path == '':
         save_path = os.path.dirname(os.path.abspath(path_to_csv)) + '/img/'
-    if not os.path.exists(save_path):
-        os.makedirs(save_path)
+    os.makedirs(save_path, exist_ok=True)
 
     if res_type == "len":
         index_col = "size"
