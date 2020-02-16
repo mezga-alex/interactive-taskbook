@@ -1,20 +1,19 @@
 # Skyeng Grammar Filter
 The project allows you to form tasks in English grammar.
 
-## Application in action <a name="intro"></a>
-![](images/skyeng_gf.gif)
-
-
 ## Table of Contents
 
 - ### [Application in action](#intro)
-  * [Installation](#env)
-  * [Usage](#usage)
+- ### [Installation](#env)
+- ### [Usage](#usage)
+  * [Run the server](#server)
+  * [Load the extension](#extension_load)
 - ### [skyeng Grammar Filter](#fedlearn)
   * [Documentation](#exp)
   * [Usage](#results)
-   
-
+ 
+## Application in action <a name="intro"></a>
+![](images/skyeng_gf.gif)
 
 ## Installation <a name="env"></a>
 To create virtual environment and download dependencies of project run from terminal:
@@ -39,13 +38,15 @@ pip install -r utils/requirements.txt
 ```
 
 ## Usage <a name="usage"><a>
-To run the server:
+### Run the server <a name="server"><a>
+#### To run the server:
 ```
 bash utils/run_server.sh
 ```
 
-To install chrome-extension follow this rules:
-1. Open the Extension Management page by navigating to [chrome://extensions](chrome://extensions)
+### Load the extension  <a name="extension_load"><a>
+#### To load up the Chrome extension follow this rules:
+1. Open the Extension Management page by navigating to chrome://extensions
 
    * The Extension Management page can also be opened by clicking on the Chrome menu, hovering over More Tools then selecting Extensions.
 
