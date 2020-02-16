@@ -83,14 +83,15 @@ def merge_csv(path):
     """
     merged_paths = []
     all_size_file = gather_csv(path)
-    print(all_size_file)
+    mean_path = '/'.join(path.split('/')[:-2]) + '/mean/'
+    os.makedirs(mean_path, exist_ok=True)
     for count in range(len(all_size_file)):
         df_all = pd.read_csv(path + all_size_file[count][0])
         for i in range(len(all_size_file[count])):
             cur_file = path+all_size_file[count][i]
             df_cur = pd.read_csv(cur_file)
             df_all = pd.concat([df_all, df_cur], axis=0)
-        cur_csv_name = path+'text_all_'+str((count+1)*5000)+'.csv'
+        cur_csv_name = mean_path+'text_all_'+str((count+1)*5000)+'.csv'
         df_all.to_csv(cur_csv_name)
         print(cur_csv_name)
         merged_paths.append(cur_csv_name)
@@ -315,9 +316,9 @@ def test_full_text(path):
     return elapsed_time
 
 
-def main():
+def test_text_folder(folder_path):
     # for text folders
-    folder_path = './texts/'
+    # folder_path = './texts/'
     text_files = os.listdir(folder_path)
     print('Files in a folder: ', len(text_files))
 
@@ -333,6 +334,81 @@ def main():
     for merged_csv in merged_paths:
         plot_results(merged_csv, save_path=img_path, res_type='len', computation_type='cpu', plt_show=False)
         plot_results(merged_csv, save_path=img_path, res_type='num', computation_type='cpu', plt_show=False)
+
+
+def plot_mean(csv_mean_path, res_type):
+    if res_type == "len":
+        index_col = "size"
+    elif res_type == "num":
+        index_col = "num_batch"
+    else:
+        print("provided type: {} is not supported. Exiting".format(res_type))
+        return
+
+    g = plt.figure(figsize=(12, 20))
+    sns.set(style="darkgrid")
+
+    mode = csv_mean_path.split('/')[-3].upper()
+    results = '/'.join(csv_mean_path.split('/')[:-3]) + "/"
+
+    csv_files = sorted(os.listdir(csv_mean_path), reverse=True)
+    # print(csv_files)
+
+    labels = [mode + ', length: ' + i.split(".")[0].split("_")[-1] for i in csv_files]
+    # print(labels)
+    for i in range(len(csv_files)):
+        csv_file = csv_mean_path + csv_files[i]
+        df = pd.read_csv(csv_file)
+        sns.lineplot(x=index_col, y="time", data=df, legend=False)
+    plt.legend(title='Comparison', loc='upper right', labels=labels)
+    file_path = results + 'mean_all_' + mode + "_" + res_type + '.png'
+    g.savefig(file_path)
+    # plt.show(g)
+
+
+
+def plot_cpu_vs_gpu(cpu_csv_folder, gpu_csv_folder, res_type):
+    if res_type == "len":
+        index_col = "size"
+    elif res_type == "num":
+        index_col = "num_batch"
+    else:
+        print("provided type: {} is not supported. Exiting".format(res_type))
+        return
+
+    results = '/'.join(cpu_csv_folder.split('/')[:-3])+"/"
+    cpu_files = sorted(os.listdir(cpu_csv_folder), reverse=True)
+    gpu_files = sorted(os.listdir(gpu_csv_folder), reverse=True)
+    # print(csv_files)
+
+    labels_gpu = ['GPU, length: ' + i.split(".")[0].split("_")[-1] for i in gpu_files]
+    labels_cpu = ['CPU, length: ' + i.split(".")[0].split("_")[-1] for i in cpu_files]
+    # print(labels)
+
+    for i in range(len(labels_gpu)):
+        g = plt.figure(figsize=(6, 8))
+        cpu_file = cpu_csv_folder + cpu_files[i]
+        gpu_file = gpu_csv_folder + gpu_files[i]
+        df_cpu = pd.read_csv(cpu_file)
+        df_gpu = pd.read_csv(gpu_file)
+        sns.set(style="darkgrid")
+        sns.lineplot(x=index_col, y="time", data=df_cpu, legend=False)
+        sns.lineplot(x=index_col, y="time", data=df_gpu, legend=False)
+        plt.legend(title='Comparison', loc='upper right', labels=[labels_cpu[i], labels_gpu[i]])
+        file_path = results + labels_cpu[i].split(':')[-1] + "_" + res_type + '_CPU_vs_GPU.png'
+        g.savefig(file_path)
+        # plt.show(g)
+
+
+
+
+
+def main():
+    # csv_path = './results/gpu/csv/'
+    # merged_paths = merge_csv(csv_path)
+    csv_path = "./results/gpu/mean/"
+    plot_mean(csv_path, "num")
+    # plot_cpu_vs_gpu(cpu_csv_folder="./results/cpu/mean/", gpu_csv_folder="./results/gpu/mean/", res_type="num")
 
 
 if __name__ == '__main__':
