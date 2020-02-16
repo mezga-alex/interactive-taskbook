@@ -52,5 +52,4 @@ To load up the Chrome extension follow this rules:
 3. Click the LOAD UNPACKED button and select the extension directory named 'Web'.
 
 ## Documentation <a name="doc"></a>
-The documentation can be [found here](docs/build/html/index.html).
-https://htmlpreview.github.io/?https://github.com/mezga-alex/skyeng-grammar-filter/docs/build/html/index.html"
+The documentation can be [found here](http://poltavsky.pythonanywhere.com/docs).
