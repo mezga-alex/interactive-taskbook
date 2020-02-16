@@ -24,17 +24,17 @@ def process():
 	text = req["text"]
 	pos = req["pos"]
 	passive_voice_tense = req["passive_voice"]
-	tense = req["tense"]  # For the future
+	# tense = req["tense"]  # For the future
 	##JSON ENDS
 
 	passive_result = []
 	pos_result = []
 
 	if pos != "NONE":
-		pos_result = pos_tagging.pos_tag_search(text, pos)
+		pos_result = pos_tagging.pos_tag_search(nlp, text, pos)
 
 	if passive_voice_tense != 'NONE':
-		passive_result = passive_voice.passive_voice_search_batches(text, passive_voice_tense)
+		passive_result = passive_voice.passive_voice_search_batches(nlp, text, passive_voice_tense)
 
 	res = make_response(jsonify(pos_result=pos_result, passive_result=passive_result), 200)
 

@@ -57,13 +57,16 @@ def get_tense_rule(tense):
     return tense_list.get(tense, "ALL")
 
 
-def passive_voice_search_batches(text, tense='ALL'):
+def passive_voice_search_batches(nlp, text, tense='ALL'):
     """Search for passive voices for a given tense.
 
     Using batches is much more efficient than raw text..
 
     Parameters
     ----------
+    nlp :
+        Loaded NLP Model.
+
     text : str
         Text for analysis.
 
@@ -79,8 +82,6 @@ def passive_voice_search_batches(text, tense='ALL'):
        3. Initial forms of words.
        4. Sentences that contain phrases.
     """
-
-    nlp = spacy.load('en_core_web_sm')
 
     # NLP model preparation
     merge_ents = nlp.create_pipe("merge_entities")
