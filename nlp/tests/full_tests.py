@@ -1,3 +1,8 @@
+"""
+Script for complete testing the speed of applying
+the Natural Language Processing (NLP) model to the given text
+"""
+
 import spacy
 import matplotlib.pyplot as plt
 import time
@@ -9,7 +14,7 @@ import platform
 
 def export_csv(result, param, continue_df):
     """
-    Export results to csv
+    Export calculated results to csv
 
     Parameters
     ----------
@@ -317,6 +322,20 @@ def test_full_text(path):
 
 
 def test_text_folder(folder_path):
+    """
+    Test full text by it's given path
+
+    Parameters
+    ----------
+    folder_path : str
+        Path to the folder full of texts to test
+
+    Returns
+    -------
+    Run tests for given parameters, check test_batch
+    Merge calculated results by merge_results functions
+    Plots merge results of various text length
+    """
     # for text folders
     # folder_path = './texts/'
     text_files = os.listdir(folder_path)
@@ -366,6 +385,36 @@ def plot_mean(csv_mean_path, res_type):
     g.savefig(file_path)
     # plt.show(g)
 
+
+def plot_each_mean(csv_mean_path, res_type):
+    if res_type == "len":
+        index_col = "size"
+    elif res_type == "num":
+        index_col = "num_batch"
+    else:
+        print("provided type: {} is not supported. Exiting".format(res_type))
+        return
+
+    mode = csv_mean_path.split('/')[-3].upper()
+    results = '/'.join(csv_mean_path.split('/')[:-3]) + "/"
+
+    csv_files = sorted(os.listdir(csv_mean_path), reverse=True)
+    # print(csv_files)
+
+    labels = [mode + ', length: ' + i.split(".")[0].split("_")[-1] for i in csv_files]
+    lengths = [i.split(".")[0].split("_")[-1] for i in csv_files]
+    # print(labels)
+    for i in range(len(csv_files)):
+        g = plt.figure(figsize=(8, 6))
+        sns.set(style="darkgrid")
+        sns.despine(offset=10, trim=True)
+        csv_file = csv_mean_path + csv_files[i]
+        df = pd.read_csv(csv_file)
+        ax = sns.lineplot(x=index_col, y="time", data=df, legend=False)
+        ax.set_title("length: " + lengths[i])
+        # plt.legend(title='Comparison', loc='center right', labels=labels[i])
+        file_path = results + 'mean_' + lengths[i] + "_" + mode + "_" + res_type + '.png'
+        g.savefig(file_path)
 
 
 def plot_cpu_vs_gpu(cpu_csv_folder, gpu_csv_folder, res_type, plot_grid=True):
@@ -432,11 +481,8 @@ def plot_cpu_vs_gpu(cpu_csv_folder, gpu_csv_folder, res_type, plot_grid=True):
 
 
 def main():
-    # csv_path = './results/gpu/csv/'
-    # merged_paths = merge_csv(csv_path)
-    csv_path = "./results/cpu/mean/"
-    plot_mean(csv_path, "num")
-    # plot_cpu_vs_gpu(cpu_csv_folder="./results/cpu/mean/", gpu_csv_folder="./results/gpu/mean/", res_type="len")
+    folder_path = './texts/'
+    test_text_folder(folder_path)
 
 
 if __name__ == '__main__':
