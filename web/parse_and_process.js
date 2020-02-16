@@ -207,7 +207,7 @@ $("#switch-id").click(function() {
         alert('Be sure to run your localhost to evaluate results: '+ server);
     }  else {
         server = "http://poltavsky.pythonanywhere.com/process";
-        alert ("Running on remote server: "+ server);
+//        alert ("Running on remote server: "+ server);
 
     }
 });
