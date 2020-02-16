@@ -12,14 +12,11 @@ import text_processor as tp
 from spacy.matcher import Matcher
 
 
-def pos_tag_search(nlp, text, pos_tag):
+def pos_tag_search(text, pos_tag):
     """Search for a specific part of speech.
 
     Parameters
     ----------
-    nlp :
-        Loaded NLP Model.
-
     text : str
         Text for analysis.
 
@@ -31,6 +28,8 @@ def pos_tag_search(nlp, text, pos_tag):
     result: list
        List of tokens and their indices.
     """
+
+    nlp = spacy.load('en_core_web_sm')
 
     nlp.tokenizer = tp.custom_tokenizer(nlp)
     text = tp.lexical_processor(text)

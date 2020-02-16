@@ -1,14 +1,9 @@
 from flask import Flask,render_template, request, make_response, jsonify
 import spacy
 import sys
-sys.path.append("/home/art/Downloads/code/skyeng-grammar-filter/nlp/processing")
 import pos_tagging
 import passive_voice
-
-import time
-
-
-nlp = spacy.load('en_core_web_sm')
+sys.path.append("/home/art/Downloads/code/skyeng-grammar-filter/nlp/processing")
 
 
 app = Flask(__name__)
@@ -31,10 +26,10 @@ def process():
 	pos_result = []
 
 	if pos != "NONE":
-		pos_result = pos_tagging.pos_tag_search(nlp, text, pos)
+		pos_result = pos_tagging.pos_tag_search(text, pos)
 
 	if passive_voice_tense != 'NONE':
-		passive_result = passive_voice.passive_voice_search_batches(nlp, text, passive_voice_tense)
+		passive_result = passive_voice.passive_voice_search_batches(text, passive_voice_tense)
 
 	res = make_response(jsonify(pos_result=pos_result, passive_result=passive_result), 200)
 
