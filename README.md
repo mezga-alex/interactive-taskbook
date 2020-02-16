@@ -39,13 +39,13 @@ pip install -r utils/requirements.txt
 
 ## Usage <a name="usage"><a>
 ### Run the server <a name="server"><a>
-#### To run the server:
+To run the server:
 ```
 bash utils/run_server.sh
 ```
 
 ### Load the extension  <a name="extension_load"><a>
-#### To load up the Chrome extension follow this rules:
+To load up the Chrome extension follow this rules:
 1. Open the Extension Management page by navigating to chrome://extensions
 
    * The Extension Management page can also be opened by clicking on the Chrome menu, hovering over More Tools then selecting Extensions.
