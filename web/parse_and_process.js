@@ -193,8 +193,7 @@ var PARSE_UTILS = {
 };
 
 var color;
-
-$('#color_choice').on('click', () => {
+$('.btn-color').on('click', () => {
   color = $(this).attr('data-color');
 })
 
