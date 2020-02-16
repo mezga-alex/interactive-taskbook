@@ -1,0 +1,43 @@
+.. skyeng-grammar-filter documentation master file, created by
+   sphinx-quickstart on Sat Feb 15 23:21:19 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Skyeng-grammar-filter documentation
+=================================================
+
+
+Passive voice detection
+=======================
+.. automodule:: passive_voice
+   :members:
+
+Part of speech tagging
+======================
+.. automodule:: pos_tagging
+   :members:
+
+Process texts
+===================
+.. automodule:: text_processor
+   :members:
+
+Complete tests for CPU and GPU
+==============================
+
+.. automodule:: full_tests
+    :members:
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
