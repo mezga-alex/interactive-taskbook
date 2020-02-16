@@ -346,7 +346,7 @@ def plot_mean(csv_mean_path, res_type):
         return
 
     g = plt.figure(figsize=(12, 20))
-    # sns.set(style="darkgrid")
+    sns.set(style="darkgrid")
     sns.despine(offset=10, trim=True);
 
     mode = csv_mean_path.split('/')[-3].upper()
@@ -361,7 +361,7 @@ def plot_mean(csv_mean_path, res_type):
         csv_file = csv_mean_path + csv_files[i]
         df = pd.read_csv(csv_file)
         sns.lineplot(x=index_col, y="time", data=df, legend=False)
-    plt.legend(title='Comparison', loc='upper right', labels=labels)
+    plt.legend(title='Comparison', loc='center right', labels=labels)
     file_path = results + 'mean_all_' + mode + "_" + res_type + '.png'
     g.savefig(file_path)
     # plt.show(g)
@@ -392,18 +392,20 @@ def plot_cpu_vs_gpu(cpu_csv_folder, gpu_csv_folder, res_type, plot_grid=True):
         gpu_file = gpu_csv_folder + gpu_files[i]
         df_cpu = pd.read_csv(cpu_file)
         df_gpu = pd.read_csv(gpu_file)
-
+        sns.set(style="darkgrid")
         sns.despine(offset=10, trim=True);
         sns.lineplot(x=index_col, y="time", data=df_cpu, legend=False)
         sns.lineplot(x=index_col, y="time", data=df_gpu, legend=False)
-        plt.legend(title='Comparison', loc='upper right', labels=[labels_cpu[i], labels_gpu[i]])
+        plt.legend(title='Comparison', loc='center right', labels=[labels_cpu[i], labels_gpu[i]])
         file_path = results + labels_cpu[i].split(':')[-1] + "_" + res_type + '_CPU_vs_GPU.png'
+
         g.savefig(file_path)
         # plt.show(g)
 
     if plot_grid:
-        plt.legend(title='Comparison', loc='upper right', labels=["CPU", "GPU"])
+
         f, axes = plt.subplots(4, 3, figsize=(30, 30), sharex=True)
+        plt.title("GPU vs CPU speed comparison on various texts length")
         sns.set(style="darkgrid")
         sns.despine(left=True)
         sns.set_context("notebook", font_scale=1.5, rc={"lines.linewidth": 2.5})
@@ -421,6 +423,7 @@ def plot_cpu_vs_gpu(cpu_csv_folder, gpu_csv_folder, res_type, plot_grid=True):
 
                 ax = sns.lineplot(x=index_col, y="time", data=df_cpu, legend="brief", ax=axes[i, j])
                 ax = sns.lineplot(x=index_col, y="time", data=df_gpu, legend=False, ax=axes[i, j])
+                ax.legend(title='Comparison', loc='center right', labels=["CPU", "GPU"])
                 ax.set_title("length: "+labels_cpu[count].split(':')[-1])
                 count += 1
 
@@ -431,9 +434,9 @@ def plot_cpu_vs_gpu(cpu_csv_folder, gpu_csv_folder, res_type, plot_grid=True):
 def main():
     # csv_path = './results/gpu/csv/'
     # merged_paths = merge_csv(csv_path)
-    # csv_path = "./results/gpu/mean/"
-    # plot_mean(csv_path, "num")
-    plot_cpu_vs_gpu(cpu_csv_folder="./results/cpu/mean/", gpu_csv_folder="./results/gpu/mean/", res_type="len")
+    csv_path = "./results/cpu/mean/"
+    plot_mean(csv_path, "num")
+    # plot_cpu_vs_gpu(cpu_csv_folder="./results/cpu/mean/", gpu_csv_folder="./results/gpu/mean/", res_type="len")
 
 
 if __name__ == '__main__':
