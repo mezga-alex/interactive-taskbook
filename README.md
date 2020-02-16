@@ -53,3 +53,4 @@ To load up the Chrome extension follow this rules:
 
 ## Documentation <a name="doc"></a>
 The documentation can be [found here](docs/build/html/index.html).
+https://htmlpreview.github.io/?https://github.com/mezga-alex/skyeng-grammar-filter/docs/build/html/index.html"
