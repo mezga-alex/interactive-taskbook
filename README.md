@@ -8,9 +8,7 @@ The project allows you to form tasks in English grammar.
 - ### [Usage](#usage)
   * [Run the server](#server)
   * [Load the extension](#extension_load)
-- ### [skyeng Grammar Filter](#fedlearn)
-  * [Documentation](#exp)
-  * [Usage](#results)
+- ### [Documentation](#doc)
  
 ## Application in action <a name="intro"></a>
 ![](images/skyeng_gf.gif)
@@ -52,3 +50,6 @@ To load up the Chrome extension follow this rules:
 
 2. Enable Developer Mode by clicking the toggle switch next to Developer mode.
 3. Click the LOAD UNPACKED button and select the extension directory named 'Web'.
+
+## Documentation <a name="doc"></a>
+The documentation can be [found here](http://poltavsky.pythonanywhere.com/docs).
