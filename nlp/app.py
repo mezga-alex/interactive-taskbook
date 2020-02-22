@@ -21,8 +21,8 @@ def process():
 	text = req["text"]
 	pos = req["pos"]
 	passive_voice_tense = req["passive_voice"]
-	tense = req["tense"]  # For the future
-	##JSON ENDS
+	tense = req["tense"] 
+	## JSON ENDS
 
 	active_result = []
 	passive_result = []
@@ -33,7 +33,6 @@ def process():
 
 	if tense != 'NONE':
 		active_result = active_voice.active_voice_search_batches(text, tense)
-		print(active_result)
 
 	if passive_voice_tense != 'NONE':
 		passive_result = passive_voice.passive_voice_search_batches(text, passive_voice_tense)
