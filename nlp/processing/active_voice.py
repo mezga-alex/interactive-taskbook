@@ -39,7 +39,6 @@ def get_active_tense_rule(tense):
 def active_voice_search_batches(text, tense='ALL'):
     nlp = spacy.load('en_core_web_sm')
 
-
     merge_ents = nlp.create_pipe("merge_entities")
     merge_nps = nlp.create_pipe("merge_noun_chunks")
     nlp.add_pipe(merge_nps, merge_ents)
