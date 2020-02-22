@@ -2,7 +2,9 @@ from flask import Flask,render_template, request, make_response, jsonify
 import spacy
 import sys
 import pos_tagging
+import active_voice
 import passive_voice
+
 sys.path.append("/home/art/Downloads/code/skyeng-grammar-filter/nlp/processing")
 
 
@@ -19,23 +21,29 @@ def process():
 	text = req["text"]
 	pos = req["pos"]
 	passive_voice_tense = req["passive_voice"]
-	# tense = req["tense"]  # For the future
+	tense = req["tense"]  # For the future
 	##JSON ENDS
 
+	active_result = []
 	passive_result = []
 	pos_result = []
 
 	if pos != "NONE":
 		pos_result = pos_tagging.pos_tag_search(text, pos)
 
+	if tense != 'NONE':
+		active_result = active_voice.active_voice_search_batches(text, tense)
+		print(active_result)
+
 	if passive_voice_tense != 'NONE':
 		passive_result = passive_voice.passive_voice_search_batches(text, passive_voice_tense)
 
-	res = make_response(jsonify(pos_result=pos_result, passive_result=passive_result), 200)
+	res = make_response(jsonify(pos_result=pos_result, passive_result=passive_result, active_result=active_result), 200)
 
 	return res
 
-@app.route('/answer',methods=["POST"])
+
+@app.route('/answer', methods=["POST"])
 def answer():
 	## JSON Request
 	req = request.get_json()
