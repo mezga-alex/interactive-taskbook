@@ -7,9 +7,7 @@ Passive voice search algorithm in the text.
 - Return results.
 """
 
-import spacy
 import text_processor as tp
-
 # Possible dependencies between words.
 DEPENDENCIES = ["ROOT", "conj", "ccomp", "relcl", "acl", "advcl"]
 
@@ -57,13 +55,16 @@ def get_tense_rule(tense):
     return tense_list.get(tense, "ALL")
 
 
-def passive_voice_search_batches(text, tense='ALL'):
+def passive_voice_search_batches(nlp, text, tense='ALL'):
     """Search for passive voices for a given tense.
 
     Using batches is much more efficient than raw text..
 
     Parameters
     ----------
+    nlp : nlp
+        Prepared nlp model
+
     text : str
         Text for analysis.
 
@@ -80,22 +81,17 @@ def passive_voice_search_batches(text, tense='ALL'):
        4. Sentences that contain phrases.
     """
 
-    nlp = spacy.load('en_core_web_sm')
-
-    # NLP model preparation
-    merge_ents = nlp.create_pipe("merge_entities")
-    merge_nps = nlp.create_pipe("merge_noun_chunks")
-    nlp.add_pipe(merge_nps, merge_ents)
-
     # Text preparation
     text = tp.lexical_processor(text)
 
     # Create flexible batches (split at the end of the sentence)
+
     batch_indices = tp.flexible_batch_indices(text, 1000)
     text_split = [text[batch_indices[i-1]:batch_indices[i]] for i in range(1, len(batch_indices))]
 
     # Apply the model to batches
     docs = list(nlp.pipe(text_split))
+
     # Take the rules for the right tense
     tense_rule = get_tense_rule(tense)
 
@@ -115,7 +111,7 @@ def passive_voice_search_batches(text, tense='ALL'):
                     passive_match_indices = []
                     passive_match_lexemes = []
                     num_of_aux = 0
-                    num_of_aux_rule = tense_rule.get('num_of_aux')  #It is necessary for correct work with modals.
+                    num_of_aux_rule = tense_rule.get('num_of_aux')  # It is necessary for correct work with modals.
 
                     prt_contained = False
                     subject_found = False
@@ -124,11 +120,11 @@ def passive_voice_search_batches(text, tense='ALL'):
                     for child in token.children:
                         child_lower = child.text.lower()
                         # We consider several options for the dependencies of these words:
-                        # 1: A passive nominal subject
-                        # 2: A passive auxiliary of a clause
-                        # 3: An auxiliary of a clause
-                        # 4: The negation modifier
-                        # 5: The phrasal verb particle
+                        # 1: nsubjpass: A passive nominal subject
+                        # 2: auxpass:   A passive auxiliary of a clause
+                        # 3: aux:       An auxiliary of a clause
+                        # 4: neg:       The negation modifier
+                        # 5: prt:       The phrasal verb particle
                         # Add parameters for the found match.
 
                         # 1: A passive nominal subject
