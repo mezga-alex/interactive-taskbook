@@ -36,12 +36,7 @@ def get_active_tense_rule(tense):
     return tense_list.get(tense, "ALL")
 
 
-def active_voice_search_batches(text, tense='ALL'):
-    nlp = spacy.load('en_core_web_sm')
-
-    merge_ents = nlp.create_pipe("merge_entities")
-    merge_nps = nlp.create_pipe("merge_noun_chunks")
-    nlp.add_pipe(merge_nps, merge_ents)
+def active_voice_search_batches(nlp, text, tense='ALL'):
 
     text = tp.lexical_processor(text)
 

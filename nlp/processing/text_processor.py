@@ -175,3 +175,54 @@ def flexible_batch_indices(text, approximate_batch_size):
         batch_indices.append(len(text))
 
     return batch_indices
+
+
+def nlp_setup(nlp, nlp_type):
+    """
+
+    :param nlp: nlp
+        Model to be prepared.
+    :param nlp_type:
+        Model task type.
+
+    :return:
+        Prepared NLP Model.
+    """
+
+    if nlp_type == 'tense':
+        # NLP model preparation
+        merge_ents = nlp.create_pipe("merge_entities")
+        merge_nps = nlp.create_pipe("merge_noun_chunks")
+        nlp.add_pipe(merge_ents, merge_nps)
+
+    if nlp_type == 'pos':
+        nlp.tokenizer = custom_tokenizer(nlp)
+
+        # TODO: Put into function.
+        # ############## Custom Matcher #########################
+
+        matcher = Matcher(nlp.vocab)
+
+        pattern = [{'ORTH': "'"},
+                   {'ORTH': 've'}]
+
+        pattern_2 = [{'ORTH': "'"},
+                     {'ORTH': 'm'}]
+
+        matcher.add('QUOTED', None, pattern, pattern_2)
+
+        def match_merger(doc):
+            # this will be called on the Doc object in the pipeline
+            matched_spans = []
+            matches = matcher(doc)
+            for match_id, start, end in matches:
+                span = doc[start:end]
+                matched_spans.append(span)
+            for span in matched_spans:  # merge into one token after collecting all matches
+                span.merge()
+            return doc
+
+        nlp.add_pipe(match_merger, first=True)
+        # ########################################################
+
+    return nlp
