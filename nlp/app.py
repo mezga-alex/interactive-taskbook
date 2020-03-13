@@ -41,15 +41,9 @@ def process():
 
 	return res
 
-
-@app.route('/answer', methods=["POST"])
-def answer():
-	## JSON Request
-	req = request.get_json()
-	text = req["text"]
-	print("html", req["pos"])
-	results = req["result"]
-	return render_template("index.html", results=results, num_of_results=len(results), text=text)
+@app.route('/docs')
+def docs():
+	return render_template("docs.html")
 
 
 if __name__ == '__main__':
