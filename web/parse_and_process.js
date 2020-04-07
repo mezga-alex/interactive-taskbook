@@ -32,6 +32,7 @@ function output_exercise(phrases, phrases_indices, phrases_lexemes, phrases_sent
         if (element !== null)
             element.appendChild(para);
 
+
         // ANOTHER phrases appending
         for(var i = 1; i < phrases.length; i++){
             let phrases_space = phrases[i].join(" ").toUpperCase();
@@ -77,6 +78,11 @@ function output_exercise(phrases, phrases_indices, phrases_lexemes, phrases_sent
                 element = document.getElementById("put_text");
                 if (element !== null)
                     element.appendChild(para);
+                    var x = document.createElement("INPUT");
+                    x.setAttribute("type", "text");
+                    x.setAttribute("id", "input"+(i+1).toString());
+                    x.setAttribute("value", "Enter your answer");
+                    element.appendChild(x);
                 is_similar = false;
             } else {
                 is_similar = true;
