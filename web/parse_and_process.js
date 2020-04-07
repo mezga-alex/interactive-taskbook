@@ -62,72 +62,22 @@ function output_exercise(phrases, phrases_indices, phrases_lexemes, phrases_sent
         var phrases_sent_proc;
         var count = 0;
         var is_similar = false;
-        for(var i = 0; i < phrases_sents.length; i++) {
+        for(var i = 0; i < passive_phrases_sents.length; i++) {
             if (!is_similar) {
-                phrases_sent_proc = phrases_sents[i];
+                passive_phrases_sent_proc = passive_phrases_sents[i];
             }
             count += 1;
-            var last_index = 0;
-            let left_array = [];
-            let right_array = [];
 
-            for (var j = 0; j < phrases_indices[i].length; j++) {
-                let left_index = phrases_indices[i][j][0];
-                let right_index = phrases_indices[i][j][1];
-                var left = splitAt(left_index-last_index)(phrases_sent_proc);
-                // alert(left);
-                left_array.push(left[0]);
-                // alert(phrases_lexemes[i][j]);
-                // exercise.push(phrases_lexemes[i][j]);
-                var left_split = left[1];
-                var right = splitAt(right_index-left_index)(left[1]);
-                var exercise_unit = right[0];
-                right_array.push(exercise_unit);
-                phrases_sent_proc = right[1];
-                console.log(exercise_unit);
-                if (exercise_unit) {
-                    $('<input>', {
-                        'class':'exercise',
-                        'id':''
-                    })
-                        .insertAfter(this);
-                    d1.insertAdjacentHTML('afterend', '<div id="two">two</div>');
-                }
-                // $(".predictions").prepend(`<h4>Image ${counter/3}</h2><div class="row text-center">
-                // //     <div class="col-4" id="chart-${counter-2}"></div>
-                // //     <div class="col-4" id="chart-${counter-1}"></div>
-                // //     <div class="col-4" id="chart-${counter}"></div>
-                // // </div>`)
-                // alert(left_index+"_"+right_index+"_"+last_index);
-                last_index = right_index;
-                // alert("left: "+left+"__ right: "+right);
-                // alert(phrases_sent_proc);
-                // alert("right 0"+right[0]);
+            for (var j = 0; j < passive_phrases_indices[i].length; j++) {
+                let left_index = passive_phrases_indices[i][j][0];
+                let right_index = passive_phrases_indices[i][j][1];
+                let substr = passive_phrases_sent_proc.substring(left_index, right_index);
 
+                passive_phrases_sent_proc = passive_phrases_sent_proc.substring(0, left_index) + "_".repeat(substr.length)
+                    + passive_phrases_sent_proc.substring(right_index, passive_phrases_sent_proc.length);
 
             }
-            for (var q = 0; q < phrases_lexemes[i].length; q++) {
-                alert(left_array[q]+" ("+right_array[q]+" : "+phrases_lexemes[i][q]+")");
-            }
 
-            // alert(exercise);
-            phrases_sent_proc = phrases_sents[i];
-            // for (var j = 0; j < phrases_indices[i].length; j++) {
-            //     let left_index = phrases_indices[i][j][0];
-            //     let right_index = phrases_indices[i][j][1];
-            //     let substr = phrases_sent_proc.substring(left_index, right_index);
-            //     // substracting needed phrase
-            //     // alert(substr);
-            //     // alert(phrases_sent_proc);
-            //     // insert code to string
-            //     var word_insert = insert_input_word(substr);
-            //     // alert(word_insert);
-            //     phrases_sent_proc = phrases_sent_proc.substring(0, left_index) + word_insert
-            //         + phrases_sent_proc.substring(right_index, phrases_sent_proc.length);
-            //     // phrases_sent_proc = phrases_sent_proc.substring(0, left_index) + "_".repeat(substr.length)
-            //     //     + phrases_sent_proc.substring(right_index, phrases_sent_proc.length);
-            //     // alert(phrases_sent_proc);
-            // }
 
             let phrases_lexeme_build = "( " + phrases_lexemes[i].join(", ") + " )";
             if ((phrases_sents[i] !== phrases_sents[i+1]) || (i === phrases_sents.length)) {
