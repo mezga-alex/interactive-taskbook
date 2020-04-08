@@ -11,7 +11,6 @@ sys.path.append("/home/art/Downloads/code/skyeng-grammar-filter/nlp/processing")
 nlp_pos = tp.nlp_setup(spacy.load('en_core_web_lg'), 'pos')
 nlp_task_creator = tp.nlp_setup(spacy.load('en_core_web_lg'), 'tense')
 
-
 app = Flask(__name__)
 @app.route('/')
 def index():
