@@ -50,3 +50,25 @@ div{
     background-color: rgba(46, 252, 5, 0.459);
     text-align: justify;
 }
+
+.btn-check-task {
+    width: 328px;
+    height: 47px;
+    border-radius: 8px;
+    background-color: #027aff;
+
+    border: 0px solid white;
+    text-transform: uppercase;
+    padding: 0px;
+    margin: auto;
+
+    font-family: Helvetica;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #ffffff;
+}
