@@ -166,6 +166,14 @@ function output_exercise(phrases,phrases_lexemes, phrases_indices, phrases_sents
                 //$("#put_text").append(b);
                 count += 1;
                 is_different = true;
+                var inputNew = '<span class="input input--kaede">\n' +
+                    '<input class="input__field input__field--kaede" type="text" id="input-35' + i.toString() + '" />\n' +
+                    '<label class="input__label input__label--kaede" for="input-35' + i.toString() + '">\n' +
+                    '<span class="input__label-content input__label-content--kaede">Answer</span>\n' +
+                    '</label>\n' +
+                    '</span>';
+                $("#put_text").append(inputNew);
+
             } else {
                 checkButton += '-';
                 is_different = false;

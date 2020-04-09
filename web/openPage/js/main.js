@@ -37,7 +37,8 @@ $(document).ready(() => {
             var isCorrect = true;
             var wordIndex = 0;
             var taskID = '#task-' + phraseIndex.toString() + '-' + wordIndex.toString();
-            while (isCorrect && ($(taskID).length !== 0)) {
+            //while (isCorrect && ($(taskID).length !== 0)) {
+            while ($(taskID).length !== 0) {
                 let userAnswer = $(taskID).val();
                 isCorrect = checkAnswer(taskID, userAnswer);
 
@@ -50,8 +51,6 @@ $(document).ready(() => {
                 wordIndex += 1;
                 taskID = '#task-' + phraseIndex.toString() + '-' + wordIndex.toString();
             }
-
         }
-
     });
 });
