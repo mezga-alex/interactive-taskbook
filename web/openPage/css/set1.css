@@ -3,8 +3,8 @@
 	z-index: 1;
 	display: inline-block;
 	margin: 1em;
-	max-width: 350px;
-	width: calc(100% - 2em);
+	max-width: 200px;
+	width: calc(100% - 5em);
 	vertical-align: top;
 }
 
@@ -29,14 +29,15 @@
 
 .input__label {
 	display: inline-block;
-	float: right;
+	/*float: right;*/
 	padding: 0 1em;
 	width: 40%;
 	color: #6a7989;
 	font-weight: bold;
-	font-size: 70.25%;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 90.25%;
 	-webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+	-moz-osx-font-smoothing: grayscale;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -46,9 +47,8 @@
 }
 
 .input__label-content {
-	position: relative;
 	display: block;
-	padding: 1.6em 0;
+	/*padding: 1.6em 0;*/
 	width: 100%;
 }
 
@@ -67,10 +67,11 @@
 /* Individual styles */
 /* Kaede */
 .input--kaede {
-	display: block;
+	display: inline-block;
 	overflow: hidden;
-	margin: 1em auto 2em;
-	background: #EFEEEE;
+	margin: 0.15em;
+	border-radius: 8px;
+	background: rgba(230, 229, 229, 0.51);
 }
 
 .input__field--kaede {
@@ -89,7 +90,7 @@
 
 .input__label--kaede {
 	z-index: 10;
-	display: block;
+	display: inline-block;
 	width: 100%;
 	height: 100%;
 	text-align: left;
@@ -103,7 +104,7 @@
 }
 
 .input__label-content--kaede {
-	padding: 1.5em 0;
+	padding: 0.1em;
 }
 
 .input__field--kaede:focus,

@@ -52,8 +52,8 @@ div{
 }
 
 .btn-check-task {
-    width: 328px;
-    height: 47px;
+    width: 200px;
+    height: 38px;
     border-radius: 8px;
     background-color: #027aff;
 
@@ -63,7 +63,7 @@ div{
     margin: auto;
 
     font-family: Helvetica;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
