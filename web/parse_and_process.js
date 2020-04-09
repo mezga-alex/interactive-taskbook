@@ -1,5 +1,106 @@
 var bkg = chrome.extension.getBackgroundPage();
 
+var PARSE_UTILS = {
+    minBodyTailLength: function () {
+        return 100;
+    },
+    /**
+     * Удаляет все что находится за пределами <body> (если существует), а затем удаляет
+     * все теги <script>
+     * @param html
+     * @returns {void | string}
+     */
+    getStrippedBody: function (html) {
+        let body = html.match(/<body[^>]*>(?:([^]*)<\/body>([^]*)|([^]*))/i);
+        if (body && body.length > 1) {
+            if (body[2] && body[2].length > this.minBodyTailLength()) {
+                body = body[1] + ' ' + body[2];
+            } else if (body[1] === undefined) {
+                body = body[3];
+            } else {
+                body = body[1];
+            }
+        } else {
+            body = html;
+        }
+
+        return body.replace(/<script\b[^>]*(?:>[^]*?<\/script>|\/>)/ig, '<blink/>');
+    },
+
+    /**
+     * Clean HTML Page
+     *
+     * @param html
+     * @param callback
+     * @returns {string}
+     */
+    cleanHtmlPage: function (html, callback) {
+        // Transmit text to lowercase
+        // html = html.toLowerCase();
+        html = this.getStrippedBody(html);
+        // Get rid of everything besides letters
+        html = html.replace(/<(script|style|object|embed|applet)[^>]*>[^]*?<\/\1>/g, '');
+
+        // Remove tags
+        html = html.replace(/<[^>]*>/g, '');
+
+        if (callback)
+            callback(html);
+        else
+            return html;
+    },
+
+    keywordInterval: function(url, callback) {
+        let body = "";
+        $.ajax({
+            type: 'get',
+            accepts: {
+                "*": "*/".concat("*"),
+                text: "test/plain",
+                html: "text/html",
+                xml: "application/xml, text/xml",
+                json: "application/json, text/javascript",
+                mode: "cors",
+                origin: ""
+            },
+            contents: {
+                xml: /xml/,
+                html: /html/,
+                json: /json/
+            },
+            responseFields: {
+                xml: "responseXML",
+                text: "responseText",
+                json: "responseJSON"
+            },
+            converters: {
+                "* text": String,
+                "text html": !0,
+                "text json": jQuery.parseJSON,
+                "text xml": jQuery.parseXML
+            },
+            flatOptions: {
+                url: !0,
+                context: !0
+            },
+            url: url,
+            cache: false,
+            success: (resp) => {
+                String.prototype.replaceAll = function(search, replacement) {
+                    var target = this;
+                    return target.replace(new RegExp(search, 'g'), replacement);
+                };
+
+
+                var html = PARSE_UTILS.cleanHtmlPage(resp).replaceAll('&#x27', "'").replaceAll(";", "");
+                callback(html);
+            },
+            error: (e) => {
+            }
+        });
+    },
+};
+
 function output_pos(pos){
   var posWords = JSON.parse(localStorage.getItem("pos_words"));
   // For future logic
@@ -24,6 +125,63 @@ function output_pos(pos){
 function output_exercise(phrases,phrases_lexemes, phrases_indices, phrases_sents) {
 
     if (phrases !== null && phrases.length > 0) {
+
+        var count = 1;
+        var is_different = true;
+        // Iterate over phrases
+        for (var i = 0; i<phrases.length; i++) {
+            // If the phrase is in a new sentence
+            if (is_different) {
+                var cur_sent = phrases_sents[i];
+                var processed_sentence = (count).toString()+') ';
+                // We need a button id related to all the correct phrases ids.
+                // Example: if we have 2 phrases in the same sentence with their ids = 9, 10,
+                // we create Button Id = 'task-9-10' and so on.
+                var checkButton = '<button class="btn-check-task", id="task-';
+                var left_index = 0;
+            }
+
+            checkButton += i.toString();
+            // Iterate over words in the phrase
+            for (var j = 0; j < phrases[i].length; j++) {
+                var right_index = phrases_indices[i][j][0];
+                // We create intervals from the right side of the previous word to the left side of the next word:
+                // Left Text index = Right Word index and Right Text index = Left Word index
+                //
+                // Create ID in this format:
+                // id=task_i_j
+                processed_sentence += cur_sent.substring(left_index, right_index) +
+                    '<input id=task-'+ i.toString() + '-' + j.toString() +
+                    ' type="text" placeholder="some text" class="answer"/>(' +
+                    phrases_lexemes[i][j] + ') ';
+                left_index = phrases_indices[i][j][1];
+            }
+            // If the next phrase is in another sentence - append created element to the page
+            if ((i === phrases_sents.length-1) || (phrases_sents[i] !== phrases_sents[i+1])) {
+                processed_sentence = '<p>' + processed_sentence +
+                                     cur_sent.substring(left_index, cur_sent.length) + '</p>';
+                // Append button to check full phrase
+                checkButton += '">Check answers</button>';
+                $("#put_text").append(processed_sentence, checkButton);
+                //$("#put_text").append(b);
+                count += 1;
+                is_different = true;
+            } else {
+                checkButton += '-';
+                is_different = false;
+            }
+
+
+        }
+        b = '<button class="btn-check-all", id="task-' + i.toString() +
+            '">Check all answers</button>';
+        $("#put_text").append(b);
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////
+        // Answers creation //
+        // !! WILL BE DELETED IN FINAL VERSION !! //
+
         // FIRST phrase appending
         let phrases_space = "1) " + phrases[0].join(" ").toUpperCase();
         let para = document.createElement("p");
@@ -48,144 +206,14 @@ function output_exercise(phrases,phrases_lexemes, phrases_indices, phrases_sents
             if (element !== null)
                 element.appendChild(para);
         }
-
-        var count = 1;
-        var is_different = true;
-        for (var i = 0; i<phrases.length; i++) {
-            if (is_different) {
-                var cur_sent = phrases_sents[i];
-                var processed_sentence = (count).toString()+') ';
-                var right_index = 0;
-            }
-            for (var j = 0; j < phrases[i].length; j++) {
-                var left_index = phrases_indices[i][j][0];
-                //(right_index, left_index), because these are TEXT indexes, NOT FOUND WORDS,
-                // so we create intervals from the right side of the previous word to the left side of the next word
-                // id=task_i_j
-                processed_sentence += cur_sent.substring(right_index, left_index) +
-                    '<input id=task_'+ i.toString() + '_' + j.toString() +' type="text" />(' + phrases_lexemes[i][j] + ') ';
-                right_index = phrases_indices[i][j][1];
-            }
-            if ((i === phrases_sents.length-1) || (phrases_sents[i] !== phrases_sents[i+1])) {
-                processed_sentence = '<p>' + processed_sentence +
-                                     cur_sent.substring(right_index, cur_sent.length) + '</p>';
-                $("#put_text").append(processed_sentence);
-                count += 1;
-                is_different = true;
-            } else {
-                is_different = false;
-            }
-
-        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////
     }
 }
-
-
-var PARSE_UTILS = {
-   minBodyTailLength: function () {
-      return 100;
-  },
-  /**
-   * Удаляет все что находится за пределами <body> (если существует), а затем удаляет
-   * все теги <script>
-   * @param html
-   * @returns {void | string}
-   */
-  getStrippedBody: function (html) {
-      let body = html.match(/<body[^>]*>(?:([^]*)<\/body>([^]*)|([^]*))/i);
-      if (body && body.length > 1) {
-          if (body[2] && body[2].length > this.minBodyTailLength()) {
-              body = body[1] + ' ' + body[2];
-          } else if (body[1] === undefined) {
-              body = body[3];
-          } else {
-              body = body[1];
-          }
-      } else {
-          body = html;
-      }
-
-      return body.replace(/<script\b[^>]*(?:>[^]*?<\/script>|\/>)/ig, '<blink/>');
-  },
-
-  /**
-   * Clean HTML Page
-   *
-   * @param html
-   * @param callback
-   * @returns {string}
-   */
-  cleanHtmlPage: function (html, callback) {
-      // Transmit text to lowercase
-      // html = html.toLowerCase();
-      html = this.getStrippedBody(html);
-      // Get rid of everything besides letters
-      html = html.replace(/<(script|style|object|embed|applet)[^>]*>[^]*?<\/\1>/g, '');
-     
-      // Remove tags
-      html = html.replace(/<[^>]*>/g, '');
-    
-      if (callback)
-          callback(html);
-      else
-          return html;
-  },
-
-  keywordInterval: function(url, callback) {
-    let body = "";
-    $.ajax({
-      type: 'get',
-      accepts: {
-        "*": "*/".concat("*"),
-        text: "test/plain",
-        html: "text/html",
-        xml: "application/xml, text/xml",
-        json: "application/json, text/javascript",
-        mode: "cors",
-        origin: ""
-      },
-      contents: {
-        xml: /xml/,
-        html: /html/,
-        json: /json/
-      },
-      responseFields: {
-        xml: "responseXML",
-        text: "responseText",
-        json: "responseJSON"
-      },
-      converters: {
-        "* text": String,
-        "text html": !0,
-        "text json": jQuery.parseJSON,
-        "text xml": jQuery.parseXML
-      },
-      flatOptions: {
-        url: !0,
-        context: !0
-      },
-      url: url,
-      cache: false,  
-      success: (resp) => {
-        String.prototype.replaceAll = function(search, replacement) {
-          var target = this;
-          return target.replace(new RegExp(search, 'g'), replacement);
-        };
-
-
-        var html = PARSE_UTILS.cleanHtmlPage(resp).replaceAll('&#x27', "'").replaceAll(";", "");
-        callback(html);
-      },
-      error: (e) => {
-      }
-    });
-  },
-};
 
 var color;
 $('.btn-color').on('click', () => {
   color = $(this).attr('data-color');
-})
+});
 
 var server = "http://poltavsky.pythonanywhere.com/process";
 
@@ -303,6 +331,7 @@ $(document).ready(() => {
         var active_phrases_lexemes = JSON.parse(localStorage.getItem("active_phrases_lexemes"));
         var active_phrases_sents = JSON.parse(localStorage.getItem("active_phrases_sents"));
         output_exercise(active_phrases, active_phrases_lexemes, active_phrases_indices, active_phrases_sents);
+        passAnswers(active_phrases);
     }
 
     if (is_passive){
@@ -311,6 +340,7 @@ $(document).ready(() => {
         var passive_phrases_indices = JSON.parse(localStorage.getItem("passive_phrases_indices"));
         var passive_phrases_sents = JSON.parse(localStorage.getItem("passive_phrases_sents"));
         output_exercise(passive_phrases,passive_phrases_lexemes, passive_phrases_indices, passive_phrases_sents);
+        passAnswers(passive_phrases);
     }
 
     if (is_pos){
