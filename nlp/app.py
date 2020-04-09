@@ -13,7 +13,6 @@ import passive_voice
 nlp_pos = tp.nlp_setup(spacy.load('en_core_web_sm'), 'pos')
 nlp_task_creator = tp.nlp_setup(spacy.load('en_core_web_sm'), 'tense')
 
-
 app = Flask(__name__)
 @app.route('/')
 def index():

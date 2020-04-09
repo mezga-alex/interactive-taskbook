@@ -1,3 +1,5 @@
+var bkg = chrome.extension.getBackgroundPage();
+
 function output_pos(pos){
   var posWords = JSON.parse(localStorage.getItem("pos_words"));
   // For future logic
@@ -19,18 +21,8 @@ function output_pos(pos){
   }
 }
 
-function insert_input_word(word){
-    var insert_word = `<div><input type="textbox" value="${word}" onfocus="this.value='';"/></div>`
-    return insert_word
-}
+function output_exercise(phrases,phrases_lexemes, phrases_indices, phrases_sents) {
 
-const splitAt = index => x => [x.slice(0, index), x.slice(index)]
-
-function output_exercise(phrases, phrases_indices, phrases_lexemes, phrases_sents){
-    // alert(phrases);
-    // alert(phrases_indices);
-    // alert(phrases_lexemes);
-    // alert(phrases_sents);
     if (phrases !== null && phrases.length > 0) {
         // FIRST phrase appending
         let phrases_space = "1) " + phrases[0].join(" ").toUpperCase();
@@ -57,48 +49,33 @@ function output_exercise(phrases, phrases_indices, phrases_lexemes, phrases_sent
                 element.appendChild(para);
         }
 
-
-        // ANOTHER sentences appending
-
-        var phrases_sent_proc;
-        var count = 0;
-        var is_similar = false;
-        for(var i = 0; i < passive_phrases_sents.length; i++) {
-            if (!is_similar) {
-                passive_phrases_sent_proc = passive_phrases_sents[i];
+        var count = 1;
+        var is_different = true;
+        for (var i = 0; i<phrases.length; i++) {
+            if (is_different) {
+                var cur_sent = phrases_sents[i];
+                var processed_sentence = (count).toString()+') ';
+                var right_index = 0;
             }
-            count += 1;
-
-            for (var j = 0; j < passive_phrases_indices[i].length; j++) {
-                let left_index = passive_phrases_indices[i][j][0];
-                let right_index = passive_phrases_indices[i][j][1];
-                let substr = passive_phrases_sent_proc.substring(left_index, right_index);
-
-                passive_phrases_sent_proc = passive_phrases_sent_proc.substring(0, left_index) + "_".repeat(substr.length)
-                    + passive_phrases_sent_proc.substring(right_index, passive_phrases_sent_proc.length);
-
+            for (var j = 0; j < phrases[i].length; j++) {
+                var left_index = phrases_indices[i][j][0];
+                //(right_index, left_index), because these are TEXT indexes, NOT FOUND WORDS,
+                // so we create intervals from the right side of the previous word to the left side of the next word
+                // id=task_i_j
+                processed_sentence += cur_sent.substring(right_index, left_index) +
+                    '<input id=task_'+ i.toString() + '_' + j.toString() +' type="text" />(' + phrases_lexemes[i][j] + ') ';
+                right_index = phrases_indices[i][j][1];
             }
-
-
-            let phrases_lexeme_build = "( " + phrases_lexemes[i].join(", ") + " )";
-            if ((phrases_sents[i] !== phrases_sents[i+1]) || (i === phrases_sents.length)) {
-                // console.log(phrases_sent_proc);
-                para = document.createElement("p");
-                node = document.createTextNode((count).toString() + ") " + phrases_sent_proc + '\n' + phrases_lexeme_build );
-                para.appendChild(node);
-                element = document.getElementById("put_text");
-                if (element !== null)
-                    element.appendChild(para);
-                    var x = document.createElement("INPUT");
-                    x.setAttribute("type", "text");
-                    x.setAttribute("id", "input"+(i+1).toString());
-                    x.setAttribute("value", "Enter your answer");
-                    element.appendChild(x);
-                is_similar = false;
+            if ((i === phrases_sents.length-1) || (phrases_sents[i] !== phrases_sents[i+1])) {
+                processed_sentence = '<p>' + processed_sentence +
+                                     cur_sent.substring(right_index, cur_sent.length) + '</p>';
+                $("#put_text").append(processed_sentence);
+                count += 1;
+                is_different = true;
             } else {
-                is_similar = true;
+                is_different = false;
             }
-            // bkg.console.log(phrases_sent_proc);
+
         }
     }
 }
@@ -325,15 +302,15 @@ $(document).ready(() => {
         var active_phrases_indices = JSON.parse(localStorage.getItem("active_phrases_indices"));
         var active_phrases_lexemes = JSON.parse(localStorage.getItem("active_phrases_lexemes"));
         var active_phrases_sents = JSON.parse(localStorage.getItem("active_phrases_sents"));
-        output_exercise(active_phrases, active_phrases_indices, active_phrases_lexemes, active_phrases_sents);
+        output_exercise(active_phrases, active_phrases_lexemes, active_phrases_indices, active_phrases_sents);
     }
 
     if (is_passive){
         var passive_phrases = JSON.parse(localStorage.getItem("passive_phrases"));
-        var passive_phrases_indices = JSON.parse(localStorage.getItem("passive_phrases_indices"));
         var passive_phrases_lexemes = JSON.parse(localStorage.getItem("passive_phrases_lexemes"));
+        var passive_phrases_indices = JSON.parse(localStorage.getItem("passive_phrases_indices"));
         var passive_phrases_sents = JSON.parse(localStorage.getItem("passive_phrases_sents"));
-        output_exercise(passive_phrases, passive_phrases_indices, passive_phrases_lexemes, passive_phrases_sents);
+        output_exercise(passive_phrases,passive_phrases_lexemes, passive_phrases_indices, passive_phrases_sents);
     }
 
     if (is_pos){
