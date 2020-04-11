@@ -3,7 +3,7 @@
 	z-index: 1;
 	display: inline-block;
 	margin: 1em;
-	max-width: 200px;
+	max-width: 250px;
 	width: calc(100% - 5em);
 	vertical-align: top;
 }
@@ -104,7 +104,7 @@
 }
 
 .input__label-content--kaede {
-	padding: 0.1em;
+	padding:0.4em 0.1em 0;
 }
 
 .input__field--kaede:focus,
