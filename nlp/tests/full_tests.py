@@ -9,6 +9,7 @@ import time
 import pandas as pd
 import seaborn as sns
 import os
+from tqdm import tqdm
 import platform
 
 
@@ -93,10 +94,10 @@ def merge_csv(path):
     for count in range(len(all_size_file)):
         df_all = pd.read_csv(path + all_size_file[count][0])
         for i in range(len(all_size_file[count])):
-            cur_file = path+all_size_file[count][i]
+            cur_file = path + all_size_file[count][i]
             df_cur = pd.read_csv(cur_file)
             df_all = pd.concat([df_all, df_cur], axis=0)
-        cur_csv_name = mean_path+'text_all_'+str((count+1)*5000)+'.csv'
+        cur_csv_name = mean_path + 'text_all_' + str((count + 1) * 5000) + '.csv'
         df_all.to_csv(cur_csv_name)
         print(cur_csv_name)
         merged_paths.append(cur_csv_name)
@@ -144,7 +145,9 @@ def plot_results(path_to_csv, save_path='', res_type='len', computation_type='cp
     f.canvas.set_window_title(path_to_csv)
     plt.title(path_to_csv)
     ax = sns.lineplot(x=df.index, y="time", data=df)
-    file_path = save_path+path_to_csv.split('/')[-1].split('.')[0]+'_'+res_type+'_'+computation_type+'.png'
+    print(path_to_csv)
+    print(path_to_csv.split('/')[-1].split('.')[0])
+    file_path = save_path + path_to_csv.split('/')[-1].split('.')[0] + '_' + res_type + '_' + computation_type + '.png'
     f.savefig(file_path)
 
     if verbose:
@@ -233,7 +236,7 @@ def time_measurement(text, nlp, min_batch_size=500, max_batch_size=5000, step=10
     return [time_arr, size_arr, num_batches]
 
 
-def test_batch(path, num_of_times=3, min_batch_size=500, max_batch_size=5000, step=100, gpu=False):
+def test_batch(path, num_of_times=3, min_batch_size=500, max_batch_size=5000, step=100, computation_type='cpu'):
     """
     Test text splitted by batches for given number of times
     Parameters
@@ -255,18 +258,20 @@ def test_batch(path, num_of_times=3, min_batch_size=500, max_batch_size=5000, st
     -------
     Saves csv and png file with results
     """
-    comp_type = 'cpu'
-    if gpu:
+    available_comp_types = ['cpu', 'gpu']
+    if computation_type not in available_comp_types:
+        print('wrong computation type: {} from available {}', format(computation_type, available_comp_types))
+    if computation_type == 'gpu':
         activated = spacy.prefer_gpu()
         if activated:
-            comp_type = 'gpu'
             print('GPU is activated.')
         else:
             print('GPU is not activated. Running on the CPU.')
+            computation_type = 'cpu'
 
     os.chdir(os.path.dirname(os.path.abspath(path)))
     os.chdir('..')
-    res_root_path = os.curdir + '/results/' + comp_type + '/'
+    res_root_path = os.curdir + '/results/' + computation_type + '/'
 
     img_res_path = res_root_path + 'img/'
     if not os.path.exists(img_res_path):
@@ -282,7 +287,7 @@ def test_batch(path, num_of_times=3, min_batch_size=500, max_batch_size=5000, st
     # ######## PARSING WITH BATCHES ######
     text_full = open(path).read().lower()
 
-    nlp = spacy.load('en_core_web_sm')
+    nlp = spacy.load('en_core_web_lg')
     nlp.max_length = 1500000
 
     csv_path_name = csv_res_path + text_name + '_' + str(num_of_times)
@@ -293,8 +298,8 @@ def test_batch(path, num_of_times=3, min_batch_size=500, max_batch_size=5000, st
     print("csv saved in: ", csv_file)
 
     # plot results by csv files
-    plot_results(csv_file, save_path=img_res_path, res_type='len', computation_type=comp_type, plt_show=False)
-    plot_results(csv_file, save_path=img_res_path, res_type='num', computation_type=comp_type, plt_show=False)
+    plot_results(csv_file, save_path=img_res_path, res_type='len', computation_type=computation_type, plt_show=False)
+    plot_results(csv_file, save_path=img_res_path, res_type='num', computation_type=computation_type, plt_show=False)
 
 
 def test_full_text(path):
@@ -312,7 +317,7 @@ def test_full_text(path):
         Execution time in seconds
     """
     text_full = open(path).read().lower()
-    nlp = spacy.load('en_core_web_sm')
+    nlp = spacy.load('en_core_web_lg')
     nlp.max_length = 1500000
 
     start_time = time.time()
@@ -321,7 +326,7 @@ def test_full_text(path):
     return elapsed_time
 
 
-def test_text_folder(folder_path):
+def test_text_folder(folder_path, computation_type='cpu'):
     """
     Test full text by it's given path
 
@@ -341,18 +346,21 @@ def test_text_folder(folder_path):
     text_files = os.listdir(folder_path)
     print('Files in a folder: ', len(text_files))
 
-    for file in text_files:
-        if file.endswith(".txt"):
-            file_path = folder_path + file
+    # for file in text_files:
+    # if file.endswith(".txt"):
+    for i in tqdm(range(len(text_files))):
+        if text_files[i].endswith(".txt"):
+            file_path = folder_path + text_files[i]
             print('processing: ', file_path)
-            test_batch(file_path, num_of_times=3, min_batch_size=500, max_batch_size=10000, step=100, gpu=False)
+            test_batch(file_path, num_of_times=3, min_batch_size=500, max_batch_size=10000, step=100,
+                       computation_type=computation_type)
 
-    csv_path = './results/cpu/csv/'
-    img_path = './results/cpu/img/mean'
+    csv_path = './results/'+computation_type+'/csv/'
+    img_path = './results/'+computation_type+'/img/mean'
     merged_paths = merge_csv(csv_path)
     for merged_csv in merged_paths:
-        plot_results(merged_csv, save_path=img_path, res_type='len', computation_type='cpu', plt_show=False)
-        plot_results(merged_csv, save_path=img_path, res_type='num', computation_type='cpu', plt_show=False)
+        plot_results(merged_csv, save_path=img_path, res_type='len', computation_type=computation_type, plt_show=False)
+        plot_results(merged_csv, save_path=img_path, res_type='num', computation_type=computation_type, plt_show=False)
 
 
 def plot_mean(csv_mean_path, res_type):
@@ -418,6 +426,9 @@ def plot_each_mean(csv_mean_path, res_type):
 
 
 def plot_cpu_vs_gpu(cpu_csv_folder, gpu_csv_folder, res_type, plot_grid=True):
+    """
+
+    """
     if res_type == "len":
         index_col = "size"
     elif res_type == "num":
@@ -426,16 +437,17 @@ def plot_cpu_vs_gpu(cpu_csv_folder, gpu_csv_folder, res_type, plot_grid=True):
         print("provided type: {} is not supported. Exiting".format(res_type))
         return
 
-    results = '/'.join(cpu_csv_folder.split('/')[:-3])+"/"
+    results = '/'.join(cpu_csv_folder.split('/')[:-3]) + "/"
     cpu_files = sorted(os.listdir(cpu_csv_folder), reverse=True)
     gpu_files = sorted(os.listdir(gpu_csv_folder), reverse=True)
-    # print(csv_files)
+    # print(cpu_files)
+    # print(gpu_files)
 
-    labels_gpu = ['GPU, length: ' + i.split(".")[0].split("_")[-1] for i in gpu_files]
-    labels_cpu = ['CPU, length: ' + i.split(".")[0].split("_")[-1] for i in cpu_files]
-    # print(labels)
+    labels_gpu = ['GPU, length: ' + i.split(".")[0].split("_")[1] for i in gpu_files]
+    labels_cpu = ['CPU, length: ' + i.split(".")[0].split("_")[1] for i in cpu_files]
+    # print(labels_gpu)
 
-    for i in range(len(labels_gpu)):
+    for i in tqdm(range(min(len(cpu_files), len(gpu_files)))):
         g = plt.figure(figsize=(6, 8))
         cpu_file = cpu_csv_folder + cpu_files[i]
         gpu_file = gpu_csv_folder + gpu_files[i]
@@ -449,6 +461,7 @@ def plot_cpu_vs_gpu(cpu_csv_folder, gpu_csv_folder, res_type, plot_grid=True):
         file_path = results + labels_cpu[i].split(':')[-1] + "_" + res_type + '_CPU_vs_GPU.png'
 
         g.savefig(file_path)
+        plt.close(g)
         # plt.show(g)
 
     if plot_grid:
@@ -473,17 +486,21 @@ def plot_cpu_vs_gpu(cpu_csv_folder, gpu_csv_folder, res_type, plot_grid=True):
                 ax = sns.lineplot(x=index_col, y="time", data=df_cpu, legend="brief", ax=axes[i, j])
                 ax = sns.lineplot(x=index_col, y="time", data=df_gpu, legend=False, ax=axes[i, j])
                 ax.legend(title='Comparison', loc='center right', labels=["CPU", "GPU"])
-                ax.set_title("length: "+labels_cpu[count].split(':')[-1])
+                ax.set_title("length: " + labels_cpu[count].split(':')[-1])
                 count += 1
 
         grid_file_path = results + "_" + res_type + '_CPU_vs_GPU_Grid.png'
         f.savefig(grid_file_path)
+        plt.close(f)
+
 
 
 def main():
     folder_path = './texts/'
-    test_text_folder(folder_path)
-
+    cpu_results_csv = "./results_sm/cpu/csv/"
+    gpu_results_csv = './results_sm/gpu/csv/'
+    # test_text_folder(folder_path, 'cpu')
+    plot_cpu_vs_gpu(cpu_results_csv, gpu_results_csv, 'len', plot_grid=True)
 
 if __name__ == '__main__':
     main()
