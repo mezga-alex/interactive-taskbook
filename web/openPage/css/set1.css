@@ -88,6 +88,14 @@
 	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
 }
 
+.input__field--kaede-correct {
+	background: #30b031;
+	color: #000000;
+}
+.input__field--kaede-incorrect {
+	background: #b01a09;
+	color: #000000;
+}
 .input__label--kaede {
 	z-index: 10;
 	display: inline-block;
