@@ -151,7 +151,7 @@ function output_exercise(phrases,phrases_lexemes, phrases_indices, phrases_sents
                 // Create ID in this format:
                 // id=task_i_j
                 var input =
-                    '<span class="input input--kaede">\n' +
+                    '<span class="input input--kaede align-middle">\n' +
                     '<input class="input__field input__field--kaede" type="text" ' +
                             'id="task-' + i.toString() + '-' + j.toString() + '" />\n' +
                     '<label class="input__label input__label--kaede" for="task-' + i.toString() + '-' + j.toString() + '">\n' +

@@ -3,7 +3,7 @@
 	z-index: 1;
 	display: inline-block;
 	margin: 1em;
-	max-width: 200px;
+	max-width: 250px;
 	width: calc(100% - 5em);
 	vertical-align: top;
 }
@@ -88,6 +88,14 @@
 	transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
 }
 
+.input__field--kaede-correct {
+	background: #30b031;
+	color: #000000;
+}
+.input__field--kaede-incorrect {
+	background: #b01a09;
+	color: #000000;
+}
 .input__label--kaede {
 	z-index: 10;
 	display: inline-block;
@@ -104,7 +112,7 @@
 }
 
 .input__label-content--kaede {
-	padding: 0.1em;
+	padding:0.4em 0.1em 0;
 }
 
 .input__field--kaede:focus,
