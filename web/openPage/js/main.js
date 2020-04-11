@@ -64,6 +64,11 @@ $(document).ready(() => {
                 else {
                     let nextID = '#' + $(nextInput).attr('id');
                     $(nextID).click();
+
+                    // If there is the next task -> go to it
+                    nextInput = inputs.get(inputs.index(this) + 2).focus();
+                    if (nextInput && nextInput.tagName === 'INPUT')
+                        nextInput.focus();
                 }
             }
         }
