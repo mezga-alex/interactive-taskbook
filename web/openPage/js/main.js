@@ -75,7 +75,8 @@ function checkFullTask(e) {
 
 $(document).ready(() => {
     // Handle pressing the enter key
-    var inputs = $(':input').keypress(function(e){
+    var inputs = $(':input').keyup(function(e){
+        // alert('key');
         if (e.which == 13) {
             e.preventDefault();
             var nextInput = inputs.get(inputs.index(this) + 1);
