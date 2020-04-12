@@ -137,7 +137,7 @@ function output_exercise(phrases,phrases_lexemes, phrases_indices, phrases_sents
                 // We need a button id related to all the correct phrases ids.
                 // Example: if we have 2 phrases in the same sentence with their ids = 9, 10,
                 // we create Button Id = 'task-9-10' and so on.
-                var checkButton = '<button class="btn-check-task", id="task-';
+                var checkButton = '<div class="task-btn"><button class="btn-check-task", id="task-';
                 var left_index = 0;
             }
 
@@ -151,7 +151,9 @@ function output_exercise(phrases,phrases_lexemes, phrases_indices, phrases_sents
                 // Create ID in this format:
                 // id=task_i_j
                 var input =
-                    '<span class="input input--kaede align-middle">\n' +
+
+                    '<span class="input input--kaede align-middle" ' +
+                    'id="span-task-' + i.toString() + '-' + j.toString() + '">\n' +
                     '<input class="input__field input__field--kaede" type="text" ' +
                             'id="task-' + i.toString() + '-' + j.toString() + '" />\n' +
                     '<label class="input__label input__label--kaede" for="task-' + i.toString() + '-' + j.toString() + '">\n' +
@@ -165,11 +167,12 @@ function output_exercise(phrases,phrases_lexemes, phrases_indices, phrases_sents
             }
             // If the next phrase is in another sentence - append created element to the page
             if ((i === phrases_sents.length-1) || (phrases_sents[i] !== phrases_sents[i+1])) {
-                processed_sentence = '<p>' + processed_sentence +
-                                     cur_sent.substring(left_index, cur_sent.length) + '</p>';
+                processed_sentence = '<div class="task-p"><p>' + processed_sentence +
+                                     cur_sent.substring(left_index, cur_sent.length) + '</p></div>';
                 // Append button to check full phrase
-                checkButton += '">Check answers</button>';
-                $("#put_text").append(processed_sentence, checkButton);
+                checkButton += '">Check answers</button></div>';
+                let fullTaskHTML = '<div class="task">' + processed_sentence + checkButton + '</div>';
+                $("#put_text").append(fullTaskHTML);
                 //$("#put_text").append(b);
                 count += 1;
                 is_different = true;
