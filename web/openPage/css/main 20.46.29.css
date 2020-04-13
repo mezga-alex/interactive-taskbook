@@ -1,0 +1,78 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+}
+
+div{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    /* max-width: 1000px; */
+    /* align-content: center; */
+}
+
+.alert-heading{
+    font-family: Helvetica, sans-serif;
+    font-style: inherit;
+    font-weight: 600;
+    font-size: 32px;
+}
+
+.passive{
+    max-width: 900px;
+}
+
+.popup-header {
+    vertical-align: middle;
+    background-color: #3176f5;
+}
+
+.main-text{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-style: inherit;
+    font-weight: 600;
+    font-size: 48px;
+    
+}
+
+.task-text{
+    width:900px;
+    margin: 0 auto;
+}
+
+.task{
+    background-color: rgba(240, 240, 240, 0.61);
+    /* text-align: inherit; */
+    align-items: center;
+    text-align: justify;
+}
+
+.answers{
+    background-color: rgba(46, 252, 5, 0.459);
+    text-align: justify;
+}
+
+.btn-check-task {
+    width: 200px;
+    height: 38px;
+    border-radius: 8px;
+    background-color: #027aff;
+
+    border: 0px solid white;
+    text-transform: uppercase;
+    padding: 0px;
+    margin: auto;
+
+    font-family: Helvetica;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.task-p {
+    width: 80%;
+}

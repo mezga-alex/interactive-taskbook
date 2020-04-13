@@ -3,7 +3,7 @@
 	z-index: 1;
 	display: inline-block;
 	margin: 1em;
-	max-width: 250px;
+	max-width: 400px;
 	width: calc(100% - 5em);
 	vertical-align: top;
 }
@@ -71,7 +71,8 @@
 	overflow: hidden;
 	margin: 0.15em;
 	border-radius: 8px;
-	background: rgba(230, 229, 229, 0.51);
+	/*border: 2px solid;*/
+	background: #f3f4f7;
 }
 
 .input__field--kaede {
@@ -80,8 +81,8 @@
 	right: 100%;
 	width: 60%;
 	height: 100%;
-	background: #fff;
-	color: #9DABBA;
+	background: #f9f9f9;
+	color: #707d8c;
 	-webkit-transition: -webkit-transform 0.5s;
 	transition: transform 0.5s;
 	-webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
@@ -89,12 +90,12 @@
 }
 
 .input__field--kaede-correct {
-	background: #30b031;
-	color: #000000;
+	background: #1cc88a;
+	color: #ffffff;
 }
 .input__field--kaede-incorrect {
-	background: #b01a09;
-	color: #000000;
+	background: #e74a3b;
+	color: #ffffff;
 }
 .input__label--kaede {
 	z-index: 10;

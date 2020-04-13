@@ -6,6 +6,16 @@ function passAnswers(newAnswers) {
     answers = newAnswers;
 }
 
+// Resize all input forms according to their content
+function resizeInputs() {
+    let lexemeSpans = document.getElementsByClassName("input__label-content--kaede");
+    let inputs = document.getElementsByClassName("input--kaede");
+    for (var i = 0; i < lexemeSpans.length; i++) {
+        let lexeme = lexemeSpans.item(i).innerHTML;
+        inputs.item(i).style.width = (2 * (lexeme.length + 1) + 1).toString() + 'em';
+    }
+}
+
 // Add animation class
 function animateCSS(element, animationName, callback) {
     classie.addClass(element, 'animated');
@@ -47,22 +57,22 @@ function checkFullTask(e) {
 
             // TODO: Get element by jquery.
             //  element = $(taskID) doesn't work.
-            // Get element of the input
-            taskID = taskID.substr(1); // Remove '#'
-            var element = document.getElementById(taskID);
+            // Get span for the current input
+            spanID = 'span-'+taskID.substr(1); // Remove '#' from taskID
+            var element = document.getElementById(spanID);
             // If the word is correct -> set up green background
             if (isCorrect) {
-                if (!correctAnswers.has(taskID)) {
-                    correctAnswers.add(taskID);
-                    classie.removeClass(element, 'input__field--kaede-incorrect');
-                    classie.addClass(element, 'input__field--kaede-correct');
+                if (!correctAnswers.has(taskID.substr(1))) {
+                    correctAnswers.add(taskID.substr(1));
+                    classie.removeClass(element, 'border-bottom-danger');
+                    classie.addClass(element, 'border-bottom-success');
                     animateCSS(element, 'fadeIn');
                 }
                 // If the word is correct and is not empty -> set up red background
             } else if (userAnswer !== '') {
                 if (correctAnswers.has(taskID)) correctAnswers.delete(taskID);
-                classie.removeClass(element, 'input__field--kaede-correct');
-                classie.addClass(element, 'input__field--kaede-incorrect');
+                classie.removeClass(element, 'border-bottom-success');
+                classie.addClass(element, 'border-bottom-danger');
                 animateCSS(element, 'fadeIn');
             }
 
@@ -74,6 +84,8 @@ function checkFullTask(e) {
 }
 
 $(document).ready(() => {
+    resizeInputs();
+
     // Handle pressing the enter key
     var inputs = $(':input').keyup(function(e){
         // alert('key');
@@ -98,17 +110,21 @@ $(document).ready(() => {
             }
         } else {
             // If there are any “correct” or “inCorrect” classes, but change the input -> delete these classes
-            let isCorrect = this.classList.contains('input__field--kaede-correct');
-            let isIncorrect = this.classList.contains('input__field--kaede-incorrect');
+            let taskID = $(inputs.get(inputs.index(this))).attr('id');
+            // Need span to create border for full length
+            let spanID = 'span-'+taskID;
+            let element = document.getElementById(spanID);
+
+            let isCorrect = element.classList.contains('border-bottom-success');
+            let isIncorrect = element.classList.contains('border-bottom-danger');
             if (isCorrect || isIncorrect) {
                 if (isCorrect) {
                     // Remove current input ID from correct answers
-                    let inputID = $(inputs.get(inputs.index(this))).attr('id');
-                    correctAnswers.delete(inputID);
-                    classie.removeClass(this, 'input__field--kaede-correct');
+                    correctAnswers.delete(taskID);
+                    classie.removeClass(element, 'border-bottom-success');
                 }
-                if (isIncorrect) classie.removeClass(this, 'input__field--kaede-incorrect');
-                animateCSS(this, 'fadeIn');
+                if (isIncorrect) classie.removeClass(element, 'border-bottom-danger');
+                animateCSS(element, 'fadeIn');
             }
         }
     });
