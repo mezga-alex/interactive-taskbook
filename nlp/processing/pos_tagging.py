@@ -1,47 +1,67 @@
-import spacy
-import text_processor
-from spacy.matcher import Matcher
+"""Search for a specific part of speech in the text.
+
+POS search algorithm in the text.
+- Prepare raw text.
+- Use the NLP model.
+- Matching
+- Return results.
+"""
+
+import text_processor as tp
 
 
-def pos_tag_search(pos_tag, text):
-    nlp = spacy.load('en_core_web_sm')
-    nlp.tokenizer = text_processor.custom_tokenizer(nlp)
-    nlp.max_length = 1500000
+def pos_tag_search(nlp, text, pos_tag):
+    """Search for a specific part of speech.
 
-    # #################################################################
-    # ###################### SET UP MATCHER ###########################
-    # #################################################################
+    Parameters
+    ----------
+    nlp : nlp
+        Prepared nlp model
 
-    matcher = Matcher(nlp.vocab)
+    text : str
+        Text for analysis.
 
-    pattern = [{'ORTH': "'"},
-               {'ORTH': 've'}]
+    pos_tag: str
+        The desired part of speech.
 
-    pattern_2 = [{'ORTH': "'"},
-                 {'ORTH': 'm'}]
+    Returns
+    -------
+    result: list
+       List of tokens and their indices.
+    """
 
-    matcher.add('QUOTED', None, pattern, pattern_2)
+    text = tp.lexical_processor(text)
 
-    def match_merger(doc):
-        # this will be called on the Doc object in the pipeline
-        matched_spans = []
-        matches = matcher(doc)
-        for match_id, start, end in matches:
-            span = doc[start:end]
-            matched_spans.append(span)
-        for span in matched_spans:  # merge into one token after collecting all matches
-            span.merge()
-        return doc
+    # Create flexible batches (split at the end of the sentence)
+    batch_indices = tp.flexible_batch_indices(text, 1000)
+    text_split = [text[batch_indices[i-1]:batch_indices[i]] for i in range(1, len(batch_indices))]
 
-    nlp.add_pipe(match_merger, first=True)  # add it right after the tokenizer
-    # #################################################################
+    # Apply the model to batches
+    docs = list(nlp.pipe(text_split))
 
-    doc = nlp(text)
-
+    # Lists needed to return a result
     tokens = []
-    index = 0
-    for token in doc:
-        if token.pos_ == pos_tag:
-            tokens.append([token.text, index])
+    tokens_indices = []
+    tokens_pos = []
 
-    return tokens
+    # Specific or all POS are needed
+    include_all_pos = pos_tag == 'ALL'
+    for cur_batch, doc in enumerate(docs):
+        batch_idx = batch_indices[cur_batch]
+        for token in doc:
+            # Check compliance with the requirement and not equality with the punctuation mark
+            if (token.pos_ == pos_tag or include_all_pos) and token.pos_ != 'PUNCT':
+                tokens.append(token.text)
+                tokens_indices.append([batch_idx + token.idx,
+                                       batch_idx + token.idx + len(token)])
+                if include_all_pos:
+                    tokens_pos.append(token.pos_)
+
+    result = [tokens, tokens_indices]
+
+    # Append POS Tags only if all is needed
+    if include_all_pos:
+        result.append(tokens_pos)
+
+    return result
+

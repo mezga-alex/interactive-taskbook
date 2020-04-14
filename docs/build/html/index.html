@@ -1,0 +1,510 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Skyeng-grammar-filter documentation &mdash; skyeng-grammar-filter 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> skyeng-grammar-filter
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Skyeng-grammar-filter documentation</a></li>
+<li><a class="reference internal" href="#module-passive_voice">Passive voice detection</a></li>
+<li><a class="reference internal" href="#module-pos_tagging">Part of speech tagging</a></li>
+<li><a class="reference internal" href="#module-text_processor">Process texts</a></li>
+<li><a class="reference internal" href="#module-full_tests">Complete tests for CPU and GPU</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">skyeng-grammar-filter</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Skyeng-grammar-filter documentation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="skyeng-grammar-filter-documentation">
+<h1>Skyeng-grammar-filter documentation<a class="headerlink" href="#skyeng-grammar-filter-documentation" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="module-passive_voice">
+<span id="passive-voice-detection"></span><h1>Passive voice detection<a class="headerlink" href="#module-passive_voice" title="Permalink to this headline">¶</a></h1>
+<p>Passive Voice Search.</p>
+<p>Passive voice search algorithm in the text.
+- Prepare raw text.
+- Use the NLP model.
+- Use rule-based algorithm.
+- Return results.</p>
+<dl class="function">
+<dt id="passive_voice.get_tense_rule">
+<code class="sig-prename descclassname">passive_voice.</code><code class="sig-name descname">get_tense_rule</code><span class="sig-paren">(</span><em class="sig-param">tense</em><span class="sig-paren">)</span><a class="headerlink" href="#passive_voice.get_tense_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to take the rules for a certain tense.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="passive_voice.passive_voice_search_batches">
+<code class="sig-prename descclassname">passive_voice.</code><code class="sig-name descname">passive_voice_search_batches</code><span class="sig-paren">(</span><em class="sig-param">text</em>, <em class="sig-param">tense='ALL'</em><span class="sig-paren">)</span><a class="headerlink" href="#passive_voice.passive_voice_search_batches" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for passive voices for a given tense.</p>
+<p>Using batches is much more efficient than raw text..</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – Text for analysis.</p></li>
+<li><p><strong>tense</strong> (<em>str</em>) – Given tense for search.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>result</strong> – List contains:
+1. Passive verbs.
+2. Indexes of found phrases.
+3. Initial forms of words.
+4. Sentences that contain phrases.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pos_tagging">
+<span id="part-of-speech-tagging"></span><h1>Part of speech tagging<a class="headerlink" href="#module-pos_tagging" title="Permalink to this headline">¶</a></h1>
+<p>Search for a specific part of speech in the text.</p>
+<p>POS search algorithm in the text.
+- Prepare raw text.
+- Use the NLP model.
+- Matching
+- Return results.</p>
+<dl class="function">
+<dt id="pos_tagging.pos_tag_search">
+<code class="sig-prename descclassname">pos_tagging.</code><code class="sig-name descname">pos_tag_search</code><span class="sig-paren">(</span><em class="sig-param">text</em>, <em class="sig-param">pos_tag</em><span class="sig-paren">)</span><a class="headerlink" href="#pos_tagging.pos_tag_search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for a specific part of speech.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – Text for analysis.</p></li>
+<li><p><strong>pos_tag</strong> (<em>str</em>) – The desired part of speech.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>result</strong> – List of tokens and their indices.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-text_processor">
+<span id="process-texts"></span><h1>Process texts<a class="headerlink" href="#module-text_processor" title="Permalink to this headline">¶</a></h1>
+<p>Text processing before use.</p>
+<p>We make some manipulations before submitting text to the input of the NLP model.
+- Replace some non-standard symbols.
+- Change standard tokenizer.
+- Change standard matcher.</p>
+<dl class="function">
+<dt id="text_processor.custom_matcher">
+<code class="sig-prename descclassname">text_processor.</code><code class="sig-name descname">custom_matcher</code><span class="sig-paren">(</span><em class="sig-param">nlp</em><span class="sig-paren">)</span><a class="headerlink" href="#text_processor.custom_matcher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change matcher of the NLP Model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nlp</strong> – Loaded NLP Model.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>NLP Model with custom matcher.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tokenizer(nlp)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="text_processor.custom_tokenizer">
+<code class="sig-prename descclassname">text_processor.</code><code class="sig-name descname">custom_tokenizer</code><span class="sig-paren">(</span><em class="sig-param">nlp</em><span class="sig-paren">)</span><a class="headerlink" href="#text_processor.custom_tokenizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change tokenizer of the NLP Model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nlp</strong> – Loaded NLP Model.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>NLP Model with custom tokenizer.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tokenizer(nlp)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="text_processor.flexible_batch_indices">
+<code class="sig-prename descclassname">text_processor.</code><code class="sig-name descname">flexible_batch_indices</code><span class="sig-paren">(</span><em class="sig-param">text</em>, <em class="sig-param">approximate_batch_size</em><span class="sig-paren">)</span><a class="headerlink" href="#text_processor.flexible_batch_indices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the borders of the batches.</p>
+<p>Using batches is much more efficient than raw text..</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – Text for analysis.</p></li>
+<li><p><strong>approximate_batch_size</strong> (<em>int</em>) – Estimated batches size in characters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>batch_indices</strong> – List of indices of the end of batches.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="text_processor.lexical_processor">
+<code class="sig-prename descclassname">text_processor.</code><code class="sig-name descname">lexical_processor</code><span class="sig-paren">(</span><em class="sig-param">text</em><span class="sig-paren">)</span><a class="headerlink" href="#text_processor.lexical_processor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets raw text and returns processed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – Text for analysis.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>text</strong> – Processed text for the NLP Model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-full_tests">
+<span id="complete-tests-for-cpu-and-gpu"></span><h1>Complete tests for CPU and GPU<a class="headerlink" href="#module-full_tests" title="Permalink to this headline">¶</a></h1>
+<p>Script for complete testing the speed of applying
+the Natural Language Processing (NLP) model to the texts of various length</p>
+<dl class="function">
+<dt id="full_tests.export_csv">
+<code class="sig-prename descclassname">full_tests.</code><code class="sig-name descname">export_csv</code><span class="sig-paren">(</span><em class="sig-param">result</em>, <em class="sig-param">param</em>, <em class="sig-param">continue_df</em><span class="sig-paren">)</span><a class="headerlink" href="#full_tests.export_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export results to csv</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result</strong> (<em>list</em>) – List of results parameters</p></li>
+<li><p><strong>param</strong> (<em>str</em>) – Num of iterations</p></li>
+<li><p><strong>continue_df</strong> (<em>bool</em>) – Signs of continuous experiment. Getting N times to illustrate mean expectance perfomance with deviation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>path</strong> – Path of saved csv table</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="full_tests.gather_csv">
+<code class="sig-prename descclassname">full_tests.</code><code class="sig-name descname">gather_csv</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="headerlink" href="#full_tests.gather_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gather csv files by certain length of text</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path_to_csv</strong> (<em>str</em>) – The path to the csv file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Nested list of csv file paths</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="full_tests.merge_csv">
+<code class="sig-prename descclassname">full_tests.</code><code class="sig-name descname">merge_csv</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="headerlink" href="#full_tests.merge_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge csv files by certain length of text</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path_to_csv</strong> (<em>str</em>) – The path to the csv file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List of merged csv file paths</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="full_tests.plot_results">
+<code class="sig-prename descclassname">full_tests.</code><code class="sig-name descname">plot_results</code><span class="sig-paren">(</span><em class="sig-param">path_to_csv</em>, <em class="sig-param">save_path=''</em>, <em class="sig-param">res_type='len'</em>, <em class="sig-param">computation_type='cpu'</em>, <em class="sig-param">plt_show=False</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#full_tests.plot_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot results by provided path of csv file and type of result to plot</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_to_csv</strong> (<em>str</em>) – The path to the csv file</p></li>
+<li><p><strong>save_path</strong> (<em>str</em>) – The path to save the plot.</p></li>
+<li><p><strong>res_type</strong> (<em>str</em>) – ‘len’ or ‘num’ - Build plot by length or number of batches.</p></li>
+<li><p><strong>computation_type</strong> (<em>str</em>) – ‘cpu’, ‘gpu’ - The type was used.</p></li>
+<li><p><strong>plt_show</strong> (<em>bool</em>) – True for showing on IDE, False for better look in jupyter notebook.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) – Detailed description.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Saved plot image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="full_tests.test_batch">
+<code class="sig-prename descclassname">full_tests.</code><code class="sig-name descname">test_batch</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">num_of_times=3</em>, <em class="sig-param">min_batch_size=500</em>, <em class="sig-param">max_batch_size=5000</em>, <em class="sig-param">step=100</em>, <em class="sig-param">gpu=False</em><span class="sig-paren">)</span><a class="headerlink" href="#full_tests.test_batch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test text splitted by batches for given number of times
+:param path: Path of given text.
+:type path: str
+:param num_of_times: Number of times to measure each text.
+:type num_of_times: int
+:param min_batch_size: Minimum size of batches.
+:type min_batch_size: int
+:param max_batch_size: Maximum size of batches.
+:type max_batch_size: int
+:param step: Step to increase the size of the batch.
+:type step: int
+:param gpu: Flag to enable calculations on GPU.
+:type gpu: bool</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Saves csv and png file with results</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="full_tests.test_full_text">
+<code class="sig-prename descclassname">full_tests.</code><code class="sig-name descname">test_full_text</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="headerlink" href="#full_tests.test_full_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test full text by it’s given path</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Path to the text</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Execution time in seconds</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>elapsed_time</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="full_tests.time_measurement">
+<code class="sig-prename descclassname">full_tests.</code><code class="sig-name descname">time_measurement</code><span class="sig-paren">(</span><em class="sig-param">text</em>, <em class="sig-param">nlp</em>, <em class="sig-param">min_batch_size=500</em>, <em class="sig-param">max_batch_size=5000</em>, <em class="sig-param">step=100</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#full_tests.time_measurement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measures time of given text and params for it’s evaluation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – Text for analysis.</p></li>
+<li><p><strong>nlp</strong> – Loaded NLP Model.</p></li>
+<li><p><strong>min_batch_size</strong> (<em>int</em>) – Minimum batch size.</p></li>
+<li><p><strong>max_batch_size</strong> (<em>int</em>) – Maximum batch size.</p></li>
+<li><p><strong>step</strong> (<em>int</em>) – Step to iterate over size.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) – Detailed description</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List contains:
+1. Runtime list
+2. Batches size list.
+3. Number of batches list.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Artem Poltavskiy and Alexander Mezga
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
