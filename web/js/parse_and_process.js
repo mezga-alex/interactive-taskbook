@@ -13,6 +13,8 @@ let collapseCardEndId3StartTaskHTML = '">'+ '<div class="card-body">';
 // -> Insert task
 let collapseCardEndTaskHTML = '</div></div></div>';
 
+var bkg = chrome.extension.getBackgroundPage();
+
 var PARSE_UTILS = {
     minBodyTailLength: function () {
         return 100;
@@ -187,12 +189,12 @@ function output_exercise(phrases,phrases_lexemes, phrases_indices, phrases_sents
                 checkButton += '">Check answers</button></div>';
                 // Full task HTML
                 processed_sentence = '<div class="task-p"><p>' + processed_sentence +
-                                     cur_sent.substring(left_index, cur_sent.length) + '</p></div>' + checkButton;
+                                     cur_sent.substring(left_index, cur_sent.length) + '</p></div>' + checkButton + '<hr>';
 
                 // Create completed HTML element with separated tasks
                 let fullTaskHTML = collapseCardWrapper(count.toString(), processed_sentence);
 
-                $("#put_text").append(fullTaskHTML);
+                $("#put_text").append(processed_sentence);
                 count += 1;
                 is_different = true;
             } else {
@@ -257,25 +259,6 @@ $("#switch-id").click(function() {
 
     }
 });
-
-[].slice.call( document.querySelectorAll( '.progress-button' ) ).forEach( function( bttn, pos ) {
-    //alert('oaoaoa');
-    new UIProgressButton( bttn, {
-        callback : function( instance ) {
-            var progress = 0,
-                interval = setInterval( function() {
-                    progress = Math.min( progress + Math.random() * 0.1, 1 );
-                    instance.setProgress( progress );
-
-                    if( progress === 1 ) {
-                        instance.stop( pos === 1 || pos === 3 ? -1 : 1 );
-                        clearInterval( interval );
-                    }
-                }, 150 );
-        }
-    } );
-} );
-
 
 
 $("#btn-find").on("click", () => {
