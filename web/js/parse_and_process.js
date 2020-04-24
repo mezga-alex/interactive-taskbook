@@ -115,8 +115,6 @@ $("#switch-id").click(function() {
         alert('Be sure to run your localhost to evaluate results: '+ server);
     }  else {
         server = "http://poltavsky.pythonanywhere.com/process";
-//        alert ("Running on remote server: "+ server);
-
     }
 });
 
@@ -142,7 +140,6 @@ $("#btn-find").on("click", () => {
         task = 'PASSIVE_VOICE';
         specifiedTask = passive_voice;
     }
-    alert(task, specifiedTask);
     //////////////////////////////////////////////
     chrome.tabs.getSelected(null, (tab) => {
         let tabUrl = tab.url;
@@ -156,7 +153,6 @@ $("#btn-find").on("click", () => {
             // for local inference use:
             // http://poltavsky.pythonanywhere.com/process
             // http://127.0.0.1:5000/process
-            // alert(server);
             fetch(server, {
                 method: "POST",
                 credentials: "include",
@@ -196,7 +192,6 @@ $("#btn-find").on("click", () => {
                         }
 
                         if (task === 'PASSIVE_VOICE') {
-                            alert('Lalala');
                             is_passive = true;
                             localStorage.setItem('passive_phrases', JSON.stringify(result[0]));
                             localStorage.setItem('passive_phrases_indices', JSON.stringify(result[1]));
