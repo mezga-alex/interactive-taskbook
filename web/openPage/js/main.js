@@ -1,13 +1,11 @@
-let answers;
 var correctAnswers = new Set();
 var strictCheck = false;
-
-function passAnswers(newAnswers) {
-    answers = newAnswers;
-    alert(answers);
-}
-
-
+var server;
+var text;
+var task;
+var specifiedTask;
+var result;
+var answers;
 // Resize all input forms according to their content
 function resizeInputs() {
     let lexemeSpans = document.getElementsByClassName("input__label-content--kaede");
@@ -86,15 +84,21 @@ function checkFullTask(e) {
 }
 
 $(document).ready(() => {
-    let text = localStorage.getItem("text");
-    let task = localStorage.getItem("task");
-    let specifiedTask = localStorage.getItem("specifiedTask");
-    var result = JSON.parse(localStorage.getItem("result"));
+    // Recover variables from extension
+    server = localStorage.getItem("server");
+    text = localStorage.getItem("text");
+    task = localStorage.getItem("task");
+    specifiedTask = localStorage.getItem("specifiedTask");
+    result = JSON.parse(localStorage.getItem("result"));
+
+    // If we have correct answers- handle it
     createTaskByResult(task, result);
+    if (task === 'PASSIVE_VOICE' || task === 'ACTIVE_VOICE') {
+        answers = getResultAttribute(result, task, 'phrases')
+    }
 
     // Handle pressing the enter key
     var inputs = $(':input').keyup(function(e){
-        // alert('key');
         if (e.which == 13) {
             e.preventDefault();
             var nextInput = inputs.get(inputs.index(this) + 1);

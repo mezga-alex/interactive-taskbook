@@ -106,6 +106,10 @@ $('.btn-color').on('click', () => {
   color = $(this).attr('data-color');
 });
 
+// chrome.tabs.create({'url': './openPage/result.html' });
+// for local inference use:
+// http://poltavsky.pythonanywhere.com/process
+// http://127.0.0.1:5000/process
 var server = "http://poltavsky.pythonanywhere.com/process";
 $("#switch-id").click(function() {
     // this function will get executed every time the #switch-id element is clicked (or tab-spacebar changed)
@@ -117,45 +121,6 @@ $("#switch-id").click(function() {
         server = "http://poltavsky.pythonanywhere.com/process";
     }
 });
-
-function fetchOutside(text, task, specifiedTask) {
-    let data = JSON.stringify({
-        "text": text,
-        "task": task,
-        "specifiedTask": specifiedTask
-    });
-
-    // alert(inputData["task"]);
-    fetch(server, {
-        method: "POST",
-        credentials: "include",
-        body: data,
-        cache: "no-cache",
-        headers: new Headers({
-            'Access-Control-Allow-Origin': '*',
-            "content-type": "application/json"
-        })
-    }).then((response) => {
-        if (response.status != 200) {
-            console.log(`Looks like there was a problem. Status code: ${response.status}`);
-            return null;
-        }
-
-        response.json().then((data) => {
-            let result = data["result"];
-            localStorage.setItem('text', text);
-            localStorage.setItem('task', task);
-            localStorage.setItem('specifiedTask', specifiedTask);
-            localStorage.setItem('result', JSON.stringify(result));
-
-            chrome.tabs.create({'url': './openPage/result.html'}, (tab) => {
-            });
-        });
-    })
-        .catch(function (error) {
-            console.log("Fetch error: " + error);
-        });
-}
 
 $("#btn-find").on("click", () => {
     //////////////////////////////////////////////
@@ -179,16 +144,12 @@ $("#btn-find").on("click", () => {
         specifiedTask = passive_voice;
     }
     //////////////////////////////////////////////
+
     chrome.tabs.getSelected(null, (tab) => {
         let tabUrl = tab.url;
+        let isOpenPage = true;
         PARSE_UTILS.keywordInterval(tabUrl, (text) => {
-
-            fetchOutside(text, task, specifiedTask)
-            // chrome.tabs.create({'url': './openPage/result.html' });
-            // for local inference use:
-            // http://poltavsky.pythonanywhere.com/process
-            // http://127.0.0.1:5000/process
-
+            newTaskRequest(server, text, task, specifiedTask, isOpenPage);
         });
     });
 });
