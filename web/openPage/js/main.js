@@ -1,11 +1,22 @@
 var correctAnswers = new Set();
 var strictCheck = false;
-var server;
-var text;
+var server = localStorage.getItem("server");
+var text = localStorage.getItem("text");
 var task;
 var specifiedTask;
 var result;
 var answers;
+
+function updateGlobalParameters() {
+    task = localStorage.getItem("task");
+    specifiedTask = localStorage.getItem("specifiedTask");
+    result = JSON.parse(localStorage.getItem("result"));
+
+    if (task === 'PASSIVE_VOICE' || task === 'ACTIVE_VOICE') {
+        answers = getResultAttribute(result, task, 'phrases')
+    }
+}
+
 // Resize all input forms according to their content
 function resizeInputs() {
     let lexemeSpans = document.getElementsByClassName("input__label-content--kaede");
@@ -84,18 +95,11 @@ function checkFullTask(e) {
 }
 
 $(document).ready(() => {
-    // Recover variables from extension
-    server = localStorage.getItem("server");
-    text = localStorage.getItem("text");
-    task = localStorage.getItem("task");
-    specifiedTask = localStorage.getItem("specifiedTask");
-    result = JSON.parse(localStorage.getItem("result"));
-
+    // Recover variables from localstorage
+    //All parameters are in the localstorage on the first call from the extension
+    updateGlobalParameters();
     // If we have correct answers- handle it
     createTaskByResult(task, result);
-    if (task === 'PASSIVE_VOICE' || task === 'ACTIVE_VOICE') {
-        answers = getResultAttribute(result, task, 'phrases')
-    }
 
     // Handle pressing the enter key
     var inputs = $(':input').keyup(function(e){
@@ -151,7 +155,14 @@ $(document).ready(() => {
             if (idAttributes[0] === 'TASK') {
                 let taskType = idAttributes[1];
                 let taskSpecify = idAttributes[2];
-                updateTask(server, text, taskType, taskSpecify, false);
+
+                //  Update the task and only then reinitialize the globals
+                updateTask(server, text, taskType, taskSpecify).then(function () {
+                    updateGlobalParameters()
+                }).catch(function () {
+                    // Do nothing if nothing is found
+                    alert('No matches found')
+                });
             }
         }
 

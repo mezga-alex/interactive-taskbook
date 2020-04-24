@@ -147,11 +147,12 @@ $("#btn-find").on("click", () => {
 
     chrome.tabs.getSelected(null, (tab) => {
         let tabUrl = tab.url;
-        let isOpenPage = true;
         PARSE_UTILS.keywordInterval(tabUrl, (text) => {
             newTaskRequest(server, text, task, specifiedTask).then(function() {
-                chrome.tabs.create({'url': './openPage/result.html'}, (tab) => {
-                });
+                localStorage.setItem('server', server);
+                chrome.tabs.create({'url': './openPage/result.html'}, (tab) => {});
+            }).catch(function () {
+                alert('No matches found')
             });
 
         });

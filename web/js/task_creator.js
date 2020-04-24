@@ -39,12 +39,15 @@ function newTaskRequest(server, text, task, specifiedTask) {
 
             response.json().then((data) => {
                 let result = data["result"];
-                localStorage.setItem('text', text);
-                localStorage.setItem('task', task);
-                localStorage.setItem('specifiedTask', specifiedTask);
-                localStorage.setItem('result', JSON.stringify(result));
+                if (result[0].length !== 0) {
+                    localStorage.setItem('text', text);
+                    localStorage.setItem('task', task);
+                    localStorage.setItem('specifiedTask', specifiedTask);
+                    localStorage.setItem('result', JSON.stringify(result));
 
-                resolve("Success");
+                    resolve("Success");
+                }
+                else reject("No matches")
             });
         }).catch(function (error) {
             console.log("Fetch error: " + error);
@@ -81,34 +84,48 @@ function createTaskByResult(task, result) {
     resizeInputs();
 }
 
-function getResultAttribute (result, task, attr) {
+function getResultAttribute(result, task, attr) {
     switch (task) {
         case 'POS':
             switch (attr) {
-                case 'words': return result[0];
-                case 'indices': return result[1];
-                default: return null
+                case 'words':
+                    return result[0];
+                case 'indices':
+                    return result[1];
+                default:
+                    return null
             }
         case 'ACTIVE_VOICE':
         case 'PASSIVE_VOICE':
             switch (attr) {
-                case 'phrases': return result[0];
-                case 'indices': return result[1];
-                case 'lexemes': return result[2];
-                case 'sentences': return result[3];
-                default: return null;
+                case 'phrases':
+                    return result[0];
+                case 'indices':
+                    return result[1];
+                case 'lexemes':
+                    return result[2];
+                case 'sentences':
+                    return result[3];
+                default:
+                    return null;
             }
-        default: return null;
+        default:
+            return null;
     }
 }
 
 function updateTask(server, text, task, specifiedTask) {
-    // Delete ccurrent content
-    // TODO: Save current results for statistics
-    $("#put_text").empty();
-    newTaskRequest(server, text, task, specifiedTask).then(function() {
-        result = JSON.parse(localStorage.getItem("result"));
-        createTaskByResult(task, result);
+    return new Promise((resolve, reject) => {
+        // Delete ccurrent content
+        // TODO: Save current results for statistics
+        $("#put_text").empty();
+        newTaskRequest(server, text, task, specifiedTask).then(function () {
+            result = JSON.parse(localStorage.getItem("result"));
+            createTaskByResult(task, result);
+            resolve("Success");
+        }).catch(function () {
+            reject("No matches")
+        });
     })
 }
 
@@ -201,6 +218,3 @@ function outputExercise(phrases, phrases_lexemes, phrases_indices, phrases_sents
 
     }
 }
-
-
-
