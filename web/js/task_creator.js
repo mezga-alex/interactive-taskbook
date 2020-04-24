@@ -14,44 +14,43 @@ let collapseCardEndId3StartTaskHTML = '">' + '<div class="card-body">';
 let collapseCardEndTaskHTML = '</div></div></div>';
 
 
-function newTaskRequest(server, text, task, specifiedTask, isOpenPage) {
-    let data = JSON.stringify({
-        "text": text,
-        "task": task,
-        "specifiedTask": specifiedTask
-    });
+function newTaskRequest(server, text, task, specifiedTask) {
+    return new Promise((resolve, reject) => {
+        let data = JSON.stringify({
+            "text": text,
+            "task": task,
+            "specifiedTask": specifiedTask
+        });
 
-    fetch(server, {
-        method: "POST",
-        credentials: "include",
-        body: data,
-        cache: "no-cache",
-        headers: new Headers({
-            'Access-Control-Allow-Origin': '*',
-            "content-type": "application/json"
-        })
-    }).then((response) => {
-        if (response.status != 200) {
-            console.log(`Looks like there was a problem. Status code: ${response.status}`);
-            return null;
-        }
-
-        response.json().then((data) => {
-            let result = data["result"];
-            localStorage.setItem('text', text);
-            localStorage.setItem('task', task);
-            localStorage.setItem('specifiedTask', specifiedTask);
-            localStorage.setItem('result', JSON.stringify(result));
-
-            if (isOpenPage) {
-                chrome.tabs.create({'url': './openPage/result.html'}, (tab) => {
-                });
+        fetch(server, {
+            method: "POST",
+            credentials: "include",
+            body: data,
+            cache: "no-cache",
+            headers: new Headers({
+                'Access-Control-Allow-Origin': '*',
+                "content-type": "application/json"
+            })
+        }).then((response) => {
+            if (response.status !== 200) {
+                console.log(`Looks like there was a problem. Status code: ${response.status}`);
+                reject("Error");
             }
+
+            response.json().then((data) => {
+                let result = data["result"];
+                localStorage.setItem('text', text);
+                localStorage.setItem('task', task);
+                localStorage.setItem('specifiedTask', specifiedTask);
+                localStorage.setItem('result', JSON.stringify(result));
+
+                resolve("Success");
+            });
+        }).catch(function (error) {
+            console.log("Fetch error: " + error);
+            reject("Error")
         });
     })
-        .catch(function (error) {
-            console.log("Fetch error: " + error);
-        });
 }
 
 function createTaskByResult(task, result) {
@@ -103,17 +102,14 @@ function getResultAttribute (result, task, attr) {
     }
 }
 
-function updateTask(server, text, task, specifiedTask, isOpenPage) {
+function updateTask(server, text, task, specifiedTask) {
     // Delete ccurrent content
     // TODO: Save current results for statistics
     $("#put_text").empty();
-    newTaskRequest(server, text, task, specifiedTask, isOpenPage)
-        .then(() => {
-            let result = JSON.parse(localStorage.getItem("result"));
-            alert(result);
-            createTaskByResult(task, result);
-        });
-
+    newTaskRequest(server, text, task, specifiedTask).then(function() {
+        result = JSON.parse(localStorage.getItem("result"));
+        createTaskByResult(task, result);
+    })
 }
 
 function collapseCardWrapper(taskID, task) {

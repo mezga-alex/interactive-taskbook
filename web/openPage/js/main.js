@@ -151,7 +151,7 @@ $(document).ready(() => {
             if (idAttributes[0] === 'TASK') {
                 let taskType = idAttributes[1];
                 let taskSpecify = idAttributes[2];
-                updateTask(taskType, taskSpecify);
+                updateTask(server, text, taskType, taskSpecify, false);
             }
         }
 
