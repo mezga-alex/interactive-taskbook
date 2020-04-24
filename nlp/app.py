@@ -22,26 +22,22 @@ def process():
 	## JSON Request
 	req = request.get_json()
 	text = req["text"]
-	pos = req["pos"]
-	passive_voice_tense = req["passive_voice"]
-	tense = req["tense"]
+	task = req["task"]
+	specifiedTask = req["specifiedTask"]
+
 	## JSON ENDS
+	result = []
 
-	active_result = []
-	passive_result = []
-	pos_result = []
+	if task == "POS":
+		result = pos_tagging.pos_tag_search(nlp_pos, text, specifiedTask)
 
-	if pos != "NONE":
-		pos_result = pos_tagging.pos_tag_search(nlp_pos, text, pos)
+	if task == 'ACTIVE_VOICE':
+		result = active_voice.active_voice_search_batches(nlp_task_creator, text, specifiedTask)
 
-	if tense != 'NONE':
-		active_result = active_voice.active_voice_search_batches(nlp_task_creator, text, tense)
+	if task == 'PASSIVE_VOICE':
+		result = passive_voice.passive_voice_search_batches(nlp_task_creator, text, specifiedTask)
 
-	if passive_voice_tense != 'NONE':
-		passive_result = passive_voice.passive_voice_search_batches(nlp_task_creator, text, passive_voice_tense)
-
-	res = make_response(jsonify(pos_result=pos_result, passive_result=passive_result, active_result=active_result), 200)
-	return res
+	return make_response(jsonify(result=result), 200)
 
 
 @app.route('/answer', methods=["POST"])

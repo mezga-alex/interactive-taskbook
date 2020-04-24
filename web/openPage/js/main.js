@@ -1,11 +1,21 @@
-let answers;
 var correctAnswers = new Set();
 var strictCheck = false;
+var server = localStorage.getItem("server");
+var text = localStorage.getItem("text");
+var task;
+var specifiedTask;
+var result;
+var answers;
 
-function passAnswers(newAnswers) {
-    answers = newAnswers;
+function updateGlobalParameters() {
+    task = localStorage.getItem("task");
+    specifiedTask = localStorage.getItem("specifiedTask");
+    result = JSON.parse(localStorage.getItem("result"));
+
+    if (task === 'PASSIVE_VOICE' || task === 'ACTIVE_VOICE') {
+        answers = getResultAttribute(result, task, 'phrases')
+    }
 }
-
 
 // Resize all input forms according to their content
 function resizeInputs() {
@@ -85,11 +95,14 @@ function checkFullTask(e) {
 }
 
 $(document).ready(() => {
-    resizeInputs();
+    // Recover variables from localstorage
+    //All parameters are in the localstorage on the first call from the extension
+    updateGlobalParameters();
+    // If we have correct answers- handle it
+    createTaskByResult(task, result);
 
     // Handle pressing the enter key
     var inputs = $(':input').keyup(function(e){
-        // alert('key');
         if (e.which == 13) {
             e.preventDefault();
             var nextInput = inputs.get(inputs.index(this) + 1);
@@ -135,9 +148,24 @@ $(document).ready(() => {
         checkFullTask(this);
     });
 
-    $('a').click(function(e) {
-        e.preventDefault();
-        alert('You clicked the link.');
+    $('a').on('click', function isUpdateTask(e) {
+        let id = $(this).attr('id');
+        if (id) {
+            let idAttributes = id.split('-');
+            if (idAttributes[0] === 'TASK') {
+                let taskType = idAttributes[1];
+                let taskSpecify = idAttributes[2];
+
+                //  Update the task and only then reinitialize the globals
+                updateTask(server, text, taskType, taskSpecify).then(function () {
+                    updateGlobalParameters()
+                }).catch(function () {
+                    // Do nothing if nothing is found
+                    alert('No matches found')
+                });
+            }
+        }
+
     });
 
 });

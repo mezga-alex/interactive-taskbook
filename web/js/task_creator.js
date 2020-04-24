@@ -1,36 +1,146 @@
-let collapseCardStartId1HTML = '<!-- Collapsable Card Example -->'+
-    '<div class="card shadow mb-4">'+
+let collapseCardStartId1HTML = '<!-- Collapsable Card Example -->' +
+    '<div class="card shadow mb-4">' +
     '<a href="#';
 // -> Insert ID
 let collapseCardEndId1StartId2HTML = '" class="d-block card-header py-3" data-toggle="collapse" ' +
     'role="button" aria-expanded="true" aria-controls="';
 // -> Insert ID again
-let collapseCardEndId2StartHeaderHTML = '">'+ '<h6 class="m-0 font-weight-bold text-primary">';
+let collapseCardEndId2StartHeaderHTML = '">' + '<h6 class="m-0 font-weight-bold text-primary">';
 // -> Insert Header
-let collapseCardEndHeaderStartId3HTML = '</h6>'+ '</a>'+ '<!-- Card Content - Collapse -->' + '<div class="collapse show" id="';
+let collapseCardEndHeaderStartId3HTML = '</h6>' + '</a>' + '<!-- Card Content - Collapse -->' + '<div class="collapse show" id="';
 // -> Insert ID again
-let collapseCardEndId3StartTaskHTML = '">'+ '<div class="card-body">';
+let collapseCardEndId3StartTaskHTML = '">' + '<div class="card-body">';
 // -> Insert task
 let collapseCardEndTaskHTML = '</div></div></div>';
 
 
+function newTaskRequest(server, text, task, specifiedTask) {
+    return new Promise((resolve, reject) => {
+        let data = JSON.stringify({
+            "text": text,
+            "task": task,
+            "specifiedTask": specifiedTask
+        });
 
-function collapseCardWrapper (taskID, task) {
+        fetch(server, {
+            method: "POST",
+            credentials: "include",
+            body: data,
+            cache: "no-cache",
+            headers: new Headers({
+                'Access-Control-Allow-Origin': '*',
+                "content-type": "application/json"
+            })
+        }).then((response) => {
+            if (response.status !== 200) {
+                console.log(`Looks like there was a problem. Status code: ${response.status}`);
+                reject("Error");
+            }
+
+            response.json().then((data) => {
+                let result = data["result"];
+                if (result[0].length !== 0) {
+                    localStorage.setItem('text', text);
+                    localStorage.setItem('task', task);
+                    localStorage.setItem('specifiedTask', specifiedTask);
+                    localStorage.setItem('result', JSON.stringify(result));
+
+                    resolve("Success");
+                }
+                else reject("No matches")
+            });
+        }).catch(function (error) {
+            console.log("Fetch error: " + error);
+            reject("Error")
+        });
+    })
+}
+
+function createTaskByResult(task, result) {
+    if (task === 'POS') {
+        let posWords = result[0];
+        let posIndices = result[1];
+
+        outputPos(posWords, posIndices);
+    }
+
+    if (task === 'ACTIVE_VOICE') {
+        let activePhrases = result[0];
+        let activePhrasesIndices = result[1];
+        let activePhrasesLexemes = result[2];
+        let activePhrasesSents = result[3];
+
+        outputExercise(activePhrases, activePhrasesLexemes, activePhrasesIndices, activePhrasesSents);
+    }
+
+    if (task === 'PASSIVE_VOICE') {
+        let passivePhrases = result[0];
+        let passivePhrasesIndices = result[1];
+        let passivePhrasesLexemes = result[2];
+        let passivePhrasesSents = result[3];
+
+        outputExercise(passivePhrases, passivePhrasesLexemes, passivePhrasesIndices, passivePhrasesSents);
+    }
+    resizeInputs();
+}
+
+function getResultAttribute(result, task, attr) {
+    switch (task) {
+        case 'POS':
+            switch (attr) {
+                case 'words':
+                    return result[0];
+                case 'indices':
+                    return result[1];
+                default:
+                    return null
+            }
+        case 'ACTIVE_VOICE':
+        case 'PASSIVE_VOICE':
+            switch (attr) {
+                case 'phrases':
+                    return result[0];
+                case 'indices':
+                    return result[1];
+                case 'lexemes':
+                    return result[2];
+                case 'sentences':
+                    return result[3];
+                default:
+                    return null;
+            }
+        default:
+            return null;
+    }
+}
+
+function updateTask(server, text, task, specifiedTask) {
+    return new Promise((resolve, reject) => {
+        // Delete ccurrent content
+        // TODO: Save current results for statistics
+        $("#put_text").empty();
+        newTaskRequest(server, text, task, specifiedTask).then(function () {
+            result = JSON.parse(localStorage.getItem("result"));
+            createTaskByResult(task, result);
+            resolve("Success");
+        }).catch(function () {
+            reject("No matches")
+        });
+    })
+}
+
+function collapseCardWrapper(taskID, task) {
     return collapseCardStartId1HTML + 'collapseCard-' + taskID + collapseCardEndId1StartId2HTML + 'collapseCard-' + taskID +
-        collapseCardEndId2StartHeaderHTML + 'Task '+ taskID +
+        collapseCardEndId2StartHeaderHTML + 'Task ' + taskID +
         collapseCardEndHeaderStartId3HTML + 'collapseCard-' + taskID + collapseCardEndId3StartTaskHTML + task + collapseCardEndTaskHTML;
 }
 
-function output_pos(pos){
-    var posWords = JSON.parse(localStorage.getItem("pos_words"));
-    // For future logic
-    var posIndices = JSON.parse(localStorage.getItem("pos_indices"));
-
+function outputPos(posWords, posIndices) {
     if (posWords !== null && posWords.length > 0) {
         let setOfWords = new Set(posWords);
         let count = 1;
         // same as: for(let value of set)
-        for(let word of setOfWords) {
+        for (let word of setOfWords) {
             para = document.createElement("p");
             node = document.createTextNode((count).toString() + ") " + word.toUpperCase());
             para.appendChild(node);
@@ -42,13 +152,12 @@ function output_pos(pos){
     }
 }
 
-function output_exercise(phrases,phrases_lexemes, phrases_indices, phrases_sents) {
-
+function outputExercise(phrases, phrases_lexemes, phrases_indices, phrases_sents) {
     if (phrases !== null && phrases.length > 0) {
         var count = 1;
         var is_different = true;
         // Iterate over phrases
-        for (var i = 0; i<phrases.length; i++) {
+        for (var i = 0; i < phrases.length; i++) {
             // If the phrase is in a new sentence
             if (is_different) {
                 var cur_sent = phrases_sents[i];
@@ -76,7 +185,7 @@ function output_exercise(phrases,phrases_lexemes, phrases_indices, phrases_sents
                     '<input class="input__field input__field--kaede" type="text" ' +
                     'id="task-' + i.toString() + '-' + j.toString() + '" />\n' +
                     '<label class="input__label input__label--kaede" for="task-' + i.toString() + '-' + j.toString() + '">\n' +
-                    '<span class="input__label-content input__label-content--kaede">'+phrases_lexemes[i][j]+'</span>\n' +
+                    '<span class="input__label-content input__label-content--kaede">' + phrases_lexemes[i][j] + '</span>\n' +
                     '</label>\n' +
                     '</span>\n';
 
@@ -85,7 +194,7 @@ function output_exercise(phrases,phrases_lexemes, phrases_indices, phrases_sents
                 left_index = phrases_indices[i][j][1];
             }
             // If the next phrase is in another sentence - append created element to the page
-            if ((i === phrases_sents.length-1) || (phrases_sents[i] !== phrases_sents[i+1])) {
+            if ((i === phrases_sents.length - 1) || (phrases_sents[i] !== phrases_sents[i + 1])) {
                 checkButton += '">Check answers</button></div>';
                 // Full task HTML
                 processed_sentence = '<div class="task-p"><p>' + processed_sentence +
@@ -107,35 +216,5 @@ function output_exercise(phrases,phrases_lexemes, phrases_indices, phrases_sents
             '">Check all answers</button>';
         $("#put_text").append(b);
 
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////
-        // Answers creation //
-        // !! WILL BE DELETED IN FINAL VERSION !! //
-
-        // FIRST phrase appending
-        let phrases_space = "1) " + phrases[0].join(" ").toUpperCase();
-        let para = document.createElement("p");
-        let node = document.createTextNode(phrases_space);
-        para.appendChild(node);
-        let element = document.getElementById("put_passive");
-        if (element !== null)
-            element.appendChild(para);
-
-
-        // ANOTHER phrases appending
-        for(var i = 1; i < phrases.length; i++){
-            let phrases_space = phrases[i].join(" ").toUpperCase();
-            if (phrases_sents[i] !== phrases_sents[i-1]) {
-                phrases_space = (i+1).toString() + ") " + phrases_space;
-                //bkg.console.log(phrases_space);
-            }
-            let para = document.createElement("p");
-            let node = document.createTextNode(phrases_space);
-            para.appendChild(node);
-            let element = document.getElementById("put_passive");
-            if (element !== null)
-                element.appendChild(para);
-        }
-        ///////////////////////////////////////////////////////////////////////////////////////////////
     }
 }
