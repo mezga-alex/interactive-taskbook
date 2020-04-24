@@ -6,9 +6,7 @@ function passAnswers(newAnswers) {
     answers = newAnswers;
 }
 
-function changeTask(taskType, tenseType) {
-    alert('hi');
-}
+
 // Resize all input forms according to their content
 function resizeInputs() {
     let lexemeSpans = document.getElementsByClassName("input__label-content--kaede");
@@ -136,4 +134,10 @@ $(document).ready(() => {
     $('.btn-check-task').on('click', function checkMultipleAnswers(e) {
         checkFullTask(this);
     });
+
+    $('a').click(function(e) {
+        e.preventDefault();
+        alert('You clicked the link.');
+    });
+
 });
