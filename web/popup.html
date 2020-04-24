@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="css/popup_style.css">
+</head>
+
+<body>
+    <div class="popup">
+        <div class="popup-header">
+            <div id="logo">
+                <img src="skyeng.svg">
+            </div>
+        </div>
+        <div class="popup-main">
+            <div class="custom-select">
+                <select class="sel" id="speech">
+                    <option value="NONE">Part of speech</option>
+                    <option value="NOUN">noun</option>
+                    <option value="PRON">pronoun</option>
+                    <option value="VERB">verb</option>
+                    <option value="ADJ">adjective</option>
+                    <option value="ADV">adverb</option>
+                    <option value="ADP">preposition</option>
+                    <option value="INTJ">interjection</option>
+                </select>
+            </div>
+
+            <div class="custom-select">
+                <select id="tense">
+                    <option value="NONE">verb tense (Pre-Alpha)</option>
+
+                    <option value="PRESENT_SIMPLE">present simple</option>
+                    <option value="PRESENT_CONTINUOUS">present continuous</option>
+                    <option value="PRESENT_PERFECT">present perfect</option>
+
+                    <option value="PAST_SIMPLE">past simple</option>
+                    <option value="PAST_CONTINUOUS">past continuous</option>
+                    <option value="PAST_PERFECT">past perfect</option>
+
+                    <option value="FUTURE_SIMPLE">future simple</option>
+                    <option value="FUTURE_PERFECT">future perfect</option>
+                    <option value="FUTURE_CONTINUOUS">future continuous</option>
+                </select>
+            </div>
+
+            <div class="custom-select">
+                <select id="passive_voice">
+                    <option value="NONE">passive voice</option>
+                    <option value="ALL">all</option>
+
+                    <option value="PRESENT_SIMPLE">present simple</option>
+                    <option value="PRESENT_CONTINUOUS">present continuous</option>
+                    <option value="PRESENT_PERFECT">present perfect</option>
+
+                    <option value="PAST_SIMPLE">past simple</option>
+                    <option value="PAST_CONTINUOUS">past continuous</option>
+                    <option value="PAST_PERFECT">past perfect</option>
+
+                    <option value="FUTURE_SIMPLE">future simple</option>
+                    <option value="FUTURE_PERFECT">future perfect</option>
+                    <option value="FUTURE_CONTINUOUS">future continuous</option>
+
+                    <option value="FUTURE_IN_THE_PAST_SIMPLE">future in the past simple</option>
+                    <option value="FUTURE_IN_THE_PAST_PERFECT">future in the past perfect</option>
+
+                    <option value="MODALS">passives with modals</option>
+
+                </select>
+            </div>
+
+            <hr>
+<!--            <h4>Change type of server</h4>-->
+            <h4>Switch to Localhost</h4>
+            <div class="switcher">
+                <label class="switch">
+                  <input type="checkbox" id="switch-id">
+                  <span class="slider round"></span>
+                </label>
+            </div>
+            <!-- Rounded switch -->
+
+            <h4>Highlight Color</h4>
+            <div class="color-picker">
+                <button data-color="green" class="btn-color green"></button>
+                <button data-color="yellow" class="btn-color yellow"></button>
+                <button data-color="red" class="btn-color red"></button>
+                <button data-color="blue" class="btn-color blue"></button>
+                <button data-color="purple" class="btn-color purple"></button>
+            </div>
+            <h4>Matches found</h4>
+            <div id="found-count">0</div>
+        </div>
+
+        <div class="popup-footer">
+            <button id="btn-find">find</button>
+        </div>
+    </div>
+    <!-- <script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script> -->
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/task_creator.js"></script>
+    <script type="text/javascript" src="js/parse_and_process.js"></script>
+    <script type="text/javascript" src="js/popup.js"></script>
+
+</body>
+
+</html>
