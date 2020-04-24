@@ -118,6 +118,44 @@ $("#switch-id").click(function() {
     }
 });
 
+function fetchOutside(text, task, specifiedTask) {
+    let data = JSON.stringify({
+        "text": text,
+        "task": task,
+        "specifiedTask": specifiedTask
+    });
+
+    // alert(inputData["task"]);
+    fetch(server, {
+        method: "POST",
+        credentials: "include",
+        body: data,
+        cache: "no-cache",
+        headers: new Headers({
+            'Access-Control-Allow-Origin': '*',
+            "content-type": "application/json"
+        })
+    }).then((response) => {
+        if (response.status != 200) {
+            console.log(`Looks like there was a problem. Status code: ${response.status}`);
+            return null;
+        }
+
+        response.json().then((data) => {
+            let result = data["result"];
+            localStorage.setItem('text', text);
+            localStorage.setItem('task', task);
+            localStorage.setItem('specifiedTask', specifiedTask);
+            localStorage.setItem('result', JSON.stringify(result));
+
+            chrome.tabs.create({'url': './openPage/result.html'}, (tab) => {
+            });
+        });
+    })
+        .catch(function (error) {
+            console.log("Fetch error: " + error);
+        });
+}
 
 $("#btn-find").on("click", () => {
     //////////////////////////////////////////////
@@ -130,7 +168,7 @@ $("#btn-find").on("click", () => {
 
     if (pos !== 'NONE')  {
         task = 'POS';
-        specifiedTask = speech;
+        specifiedTask = pos;
     }
     if (active_voice !== 'NONE')  {
         task = 'ACTIVE_VOICE';
@@ -144,100 +182,13 @@ $("#btn-find").on("click", () => {
     chrome.tabs.getSelected(null, (tab) => {
         let tabUrl = tab.url;
         PARSE_UTILS.keywordInterval(tabUrl, (text) => {
-            data = JSON.stringify({
-                "text": text,
-                "task": task,
-                "specifiedTask": specifiedTask
-            });
+
+            fetchOutside(text, task, specifiedTask)
             // chrome.tabs.create({'url': './openPage/result.html' });
             // for local inference use:
             // http://poltavsky.pythonanywhere.com/process
             // http://127.0.0.1:5000/process
-            fetch(server, {
-                method: "POST",
-                credentials: "include",
-                body: data,
-                cache: "no-cache",
-                headers: new Headers({
-                    'Access-Control-Allow-Origin': '*',
-                    "content-type": "application/json"
-                })
-            }).then((response) => {
-                    if (response.status != 200) {
-                        console.log(`Looks like there was a problem. Status code: ${response.status}`);
-                        return null;
-                    }
 
-                    response.json().then((data) => {
-                        let result = data["result"];
-                        let is_pos = false;
-                        let is_active = false;
-                        let is_passive = false;
-
-                        if (task === 'POS') {
-                            //bkg.console.log(speech);
-                            is_pos = true;
-                            localStorage.setItem('pos_words', JSON.stringify(result[0]));
-                            localStorage.setItem('pos_indices', JSON.stringify(result[1]));
-                            if (speech === "all")
-                                localStorage.setItem('pos_tags', JSON.stringify(result[2]));
-                        }
-
-                        if (task === 'ACTIVE_VOICE') {
-                            is_active = true;
-                            localStorage.setItem('active_phrases', JSON.stringify(result[0]));
-                            localStorage.setItem('active_phrases_indices', JSON.stringify(result[1]));
-                            localStorage.setItem('active_phrases_lexemes', JSON.stringify(result[2]));
-                            localStorage.setItem('active_phrases_sents', JSON.stringify(result[3]));
-                        }
-
-                        if (task === 'PASSIVE_VOICE') {
-                            is_passive = true;
-                            localStorage.setItem('passive_phrases', JSON.stringify(result[0]));
-                            localStorage.setItem('passive_phrases_indices', JSON.stringify(result[1]));
-                            localStorage.setItem('passive_phrases_lexemes', JSON.stringify(result[2]));
-                            localStorage.setItem('passive_phrases_sents', JSON.stringify(result[3]));
-                        }
-
-                        localStorage.setItem('is_pos', JSON.stringify(is_pos));
-                        localStorage.setItem('is_active', JSON.stringify(is_active));
-                        localStorage.setItem('is_passive', JSON.stringify(is_passive));
-
-                        chrome.tabs.create({'url': './openPage/result.html'}, (tab) => {
-                        });
-                    });
-                })
-                .catch(function (error) {
-                    console.log("Fetch error: " + error);
-                });
         });
     });
-});
-
-$(document).ready(() => {
-    var is_pos = JSON.parse(localStorage.getItem("is_pos"));
-    var is_active = JSON.parse(localStorage.getItem("is_active"));
-    var is_passive = JSON.parse(localStorage.getItem("is_passive"));
-
-    if (is_active){
-        var active_phrases = JSON.parse(localStorage.getItem("active_phrases"));
-        var active_phrases_indices = JSON.parse(localStorage.getItem("active_phrases_indices"));
-        var active_phrases_lexemes = JSON.parse(localStorage.getItem("active_phrases_lexemes"));
-        var active_phrases_sents = JSON.parse(localStorage.getItem("active_phrases_sents"));
-        output_exercise(active_phrases, active_phrases_lexemes, active_phrases_indices, active_phrases_sents);
-        passAnswers(active_phrases);
-    }
-
-    if (is_passive){
-        var passive_phrases = JSON.parse(localStorage.getItem("passive_phrases"));
-        var passive_phrases_lexemes = JSON.parse(localStorage.getItem("passive_phrases_lexemes"));
-        var passive_phrases_indices = JSON.parse(localStorage.getItem("passive_phrases_indices"));
-        var passive_phrases_sents = JSON.parse(localStorage.getItem("passive_phrases_sents"));
-        output_exercise(passive_phrases,passive_phrases_lexemes, passive_phrases_indices, passive_phrases_sents);
-        passAnswers(passive_phrases);
-    }
-
-    if (is_pos){
-        output_pos();
-    }
 });

@@ -4,6 +4,7 @@ var strictCheck = false;
 
 function passAnswers(newAnswers) {
     answers = newAnswers;
+    alert(answers);
 }
 
 
@@ -85,7 +86,11 @@ function checkFullTask(e) {
 }
 
 $(document).ready(() => {
-    resizeInputs();
+    let text = localStorage.getItem("text");
+    let task = localStorage.getItem("task");
+    let specifiedTask = localStorage.getItem("specifiedTask");
+    var result = JSON.parse(localStorage.getItem("result"));
+    createTaskByResult(task, result);
 
     // Handle pressing the enter key
     var inputs = $(':input').keyup(function(e){

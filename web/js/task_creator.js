@@ -21,10 +21,7 @@ function collapseCardWrapper (taskID, task) {
         collapseCardEndHeaderStartId3HTML + 'collapseCard-' + taskID + collapseCardEndId3StartTaskHTML + task + collapseCardEndTaskHTML;
 }
 
-function output_pos(pos){
-    var posWords = JSON.parse(localStorage.getItem("pos_words"));
-    // For future logic
-    var posIndices = JSON.parse(localStorage.getItem("pos_indices"));
+function outputPos(posWords, posIndices){
 
     if (posWords !== null && posWords.length > 0) {
         let setOfWords = new Set(posWords);
@@ -42,7 +39,7 @@ function output_pos(pos){
     }
 }
 
-function output_exercise(phrases,phrases_lexemes, phrases_indices, phrases_sents) {
+function outputExercise(phrases,phrases_lexemes, phrases_indices, phrases_sents) {
 
     if (phrases !== null && phrases.length > 0) {
         var count = 1;
@@ -115,4 +112,31 @@ function updateTask(taskType, taskSpecify, text) {
     // TODO: Save current results for statistics
     $("#put_text").empty()
 
+}
+
+function createTaskByResult(task, result) {
+    if (task === 'POS') {
+        let posWords = result[0];
+        let posIndices = result[1];
+
+        outputPos(posWords, posIndices);
+    }
+
+    if (task === 'ACTIVE_VOICE') {
+        let activePhrases = result[0];
+        let activePhrasesIndices = result[1];
+        let activePhrasesLexemes = result[2];
+        let activePhrasesSents = result[3];
+
+        outputExercise(activePhrases, activePhrasesLexemes, activePhrasesIndices, activePhrasesSents);
+    }
+
+    if (task === 'PASSIVE_VOICE') {
+        let passivePhrases = result[0];
+        let passivePhrasesIndices = result[1];
+        let passivePhrasesLexemes = result[2];
+        let passivePhrasesSents = result[3];
+        outputExercise(passivePhrases, passivePhrasesLexemes, passivePhrasesIndices, passivePhrasesSents);
+    }
+    resizeInputs();
 }
