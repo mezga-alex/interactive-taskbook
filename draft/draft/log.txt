@@ -1,0 +1,543 @@
+("Confidence in the pound is widely expected to take another sharp dive if trade figures for September due for release tomorrow fail to show a substantial improvement from July and August 's near-record deficits", {'tags': ['NN', 'IN', 'DT', 'NN', 'VBZ', 'RB', 'VBN', 'TO', 'VB', 'DT', 'JJ', 'NN', 'IN', 'NN', 'NNS', 'IN', 'NNP', 'JJ', 'IN', 'NN', 'NN', 'VB', 'TO', 'VB', 'DT', 'JJ', 'NN', 'IN', 'NNP', 'CC', 'NNP', 'POS', 'JJ', 'NNS']})
+("Chancellor of the Exchequer Nigel Lawson 's restated commitment to a firm monetary policy has helped to prevent a freefall in sterling over the past week", {'tags': ['NNP', 'IN', 'DT', 'NNP', 'NNP', 'NNP', 'POS', 'VBN', 'NN', 'TO', 'DT', 'NN', 'JJ', 'NN', 'VBZ', 'VBN', 'TO', 'VB', 'DT', 'NN', 'IN', 'NN', 'IN', 'DT', 'JJ', 'NN']})
+("But analysts reckon underlying support for sterling has been eroded by the chancellor 's failure to announce any new policy measures in his Mansion House speech last Thursday", {'tags': ['CC', 'NNS', 'VBP', 'VBG', 'NN', 'IN', 'NN', 'VBZ', 'VBN', 'VBN', 'IN', 'DT', 'NN', 'POS', 'NN', 'TO', 'VB', 'DT', 'JJ', 'NN', 'NNS', 'IN', 'PRP$', 'NNP', 'NNP', 'NN', 'JJ', 'NNP']})
+('This has increased the risk of the government being forced to increase base rates to 16 % from their current 15 % level to defend the pound economists and foreign exchange market analysts say', {'tags': ['DT', 'VBZ', 'VBN', 'DT', 'NN', 'IN', 'DT', 'NN', 'VBG', 'VBN', 'TO', 'VB', 'NN', 'NNS', 'TO', 'CD', 'NN', 'IN', 'PRP$', 'JJ', 'CD', 'NN', 'NN', 'TO', 'VB', 'DT', 'NN', 'NNS', 'CC', 'JJ', 'NN', 'NN', 'NNS', 'VBP']})
+('The risks for sterling of a bad trade figure are very heavily on the down side said Chris Dillow senior U.K. economist at Nomura Research Institute', {'tags': ['DT', 'NNS', 'IN', 'NN', 'IN', 'DT', 'JJ', 'NN', 'NN', 'VBP', 'RB', 'RB', 'IN', 'DT', 'JJ', 'NN', 'VBD', 'NNP', 'NNP', 'JJ', 'NNP', 'NN', 'IN', 'NNP', 'NNP', 'NNP']})
+('If there is another bad trade number there could be an awful lot of pressure noted Simon Briscoe U.K. economist for Midland Montagu a unit of Midland Bank PLC', {'tags': ['IN', 'EX', 'VBZ', 'DT', 'JJ', 'NN', 'NN', 'EX', 'MD', 'VB', 'DT', 'JJ', 'NN', 'IN', 'NN', 'VBD', 'NNP', 'NNP', 'NNP', 'NN', 'IN', 'NNP', 'NNP', 'DT', 'NN', 'IN', 'NNP', 'NNP', 'NNP']})
+('Forecasts for the trade figures range widely but few economists expect the data to show a very marked improvement from the 2 billion 3.2 billion deficit in the current account reported for August', {'tags': ['NNS', 'IN', 'DT', 'NN', 'NNS', 'VBP', 'RB', 'CC', 'JJ', 'NNS', 'VBP', 'DT', 'NNS', 'TO', 'VB', 'DT', 'RB', 'VBN', 'NN', 'IN', 'DT', 'CD', 'CD', 'CD', 'CD', 'NN', 'IN', 'DT', 'JJ', 'NN', 'VBD', 'IN', 'NNP']})
+('The August deficit and the 2.2 billion gap registered in July are topped only by the 2.3 billion deficit of October 1988', {'tags': ['DT', 'NNP', 'NN', 'CC', 'DT', 'CD', 'CD', 'NN', 'VBN', 'IN', 'NNP', 'VBP', 'VBN', 'RB', 'IN', 'DT', 'CD', 'CD', 'NN', 'IN', 'NNP', 'CD']})
+("Sanjay Joshi European economist at Baring Brothers & Co. said there is no sign that Britain 's manufacturing industry is transforming itself to boost exports", {'tags': ['NNP', 'NNP', 'JJ', 'NN', 'IN', 'NNP', 'NNPS', 'CC', 'NNP', 'VBD', 'EX', 'VBZ', 'DT', 'NN', 'IN', 'NNP', 'POS', 'NN', 'NN', 'VBZ', 'VBG', 'PRP', 'TO', 'VB', 'NNS']})
+('At the same time he remains fairly pessimistic about the outlook for imports given continued high consumer and capital goods inflows', {'tags': ['IN', 'DT', 'JJ', 'NN', 'PRP', 'VBZ', 'RB', 'JJ', 'IN', 'DT', 'NN', 'IN', 'NNS', 'VBN', 'VBD', 'JJ', 'NN', 'CC', 'NN', 'NNS', 'NNS']})
+('He reckons the current account deficit will narrow to only 1.8 billion in September', {'tags': ['PRP', 'VBZ', 'DT', 'JJ', 'NN', 'NN', 'MD', 'VB', 'TO', 'RB', 'CD', 'CD', 'IN', 'NNP']})
+('However Mr. Dillow said he believes that a reduction in raw material stockbuilding by industry could lead to a sharp drop in imports', {'tags': ['RB', 'NNP', 'NNP', 'VBD', 'PRP', 'VBZ', 'IN', 'DT', 'NN', 'IN', 'JJ', 'NN', 'VBG', 'IN', 'NN', 'MD', 'VB', 'TO', 'DT', 'JJ', 'NN', 'IN', 'NNS']})
+("Combined with at least some rebound in exports after August 's unexpected decline the deficit could narrow to as little as 1.3 billion", {'tags': ['VBN', 'IN', 'IN', 'JJS', 'DT', 'NN', 'IN', 'NNS', 'IN', 'NNP', 'POS', 'JJ', 'NN', 'DT', 'NN', 'MD', 'VB', 'TO', 'RB', 'JJ', 'IN', 'CD', 'CD']})
+("Mr. Briscoe who also forecasts a 1.3 billion current account gap warns that even if the trade figures are bullish for sterling the currency wo n't advance much because investors will want to see further evidence of the turnaround before adjusting positions", {'tags': ['NNP', 'NNP', 'WP', 'RB', 'VBZ', 'DT', 'CD', 'CD', 'JJ', 'NN', 'NN', 'VBZ', 'IN', 'RB', 'IN', 'DT', 'NN', 'NNS', 'VBP', 'JJ', 'IN', 'NN', 'DT', 'NN', 'MD', 'RB', 'VB', 'JJ', 'IN', 'NNS', 'MD', 'VB', 'TO', 'VB', 'JJ', 'NN', 'IN', 'DT', 'NN', 'IN', 'VBG', 'NNS']})
+('Nevertheless he noted No one will want to go into the trade figures without a flat position in the pound', {'tags': ['RB', 'PRP', 'VBD', 'DT', 'PRP', 'MD', 'VB', 'TO', 'VB', 'IN', 'DT', 'NN', 'NNS', 'IN', 'DT', 'JJ', 'NN', 'IN', 'DT', 'NN']})
+('Meanwhile overall evidence on the economy remains fairly clouded', {'tags': ['RB', 'JJ', 'NN', 'IN', 'DT', 'NN', 'VBZ', 'RB', 'VBN']})
+('In his Mansion House speech Mr. Lawson warned that a further slowdown can be expected as the impact of the last rise in interest rates earlier this month takes effect', {'tags': ['IN', 'PRP$', 'NNP', 'NNP', 'NN', 'NNP', 'NNP', 'VBD', 'IN', 'DT', 'JJ', 'NN', 'MD', 'VB', 'VBN', 'IN', 'DT', 'NN', 'IN', 'DT', 'JJ', 'NN', 'IN', 'NN', 'NNS', 'RBR', 'DT', 'NN', 'VBZ', 'NN']})
+('U.K. base rates are at their highest level in eight years', {'tags': ['JJ', 'NN', 'NNS', 'VBP', 'IN', 'PRP$', 'JJS', 'NN', 'IN', 'CD', 'NNS']})
+("But consumer expenditure data released Friday do n't suggest that the U.K. economy is slowing that quickly", {'tags': ['CC', 'NN', 'NN', 'NNS', 'VBD', 'NNP', 'VBP', 'RB', 'VB', 'IN', 'DT', 'NNP', 'NN', 'VBZ', 'VBG', 'DT', 'RB']})
+('The figures show that spending rose 0.1 % in the third quarter from the second quarter and was up 3.8 % from a year ago', {'tags': ['DT', 'NNS', 'VBP', 'DT', 'NN', 'VBD', 'CD', 'NN', 'IN', 'DT', 'JJ', 'NN', 'IN', 'DT', 'JJ', 'NN', 'CC', 'VBD', 'IN', 'CD', 'NN', 'IN', 'DT', 'NN', 'RB']})
+('This compares with a 1.6 % rise in the second from the first quarter and a 5.4 % increase from the second quarter of 1988', {'tags': ['DT', 'VBZ', 'IN', 'DT', 'CD', 'NN', 'NN', 'IN', 'DT', 'NN', 'IN', 'DT', 'JJ', 'NN', 'CC', 'DT', 'CD', 'NN', 'NN', 'IN', 'DT', 'JJ', 'NN', 'IN', 'CD']})
+('Mr. Dillow said the data show the economy is still quite strong but suggestions that much of the spending went on services rather than consumer goods should reduce fears of more import rises', {'tags': ['NNP', 'NNP', 'VBD', 'DT', 'NNS', 'VBP', 'DT', 'NN', 'VBZ', 'RB', 'RB', 'JJ', 'CC', 'NNS', 'IN', 'NN', 'IN', 'DT', 'NN', 'VBD', 'IN', 'NNS', 'RB', 'IN', 'NN', 'NNS', 'MD', 'VB', 'NNS', 'IN', 'JJR', 'NN', 'NNS']})
+("Certainly the chancellor has made it clear that he is prepared to increase interest rates again if necessary to both ensure that a substantial slowdown does take place and that sterling does n't decline further", {'tags': ['RB', 'DT', 'NN', 'VBZ', 'VBN', 'PRP', 'JJ', 'IN', 'PRP', 'VBZ', 'VBN', 'TO', 'VB', 'NN', 'NNS', 'RB', 'IN', 'JJ', 'TO', 'DT', 'VB', 'IN', 'DT', 'JJ', 'NN', 'VBZ', 'VB', 'NN', 'CC', 'DT', 'NN', 'VBZ', 'RB', 'VB', 'JJ']})
+('Thursday he reminded his audience that the government can not allow the necessary rigor of monetary policy to be undermined by exchange rate weakness', {'tags': ['NNP', 'PRP', 'VBD', 'PRP$', 'NN', 'IN', 'DT', 'NN', 'MD', 'RB', 'VB', 'DT', 'JJ', 'NN', 'IN', 'JJ', 'NN', 'TO', 'VB', 'VBN', 'IN', 'NN', 'NN', 'NN']})
+("Analysts agree there is little holding sterling firm at the moment other than Mr. Lawson 's promise that rates will be pushed higher if necessary", {'tags': ['NNS', 'VBP', 'EX', 'VBZ', 'JJ', 'NN', 'NN', 'NN', 'IN', 'DT', 'NN', 'JJ', 'IN', 'NNP', 'NNP', 'POS', 'NN', 'IN', 'NNS', 'MD', 'VB', 'VBN', 'JJR', 'IN', 'JJ']})
+("And they warn any further drop in the government 's popularity could swiftly make this promise sound hollow", {'tags': ['CC', 'PRP', 'VBP', 'DT', 'JJ', 'NN', 'IN', 'DT', 'NN', 'POS', 'NN', 'MD', 'RB', 'VB', 'DT', 'NN', 'NN', 'JJ']})
+("Sterling was already showing some signs of a lack of confidence in Mr. Lawson 's promise Friday", {'tags': ['NNP', 'VBD', 'RB', 'VBG', 'DT', 'NNS', 'IN', 'DT', 'NN', 'IN', 'NN', 'IN', 'NNP', 'NNP', 'POS', 'NN', 'NNP']})
+('In European trading it declined to 1.5890 and 2.9495 marks from 1.5940 and 2.9429 marks late Thursday', {'tags': ['IN', 'JJ', 'NN', 'PRP', 'VBD', 'TO', 'CD', 'CC', 'CD', 'NNS', 'IN', 'CD', 'CC', 'CD', 'NNS', 'JJ', 'NNP']})
+('Economists suggested that if the pound falls much below 2.90 marks the government will be forced to increase rates to 16 % both to halt any further decline and ensure that the balance of monetary policy remains unchanged', {'tags': ['NNS', 'VBD', 'IN', 'IN', 'DT', 'NN', 'VBZ', 'JJ', 'IN', 'CD', 'NNS', 'DT', 'NN', 'MD', 'VB', 'VBN', 'TO', 'VB', 'NNS', 'TO', 'CD', 'NN', 'DT', 'TO', 'VB', 'DT', 'JJ', 'NN', 'CC', 'VB', 'IN', 'DT', 'NN', 'IN', 'JJ', 'NN', 'VBZ', 'JJ']})
+("Friday 's Market Activity The dollar posted gains in quiet trading as concerns about equities abated", {'tags': ['NNP', 'POS', 'NNP', 'NN', 'DT', 'NN', 'VBD', 'NNS', 'IN', 'JJ', 'NN', 'IN', 'NNS', 'IN', 'NNS', 'VBN']})
+('Foreign exchange dealers said that the currency market has begun to distance itself from the volatile stock exchange which has preoccupied the market since Oct. 13 when the Dow Jones Industrial Average plunged more than 190 points', {'tags': ['JJ', 'NN', 'NNS', 'VBD', 'IN', 'DT', 'NN', 'NN', 'VBZ', 'VBN', 'TO', 'VB', 'PRP', 'IN', 'DT', 'JJ', 'NN', 'NN', 'WDT', 'VBZ', 'VBN', 'DT', 'NN', 'IN', 'NNP', 'CD', 'WRB', 'DT', 'NNP', 'NNP', 'NNP', 'NNP', 'VBD', 'JJR', 'IN', 'CD', 'NNS']})
+('Currency analysts predict that in the coming week the foreign exchange market will shift its focus back to economic fundamentals keeping a close eye out for any signs of monetary easing by U.S. Federal Reserve', {'tags': ['NN', 'NNS', 'VBP', 'IN', 'IN', 'DT', 'VBG', 'NN', 'DT', 'JJ', 'NN', 'NN', 'MD', 'VB', 'PRP$', 'NN', 'RB', 'TO', 'JJ', 'NNS', 'VBG', 'DT', 'NN', 'NN', 'IN', 'IN', 'DT', 'NNS', 'IN', 'JJ', 'NN', 'IN', 'NNP', 'NNP', 'NNP']})
+('Late in the New York trading day the dollar was quoted at 1.8578 marks up from 1.8470 marks late Thursday in New York', {'tags': ['RB', 'IN', 'DT', 'NNP', 'NNP', 'NN', 'NN', 'DT', 'NN', 'VBD', 'VBN', 'IN', 'CD', 'NNS', 'IN', 'IN', 'CD', 'NNS', 'JJ', 'NNP', 'IN', 'NNP', 'NNP']})
+('The U.S. currency was also changing hands at 142.43 yen up from 141.70 yen in New York late Thursday', {'tags': ['DT', 'NNP', 'NN', 'VBD', 'RB', 'VBG', 'NNS', 'IN', 'CD', 'NN', 'IN', 'IN', 'CD', 'NN', 'IN', 'NNP', 'NNP', 'JJ', 'NNP']})
+("In Tokyo on Monday the U.S. currency opened for trading at 141.95 yen up from Friday 's Tokyo close of 141.35 yen", {'tags': ['IN', 'NNP', 'IN', 'NNP', 'DT', 'NNP', 'NN', 'VBD', 'IN', 'NN', 'IN', 'CD', 'NN', 'IN', 'IN', 'NNP', 'POS', 'NNP', 'NN', 'IN', 'CD', 'NN']})
+('On the Commodity Exchange in New York gold for current delivery settled at 367.30 an ounce up 20 cents', {'tags': ['IN', 'DT', 'NNP', 'NNP', 'IN', 'NNP', 'NNP', 'NN', 'IN', 'JJ', 'NN', 'VBD', 'IN', 'CD', 'DT', 'NN', 'IN', 'CD', 'NNS']})
+('Estimated volume was a light 2.4 million ounces', {'tags': ['VBN', 'NN', 'VBD', 'DT', 'NN', 'CD', 'CD', 'NNS']})
+('In early trading in Hong Kong Monday gold was quoted at 366.50 an ounce', {'tags': ['IN', 'JJ', 'NN', 'IN', 'NNP', 'NNP', 'NNP', 'NN', 'VBD', 'VBN', 'IN', 'CD', 'DT', 'NN']})
+('East Rock Partners Limited Partnership said it proposed to acquire A.P. Green Industries Inc. for 40 a share', {'tags': ['NNP', 'NNP', 'NNP', 'NNP', 'NNP', 'VBD', 'PRP', 'VBD', 'TO', 'VB', 'NNP', 'NNP', 'NNP', 'NNP', 'IN', 'CD', 'DT', 'NN']})
+("In an Oct. 19 letter to A.P. Green 's board East Rock said the offer is subject to the signing of a merger agreement by no later than Oct. 31", {'tags': ['IN', 'DT', 'NNP', 'CD', 'NN', 'TO', 'NNP', 'NNP', 'POS', 'NN', 'NNP', 'NNP', 'VBD', 'DT', 'NN', 'VBZ', 'NN', 'TO', 'DT', 'NN', 'IN', 'DT', 'NN', 'NN', 'IN', 'DT', 'RB', 'IN', 'NNP', 'CD']})
+('The letter attached to a filing with the Securities and Exchange Commission said the approval is also contingent upon obtaining satisfactory financing', {'tags': ['DT', 'NN', 'VBN', 'TO', 'DT', 'NN', 'IN', 'DT', 'NNP', 'CC', 'NNP', 'NNP', 'VBD', 'DT', 'NN', 'VBZ', 'RB', 'JJ', 'IN', 'VBG', 'JJ', 'NN']})
+('An A.P. Green official declined to comment on the filing', {'tags': ['DT', 'NNP', 'NNP', 'NN', 'VBD', 'TO', 'VB', 'IN', 'DT', 'NN']})
+('The 40-a-share proposal values the company at about 106.6 million', {'tags': ['DT', 'JJ', 'NN', 'VBZ', 'DT', 'NN', 'IN', 'RB', 'CD', 'CD']})
+('A.P. Green currently has 2,664,098 shares outstanding', {'tags': ['NNP', 'NNP', 'RB', 'VBZ', 'CD', 'NNS', 'JJ']})
+('Its stock closed at 38 up 1.875 in national over-the-counter trading', {'tags': ['PRP$', 'NN', 'VBD', 'IN', 'CD', 'IN', 'CD', 'IN', 'JJ', 'JJ', 'NN']})
+('The company is a Mexico Mo. maker of refractory products', {'tags': ['DT', 'NN', 'VBZ', 'DT', 'NNP', 'NNP', 'NN', 'IN', 'JJ', 'NNS']})
+('East Rock also said in the filing that it boosted its stake in A.P. Green to 8.7 %', {'tags': ['NNP', 'NNP', 'RB', 'VBD', 'IN', 'DT', 'NN', 'IN', 'PRP', 'VBD', 'PRP$', 'NN', 'IN', 'NNP', 'NNP', 'TO', 'CD', 'NN']})
+('It now holds 233,000 A.P. Green common shares including 30,000 shares bought last Thursday for 35.50 to 36.50 a share', {'tags': ['PRP', 'RB', 'VBZ', 'CD', 'NNP', 'NNP', 'JJ', 'NNS', 'VBG', 'CD', 'NNS', 'VBD', 'JJ', 'NNP', 'IN', 'CD', 'TO', 'CD', 'DT', 'NN']})
+('New York-based John Kuhns and Robert MacDonald control East Rock Partners Inc. the sole general partner of East Rock Partners L.P', {'tags': ['NNP', 'JJ', 'NNP', 'NNP', 'CC', 'NNP', 'NNP', 'NN', 'NNP', 'NNP', 'NNP', 'NNP', 'DT', 'JJ', 'JJ', 'NN', 'IN', 'NNP', 'NNP', 'NNP', 'NNP']})
+('The sole limited partner of the partnership is Westwood Brick Lime Inc. an indirect subsidiary of Westwood Group Inc', {'tags': ['DT', 'JJ', 'JJ', 'NN', 'IN', 'DT', 'NN', 'VBZ', 'NNP', 'NNP', 'NNP', 'NNP', 'DT', 'JJ', 'NN', 'IN', 'NNP', 'NNP', 'NNP']})
+('Both Westwood Brick and Westwood Group are based in Boston', {'tags': ['DT', 'NNP', 'NNP', 'CC', 'NNP', 'NNP', 'VBP', 'VBN', 'IN', 'NNP']})
+('Freight rates declining for most of the decade because of competition spurred by deregulation are bottoming out turning upward and threatening to fuel inflation', {'tags': ['NN', 'NNS', 'VBG', 'IN', 'RBS', 'IN', 'DT', 'NN', 'IN', 'IN', 'NN', 'VBN', 'IN', 'NN', 'VBP', 'VBG', 'IN', 'VBG', 'RB', 'CC', 'VBG', 'TO', 'VB', 'NN']})
+('Trucking shipping and air-freight companies have announced rate increases scheduled for this fall or early next year reflecting higher costs and tightened demand for freight transport', {'tags': ['NNP', 'VBG', 'CC', 'NN', 'NNS', 'VBP', 'VBN', 'NN', 'NNS', 'VBN', 'IN', 'DT', 'NN', 'CC', 'JJ', 'JJ', 'NN', 'VBG', 'JJR', 'NNS', 'CC', 'VBD', 'NN', 'IN', 'NN', 'NN']})
+('Major shippers say they expect freight rates to rise at least as fast as inflation and maybe faster in the next few years', {'tags': ['JJ', 'NNS', 'VBP', 'PRP', 'VBP', 'NN', 'NNS', 'TO', 'VB', 'IN', 'JJS', 'RB', 'RB', 'IN', 'NN', 'CC', 'RB', 'RBR', 'IN', 'DT', 'JJ', 'JJ', 'NNS']})
+("That 's a big change from recent years when freight haulage was a bright spot for U.S. productivity helping to restrain inflation and make U.S. industry more competitive abroad", {'tags': ['DT', 'VBZ', 'DT', 'JJ', 'NN', 'IN', 'JJ', 'NNS', 'WRB', 'NN', 'NN', 'VBD', 'DT', 'JJ', 'NN', 'IN', 'NNP', 'NN', 'VBG', 'TO', 'VB', 'NN', 'CC', 'VB', 'NNP', 'NN', 'RBR', 'JJ', 'RB']})
+('Demand has caught up with the supply of certain types of freight transportation and rates are starting to move up at a rate close to or slightly more than the inflation rate said Clifford Sayre director of logistics at Du Pont Co', {'tags': ['NN', 'VBZ', 'VBN', 'IN', 'IN', 'DT', 'NN', 'IN', 'JJ', 'NNS', 'IN', 'NN', 'NN', 'CC', 'NNS', 'VBP', 'VBG', 'TO', 'VB', 'IN', 'IN', 'DT', 'NN', 'RB', 'TO', 'CC', 'RB', 'JJR', 'IN', 'DT', 'NN', 'NN', 'VBD', 'NNP', 'NNP', 'NN', 'IN', 'NNS', 'IN', 'NNP', 'NNP', 'NNP']})
+('Shippers surveyed recently by Ohio State University said they expect their freight-transport storage and distribution costs to rise about 4 % this year', {'tags': ['NNS', 'VBN', 'RB', 'IN', 'NNP', 'NNP', 'NNP', 'VBD', 'PRP', 'VBP', 'PRP$', 'JJ', 'NN', 'CC', 'NN', 'NNS', 'TO', 'VB', 'IN', 'CD', 'NN', 'DT', 'NN']})
+('Only 10 % of the 250 shippers polled expected their freight-transport costs to decrease compared with 30 % who had looked to freight transport to reduce costs in past years', {'tags': ['RB', 'CD', 'NN', 'IN', 'DT', 'CD', 'NNS', 'VBN', 'VBN', 'PRP$', 'JJ', 'NNS', 'TO', 'VB', 'VBN', 'IN', 'CD', 'NN', 'WP', 'VBD', 'VBN', 'TO', 'VB', 'NN', 'TO', 'VB', 'NNS', 'IN', 'JJ', 'NNS']})
+('This is the first year since transportation deregulation in 1980 that we have had such a dramatic and broad-based upturn in perceived transportation rates said Bernard LaLonde a transportation logistics professor at Ohio State in Columbus', {'tags': ['DT', 'VBZ', 'DT', 'JJ', 'NN', 'IN', 'NN', 'NN', 'IN', 'CD', 'IN', 'PRP', 'VBP', 'VBN', 'JJ', 'DT', 'JJ', 'CC', 'JJ', 'NN', 'IN', 'VBN', 'NN', 'NNS', 'VBD', 'NNP', 'NNP', 'DT', 'NN', 'NNS', 'NN', 'IN', 'NNP', 'NNP', 'IN', 'NNP']})
+('The deregulation of railroads and trucking companies that began in 1980 enabled shippers to bargain for transportation', {'tags': ['DT', 'NN', 'IN', 'NNS', 'CC', 'NN', 'NNS', 'WDT', 'VBD', 'IN', 'CD', 'VBD', 'NNS', 'TO', 'VB', 'IN', 'NN']})
+('Carriers could use their equipment more efficiently leading to overcapacity they were eager to fill', {'tags': ['NNP', 'MD', 'VB', 'PRP$', 'NN', 'RBR', 'RB', 'VBG', 'TO', 'NN', 'PRP', 'VBD', 'JJ', 'TO', 'VB']})
+('Shippers cut about 35 billion from their annual inter-city truck and rail costs to about 150 billion or about 6.4 % of gross national product down from 8 % of GNP in 1981', {'tags': ['NNS', 'VBP', 'RB', 'CD', 'CD', 'IN', 'PRP$', 'JJ', 'JJ', 'NN', 'CC', 'NN', 'NNS', 'TO', 'RB', 'CD', 'CD', 'CC', 'IN', 'CD', 'NN', 'IN', 'JJ', 'JJ', 'NN', 'RB', 'IN', 'CD', 'NN', 'IN', 'NNP', 'IN', 'CD']})
+('But with much of the inefficiency squeezed out of the freight-transport system rising costs are likely to be reflected directly in higher freight rates', {'tags': ['CC', 'IN', 'NN', 'IN', 'DT', 'NN', 'VBN', 'IN', 'IN', 'DT', 'JJ', 'NN', 'VBG', 'NNS', 'VBP', 'JJ', 'TO', 'VB', 'VBN', 'RB', 'IN', 'JJR', 'NN', 'NNS']})
+("Shippers are saying the party 's over said Mr. LaLonde", {'tags': ['NNS', 'VBP', 'VBG', 'DT', 'NN', 'POS', 'IN', 'VBD', 'NNP', 'NNP']})
+("Shippers wo n't be able to look for transportation-cost savings as they have for the last eight or nine years", {'tags': ['NNS', 'MD', 'RB', 'VB', 'JJ', 'TO', 'VB', 'IN', 'JJ', 'NNS', 'IN', 'PRP', 'VBP', 'IN', 'DT', 'JJ', 'CD', 'CC', 'CD', 'NNS']})
+("Transport rates wo n't be an opportunity for offsetting cost increases in other segments of the economy", {'tags': ['NN', 'NNS', 'MD', 'RB', 'VB', 'DT', 'NN', 'IN', 'VBG', 'NN', 'NNS', 'IN', 'JJ', 'NNS', 'IN', 'DT', 'NN']})
+("Robert Delaney a consultant at Arthur D. Little Inc. Cambridge Mass. said We 've gotten all the benefits of deregulation in freight-cost reductions", {'tags': ['NNP', 'NNP', 'DT', 'NN', 'IN', 'NNP', 'NNP', 'NNP', 'NNP', 'NNP', 'NNP', 'VBD', 'PRP', 'VBP', 'VBN', 'PDT', 'DT', 'NNS', 'IN', 'NN', 'IN', 'JJ', 'NNS']})
+('Now we are starting to see real freight-rate increases as carriers replace equipment pay higher fuel costs and pay more for labor', {'tags': ['RB', 'PRP', 'VBP', 'VBG', 'TO', 'VB', 'JJ', 'JJ', 'NNS', 'IN', 'NNS', 'VBP', 'NN', 'VB', 'JJR', 'NN', 'NNS', 'CC', 'VB', 'JJR', 'IN', 'NN']})
+("You 'll see carriers try to recoup some of the price cutting that occurred previously", {'tags': ['PRP', 'MD', 'VB', 'NNS', 'VB', 'TO', 'VB', 'DT', 'IN', 'DT', 'NN', 'VBG', 'WDT', 'VBD', 'RB']})
+('Not everyone believes that the good times are over for shippers', {'tags': ['RB', 'NN', 'VBZ', 'IN', 'DT', 'JJ', 'NNS', 'VBP', 'IN', 'IN', 'NNS']})
+("There 's still a lot of pressure on rates in both rail and truck said Gerard McCullough lecturer in transportation at Massachusetts Institute of Technology", {'tags': ['EX', 'VBZ', 'RB', 'DT', 'NN', 'IN', 'NN', 'IN', 'NNS', 'IN', 'DT', 'NN', 'CC', 'NN', 'VBD', 'NNP', 'NNP', 'NN', 'IN', 'NN', 'IN', 'NNP', 'NNP', 'IN', 'NNP']})
+('Less-than-truckload companies which carry the freight of several shippers in each truck trailer discounted away a 4.7 % rate increase implemented last April', {'tags': ['JJ', 'NNS', 'WDT', 'VBP', 'DT', 'NN', 'IN', 'JJ', 'NNS', 'IN', 'DT', 'NN', 'NN', 'VBD', 'RB', 'DT', 'CD', 'NN', 'NN', 'NN', 'VBD', 'JJ', 'NNP']})
+('The carriers were competing fiercely for market share', {'tags': ['DT', 'NNS', 'VBD', 'VBG', 'RB', 'IN', 'NN', 'NN']})
+('Railroad-rate increases are likely to be restrained by weakening rail-traffic levels and keen competition for freight from trucks', {'tags': ['JJ', 'NNS', 'VBP', 'JJ', 'TO', 'VB', 'VBN', 'IN', 'VBG', 'JJ', 'NNS', 'CC', 'JJ', 'NN', 'IN', 'NN', 'IN', 'NNS']})
+('An official at Consolidated Freightways Inc. a Menlo Park Calif. less-than-truckload carrier said rate discounting in that industry has begun to stabilize', {'tags': ['DT', 'NN', 'IN', 'NNP', 'NNP', 'NNP', 'DT', 'NNP', 'NNP', 'NNP', 'JJ', 'NN', 'VBD', 'NN', 'NN', 'IN', 'DT', 'NN', 'VBZ', 'VBN', 'TO', 'VB']})
+('Consolidated Freightways plans to raise its rates 5.3 % late this year or early next year and at least two competitors have announced similar increases', {'tags': ['NNP', 'NNP', 'VBZ', 'TO', 'VB', 'PRP$', 'NNS', 'CD', 'NN', 'JJ', 'DT', 'NN', 'CC', 'JJ', 'JJ', 'NN', 'CC', 'IN', 'JJS', 'CD', 'NNS', 'VBP', 'VBN', 'JJ', 'NNS']})
+('Truckers are trying to send signals that they need to stop the bloodletting forget about market share and go for higher rates said Michael Lloyd an analyst at Salomon Bros', {'tags': ['NNS', 'VBP', 'VBG', 'TO', 'VB', 'NNS', 'IN', 'PRP', 'VBP', 'TO', 'VB', 'DT', 'NN', 'VB', 'IN', 'NN', 'NN', 'CC', 'VB', 'IN', 'JJR', 'NNS', 'VBD', 'NNP', 'NNP', 'DT', 'NN', 'IN', 'NNP', 'NNP']})
+('And shippers are getting the feeling that they have played one trucker off against another as much as they can he said', {'tags': ['CC', 'NNS', 'VBP', 'VBG', 'DT', 'NN', 'IN', 'PRP', 'VBP', 'VBN', 'CD', 'NN', 'IN', 'IN', 'DT', 'RB', 'JJ', 'IN', 'PRP', 'MD', 'PRP', 'VBD']})
+('Air-freight carriers raised their rates for U.S. products going across the Pacific to Asia by about 20 % earlier this month', {'tags': ['NN', 'NNS', 'VBD', 'PRP$', 'NNS', 'IN', 'NNP', 'NNS', 'VBG', 'IN', 'DT', 'NNP', 'TO', 'NNP', 'IN', 'IN', 'CD', 'NN', 'RBR', 'DT', 'NN']})
+('And Japan Air Lines said it plans to boost its rates a further 25 % over the next two years', {'tags': ['CC', 'NNP', 'NNP', 'NNPS', 'VBD', 'PRP', 'VBZ', 'TO', 'VB', 'PRP$', 'NNS', 'DT', 'JJ', 'CD', 'NN', 'IN', 'DT', 'JJ', 'CD', 'NNS']})
+('Such rate increases will increase the total cost of U.S. products and slow down the rate of increase of U.S. exports said Richard Connors a senior vice president of Yusen Air & Sea Service U.S.A. Inc. the U.S. air-freight-forwarding subsidiary of Nippon Yusen Kaisha of Japan', {'tags': ['JJ', 'NN', 'NNS', 'MD', 'VB', 'DT', 'JJ', 'NN', 'IN', 'NNP', 'NNS', 'CC', 'JJ', 'RP', 'DT', 'NN', 'IN', 'NN', 'IN', 'NNP', 'NNS', 'VBD', 'NNP', 'NNP', 'DT', 'JJ', 'NN', 'NN', 'IN', 'NNP', 'NNP', 'CC', 'NNP', 'NNP', 'NNP', 'NNP', 'DT', 'NNP', 'JJ', 'NN', 'IN', 'NNP', 'NNP', 'NNP', 'IN', 'NNP']})
+('Ship companies carrying bulk commodities such as oil grain coal and iron ore have been able to increase their rates in the last couple of years', {'tags': ['NN', 'NNS', 'VBG', 'NN', 'NNS', 'JJ', 'IN', 'NN', 'NN', 'NN', 'CC', 'NN', 'NN', 'VBP', 'VBN', 'JJ', 'TO', 'VB', 'PRP$', 'NNS', 'IN', 'DT', 'JJ', 'NN', 'IN', 'NNS']})
+("Some bulk shipping rates have increased 3 % to 4 % in the past few months said Salomon 's Mr. Lloyd", {'tags': ['DT', 'NN', 'VBG', 'NNS', 'VBP', 'VBN', 'CD', 'NN', 'TO', 'CD', 'NN', 'IN', 'DT', 'JJ', 'JJ', 'NNS', 'VBD', 'NNP', 'POS', 'NNP', 'NNP']})
+('And ship lines carrying containers are also trying to raise their rates', {'tags': ['CC', 'NN', 'NNS', 'VBG', 'NNS', 'VBP', 'RB', 'VBG', 'TO', 'VB', 'PRP$', 'NNS']})
+('Carriers boosted rates more than 10 % in the North Atlantic between the U.S. and Europe last September hoping to partly restore rates to earlier levels', {'tags': ['NNP', 'VBD', 'NNS', 'JJR', 'IN', 'CD', 'NN', 'IN', 'DT', 'NNP', 'NNP', 'IN', 'DT', 'NNP', 'CC', 'NNP', 'JJ', 'NNP', 'VBG', 'TO', 'RB', 'VB', 'NNS', 'TO', 'JJR', 'NNS']})
+('Ship lines operating in the Pacific plan to raise rates on containers carrying U.S. exports to Asia about 10 % effective next April', {'tags': ['NN', 'NNS', 'VBG', 'IN', 'DT', 'NNP', 'NN', 'TO', 'VB', 'NNS', 'IN', 'NNS', 'VBG', 'NNP', 'NNS', 'TO', 'NNP', 'IN', 'CD', 'NN', 'JJ', 'JJ', 'NNP']})
+('MGM Grand Inc. said it filed a registration statement with the Securities and Exchange Commission for a public offering of six million common shares', {'tags': ['NNP', 'NNP', 'NNP', 'VBD', 'PRP', 'VBD', 'DT', 'NN', 'NN', 'IN', 'DT', 'NNP', 'CC', 'NNP', 'NNP', 'IN', 'DT', 'JJ', 'NN', 'IN', 'CD', 'CD', 'JJ', 'NNS']})
+('The Beverly Hills Calif.-based company said it would have 26.9 million common shares outstanding after the offering', {'tags': ['DT', 'NNP', 'NNP', 'JJ', 'NN', 'VBD', 'PRP', 'MD', 'VB', 'CD', 'CD', 'JJ', 'NNS', 'JJ', 'IN', 'DT', 'NN']})
+('The hotel and Gaming company said Merrill Lynch Capital Markets will lead the underwriters', {'tags': ['DT', 'NN', 'CC', 'NNP', 'NN', 'VBD', 'NNP', 'NNP', 'NNP', 'NNPS', 'MD', 'VB', 'DT', 'NNS']})
+('Proceeds from the sale will be used for remodeling and refurbishing projects as well as for the planned MGM Grand hotel\\/casino and theme park', {'tags': ['NNS', 'IN', 'DT', 'NN', 'MD', 'VB', 'VBN', 'IN', 'VBG', 'CC', 'VBG', 'NNS', 'RB', 'RB', 'IN', 'IN', 'DT', 'VBN', 'NNP', 'NNP', 'NN', 'CC', 'NN', 'NN']})
+('Bob Stone stewed over a letter from his manager putting him on probation for insubordination', {'tags': ['NNP', 'NNP', 'JJ', 'IN', 'DT', 'NN', 'IN', 'PRP$', 'NN', 'VBG', 'PRP', 'IN', 'NN', 'IN', 'NN']})
+('Mr. Stone thought the discipline was unfair he believed that his manager wanted to get rid of him for personal reasons', {'tags': ['NNP', 'NNP', 'VBD', 'DT', 'NN', 'VBD', 'JJ', 'PRP', 'VBD', 'IN', 'PRP$', 'NN', 'VBD', 'TO', 'VB', 'JJ', 'IN', 'PRP', 'IN', 'JJ', 'NNS']})
+('Unable to persuade the manager to change his decision he went to a company court for a hearing', {'tags': ['JJ', 'TO', 'VB', 'DT', 'NN', 'TO', 'VB', 'PRP$', 'NN', 'PRP', 'VBD', 'TO', 'DT', 'NN', 'NN', 'IN', 'DT', 'NN']})
+('At the scheduled time Mr. Stone entered a conference room in a building near where he worked', {'tags': ['IN', 'DT', 'VBN', 'NN', 'NNP', 'NNP', 'VBD', 'DT', 'NN', 'NN', 'IN', 'DT', 'NN', 'IN', 'WRB', 'PRP', 'VBD']})
+('After the three members of the court introduced themselves the chairman of the panel said Go ahead and tell us what happened', {'tags': ['IN', 'DT', 'CD', 'NNS', 'IN', 'DT', 'NN', 'VBD', 'PRP', 'DT', 'NN', 'IN', 'DT', 'NN', 'VBD', 'VB', 'RB', 'CC', 'VB', 'PRP', 'WP', 'VBD']})
+('We may ask questions as you go along or we may wait until the end', {'tags': ['PRP', 'MD', 'VB', 'NNS', 'IN', 'PRP', 'VBP', 'IN', 'CC', 'PRP', 'MD', 'VB', 'IN', 'DT', 'NN']})
+('No lawyers or tape recorders were present', {'tags': ['DT', 'NNS', 'CC', 'NN', 'NNS', 'VBD', 'JJ']})
+("The only extra people were a couple of personnel specialists one of whom knew Mr. Stone 's case intimately and would help fill in any facts needed to give the court the full picture", {'tags': ['DT', 'RB', 'JJ', 'NNS', 'VBD', 'DT', 'NN', 'IN', 'NNS', 'NNS', 'CD', 'IN', 'WP', 'VBD', 'NNP', 'NNP', 'POS', 'NN', 'RB', 'CC', 'MD', 'VB', 'VB', 'IN', 'DT', 'NNS', 'VBN', 'TO', 'VB', 'DT', 'NN', 'DT', 'JJ', 'NN']})
+('Over a cup of coffee Mr. Stone told his story', {'tags': ['IN', 'DT', 'NN', 'IN', 'NN', 'NNP', 'NNP', 'VBD', 'PRP$', 'NN']})
+('He talked about 20 minutes', {'tags': ['PRP', 'VBD', 'IN', 'CD', 'NNS']})
+ 
+BATCHES:
+
+i = 1
+TEXTS:
+At the scheduled time Mr. Stone entered a conference room in a building near where he worked
+Not everyone believes that the good times are over for shippers
+Thursday he reminded his audience that the government can not allow the necessary rigor of monetary policy to be undermined by exchange rate weakness
+At the same time he remains fairly pessimistic about the outlook for imports given continued high consumer and capital goods inflows
+
+ANNOTATIONS:
+{'tags': ['IN', 'DT', 'VBN', 'NN', 'NNP', 'NNP', 'VBD', 'DT', 'NN', 'NN', 'IN', 'DT', 'NN', 'IN', 'WRB', 'PRP', 'VBD']}
+{'tags': ['RB', 'NN', 'VBZ', 'IN', 'DT', 'JJ', 'NNS', 'VBP', 'IN', 'IN', 'NNS']}
+{'tags': ['NNP', 'PRP', 'VBD', 'PRP$', 'NN', 'IN', 'DT', 'NN', 'MD', 'RB', 'VB', 'DT', 'JJ', 'NN', 'IN', 'JJ', 'NN', 'TO', 'VB', 'VBN', 'IN', 'NN', 'NN', 'NN']}
+{'tags': ['IN', 'DT', 'JJ', 'NN', 'PRP', 'VBZ', 'RB', 'JJ', 'IN', 'DT', 'NN', 'IN', 'NNS', 'VBN', 'VBD', 'JJ', 'NN', 'CC', 'NN', 'NNS', 'NNS']}
+
+NLP SPLIT:
+At the scheduled time Mr. Stone entered a conference room in a building near where he worked 
+Not everyone believes that the good times are over for shippers 
+Thursday he reminded his audience that the government can not allow the necessary rigor of monetary policy to be undermined by exchange rate weakness 
+At the same time he remains fairly pessimistic about the outlook for imports given continued high consumer and capital goods inflows 
+
+####################################################################################################
+
+i = 1
+TEXTS:
+Transport rates wo n't be an opportunity for offsetting cost increases in other segments of the economy
+Mr. Stone thought the discipline was unfair he believed that his manager wanted to get rid of him for personal reasons
+Now we are starting to see real freight-rate increases as carriers replace equipment pay higher fuel costs and pay more for labor
+Mr. Dillow said the data show the economy is still quite strong but suggestions that much of the spending went on services rather than consumer goods should reduce fears of more import rises
+
+ANNOTATIONS:
+{'tags': ['NN', 'NNS', 'MD', 'RB', 'VB', 'DT', 'NN', 'IN', 'VBG', 'NN', 'NNS', 'IN', 'JJ', 'NNS', 'IN', 'DT', 'NN']}
+{'tags': ['NNP', 'NNP', 'VBD', 'DT', 'NN', 'VBD', 'JJ', 'PRP', 'VBD', 'IN', 'PRP$', 'NN', 'VBD', 'TO', 'VB', 'JJ', 'IN', 'PRP', 'IN', 'JJ', 'NNS']}
+{'tags': ['RB', 'PRP', 'VBP', 'VBG', 'TO', 'VB', 'JJ', 'JJ', 'NNS', 'IN', 'NNS', 'VBP', 'NN', 'VB', 'JJR', 'NN', 'NNS', 'CC', 'VB', 'JJR', 'IN', 'NN']}
+{'tags': ['NNP', 'NNP', 'VBD', 'DT', 'NNS', 'VBP', 'DT', 'NN', 'VBZ', 'RB', 'RB', 'JJ', 'CC', 'NNS', 'IN', 'NN', 'IN', 'DT', 'NN', 'VBD', 'IN', 'NNS', 'RB', 'IN', 'NN', 'NNS', 'MD', 'VB', 'NNS', 'IN', 'JJR', 'NN', 'NNS']}
+
+NLP SPLIT:
+Transport rates wo n't be an opportunity for offsetting cost increases in other segments of the economy 
+Mr. Stone thought the discipline was unfair he believed that his manager wanted to get rid of him for personal reasons 
+Now we are starting to see real freight-rate increases as carriers replace equipment pay higher fuel costs and pay more for labor 
+Mr. Dillow said the data show the economy is still quite strong but suggestions that much of the spending went on services rather than consumer goods should reduce fears of more import rises 
+
+####################################################################################################
+
+i = 1
+TEXTS:
+But analysts reckon underlying support for sterling has been eroded by the chancellor 's failure to announce any new policy measures in his Mansion House speech last Thursday
+In an Oct. 19 letter to A.P. Green 's board East Rock said the offer is subject to the signing of a merger agreement by no later than Oct. 31
+Foreign exchange dealers said that the currency market has begun to distance itself from the volatile stock exchange which has preoccupied the market since Oct. 13 when the Dow Jones Industrial Average plunged more than 190 points
+He talked about 20 minutes
+
+ANNOTATIONS:
+{'tags': ['CC', 'NNS', 'VBP', 'VBG', 'NN', 'IN', 'NN', 'VBZ', 'VBN', 'VBN', 'IN', 'DT', 'NN', 'POS', 'NN', 'TO', 'VB', 'DT', 'JJ', 'NN', 'NNS', 'IN', 'PRP$', 'NNP', 'NNP', 'NN', 'JJ', 'NNP']}
+{'tags': ['IN', 'DT', 'NNP', 'CD', 'NN', 'TO', 'NNP', 'NNP', 'POS', 'NN', 'NNP', 'NNP', 'VBD', 'DT', 'NN', 'VBZ', 'NN', 'TO', 'DT', 'NN', 'IN', 'DT', 'NN', 'NN', 'IN', 'DT', 'RB', 'IN', 'NNP', 'CD']}
+{'tags': ['JJ', 'NN', 'NNS', 'VBD', 'IN', 'DT', 'NN', 'NN', 'VBZ', 'VBN', 'TO', 'VB', 'PRP', 'IN', 'DT', 'JJ', 'NN', 'NN', 'WDT', 'VBZ', 'VBN', 'DT', 'NN', 'IN', 'NNP', 'CD', 'WRB', 'DT', 'NNP', 'NNP', 'NNP', 'NNP', 'VBD', 'JJR', 'IN', 'CD', 'NNS']}
+{'tags': ['PRP', 'VBD', 'IN', 'CD', 'NNS']}
+
+NLP SPLIT:
+But analysts reckon underlying support for sterling has been eroded by the chancellor 's failure to announce any new policy measures in his Mansion House speech last Thursday 
+In an Oct. 19 letter to A.P. Green 's board East Rock said the offer is subject to the signing of a merger agreement by no later than Oct. 31 
+Foreign exchange dealers said that the currency market has begun to distance itself from the volatile stock exchange which has preoccupied the market since Oct. 13 when the Dow Jones Industrial Average plunged more than 190 points 
+He talked about 20 minutes 
+
+####################################################################################################
+
+i = 1
+TEXTS:
+Carriers could use their equipment more efficiently leading to overcapacity they were eager to fill
+Shippers surveyed recently by Ohio State University said they expect their freight-transport storage and distribution costs to rise about 4 % this year
+Ship companies carrying bulk commodities such as oil grain coal and iron ore have been able to increase their rates in the last couple of years
+Friday 's Market Activity The dollar posted gains in quiet trading as concerns about equities abated
+
+ANNOTATIONS:
+{'tags': ['NNP', 'MD', 'VB', 'PRP$', 'NN', 'RBR', 'RB', 'VBG', 'TO', 'NN', 'PRP', 'VBD', 'JJ', 'TO', 'VB']}
+{'tags': ['NNS', 'VBN', 'RB', 'IN', 'NNP', 'NNP', 'NNP', 'VBD', 'PRP', 'VBP', 'PRP$', 'JJ', 'NN', 'CC', 'NN', 'NNS', 'TO', 'VB', 'IN', 'CD', 'NN', 'DT', 'NN']}
+{'tags': ['NN', 'NNS', 'VBG', 'NN', 'NNS', 'JJ', 'IN', 'NN', 'NN', 'NN', 'CC', 'NN', 'NN', 'VBP', 'VBN', 'JJ', 'TO', 'VB', 'PRP$', 'NNS', 'IN', 'DT', 'JJ', 'NN', 'IN', 'NNS']}
+{'tags': ['NNP', 'POS', 'NNP', 'NN', 'DT', 'NN', 'VBD', 'NNS', 'IN', 'JJ', 'NN', 'IN', 'NNS', 'IN', 'NNS', 'VBN']}
+
+NLP SPLIT:
+Carriers could use their equipment more efficiently leading to overcapacity they were eager to fill 
+Shippers surveyed recently by Ohio State University said they expect their freight-transport storage and distribution costs to rise about 4 % this year 
+Ship companies carrying bulk commodities such as oil grain coal and iron ore have been able to increase their rates in the last couple of years 
+Friday 's Market Activity The dollar posted gains in quiet trading as concerns about equities abated 
+
+####################################################################################################
+
+i = 1
+TEXTS:
+Currency analysts predict that in the coming week the foreign exchange market will shift its focus back to economic fundamentals keeping a close eye out for any signs of monetary easing by U.S. Federal Reserve
+On the Commodity Exchange in New York gold for current delivery settled at 367.30 an ounce up 20 cents
+A.P. Green currently has 2,664,098 shares outstanding
+Such rate increases will increase the total cost of U.S. products and slow down the rate of increase of U.S. exports said Richard Connors a senior vice president of Yusen Air & Sea Service U.S.A. Inc. the U.S. air-freight-forwarding subsidiary of Nippon Yusen Kaisha of Japan
+
+ANNOTATIONS:
+{'tags': ['NN', 'NNS', 'VBP', 'IN', 'IN', 'DT', 'VBG', 'NN', 'DT', 'JJ', 'NN', 'NN', 'MD', 'VB', 'PRP$', 'NN', 'RB', 'TO', 'JJ', 'NNS', 'VBG', 'DT', 'NN', 'NN', 'IN', 'IN', 'DT', 'NNS', 'IN', 'JJ', 'NN', 'IN', 'NNP', 'NNP', 'NNP']}
+{'tags': ['IN', 'DT', 'NNP', 'NNP', 'IN', 'NNP', 'NNP', 'NN', 'IN', 'JJ', 'NN', 'VBD', 'IN', 'CD', 'DT', 'NN', 'IN', 'CD', 'NNS']}
+{'tags': ['NNP', 'NNP', 'RB', 'VBZ', 'CD', 'NNS', 'JJ']}
+{'tags': ['JJ', 'NN', 'NNS', 'MD', 'VB', 'DT', 'JJ', 'NN', 'IN', 'NNP', 'NNS', 'CC', 'JJ', 'RP', 'DT', 'NN', 'IN', 'NN', 'IN', 'NNP', 'NNS', 'VBD', 'NNP', 'NNP', 'DT', 'JJ', 'NN', 'NN', 'IN', 'NNP', 'NNP', 'CC', 'NNP', 'NNP', 'NNP', 'NNP', 'DT', 'NNP', 'JJ', 'NN', 'IN', 'NNP', 'NNP', 'NNP', 'IN', 'NNP']}
+
+NLP SPLIT:
+Currency analysts predict that in the coming week the foreign exchange market will shift its focus back to economic fundamentals keeping a close eye out for any signs of monetary easing by U.S. Federal Reserve 
+On the Commodity Exchange in New York gold for current delivery settled at 367.30 an ounce up 20 cents 
+A.P. Green currently has 2,664,098 shares outstanding 
+Such rate increases will increase the total cost of U.S. products and slow down the rate of increase of U.S. exports said Richard Connors a senior vice president of Yusen Air & Sea Service U.S.A. Inc. the U.S. air-freight-forwarding subsidiary of Nippon Yusen Kaisha of Japan 
+
+####################################################################################################
+
+i = 1
+TEXTS:
+But with much of the inefficiency squeezed out of the freight-transport system rising costs are likely to be reflected directly in higher freight rates
+Mr. Briscoe who also forecasts a 1.3 billion current account gap warns that even if the trade figures are bullish for sterling the currency wo n't advance much because investors will want to see further evidence of the turnaround before adjusting positions
+The only extra people were a couple of personnel specialists one of whom knew Mr. Stone 's case intimately and would help fill in any facts needed to give the court the full picture
+Shippers wo n't be able to look for transportation-cost savings as they have for the last eight or nine years
+
+ANNOTATIONS:
+{'tags': ['CC', 'IN', 'NN', 'IN', 'DT', 'NN', 'VBN', 'IN', 'IN', 'DT', 'JJ', 'NN', 'VBG', 'NNS', 'VBP', 'JJ', 'TO', 'VB', 'VBN', 'RB', 'IN', 'JJR', 'NN', 'NNS']}
+{'tags': ['NNP', 'NNP', 'WP', 'RB', 'VBZ', 'DT', 'CD', 'CD', 'JJ', 'NN', 'NN', 'VBZ', 'IN', 'RB', 'IN', 'DT', 'NN', 'NNS', 'VBP', 'JJ', 'IN', 'NN', 'DT', 'NN', 'MD', 'RB', 'VB', 'JJ', 'IN', 'NNS', 'MD', 'VB', 'TO', 'VB', 'JJ', 'NN', 'IN', 'DT', 'NN', 'IN', 'VBG', 'NNS']}
+{'tags': ['DT', 'RB', 'JJ', 'NNS', 'VBD', 'DT', 'NN', 'IN', 'NNS', 'NNS', 'CD', 'IN', 'WP', 'VBD', 'NNP', 'NNP', 'POS', 'NN', 'RB', 'CC', 'MD', 'VB', 'VB', 'IN', 'DT', 'NNS', 'VBN', 'TO', 'VB', 'DT', 'NN', 'DT', 'JJ', 'NN']}
+{'tags': ['NNS', 'MD', 'RB', 'VB', 'JJ', 'TO', 'VB', 'IN', 'JJ', 'NNS', 'IN', 'PRP', 'VBP', 'IN', 'DT', 'JJ', 'CD', 'CC', 'CD', 'NNS']}
+
+NLP SPLIT:
+But with much of the inefficiency squeezed out of the freight-transport system rising costs are likely to be reflected directly in higher freight rates 
+Mr. Briscoe who also forecasts a 1.3 billion current account gap warns that even if the trade figures are bullish for sterling the currency wo n't advance much because investors will want to see further evidence of the turnaround before adjusting positions 
+The only extra people were a couple of personnel specialists one of whom knew Mr. Stone 's case intimately and would help fill in any facts needed to give the court the full picture 
+Shippers wo n't be able to look for transportation-cost savings as they have for the last eight or nine years 
+
+####################################################################################################
+
+i = 1
+TEXTS:
+The 40-a-share proposal values the company at about 106.6 million
+In his Mansion House speech Mr. Lawson warned that a further slowdown can be expected as the impact of the last rise in interest rates earlier this month takes effect
+Estimated volume was a light 2.4 million ounces
+Truckers are trying to send signals that they need to stop the bloodletting forget about market share and go for higher rates said Michael Lloyd an analyst at Salomon Bros
+
+ANNOTATIONS:
+{'tags': ['DT', 'JJ', 'NN', 'VBZ', 'DT', 'NN', 'IN', 'RB', 'CD', 'CD']}
+{'tags': ['IN', 'PRP$', 'NNP', 'NNP', 'NN', 'NNP', 'NNP', 'VBD', 'IN', 'DT', 'JJ', 'NN', 'MD', 'VB', 'VBN', 'IN', 'DT', 'NN', 'IN', 'DT', 'JJ', 'NN', 'IN', 'NN', 'NNS', 'RBR', 'DT', 'NN', 'VBZ', 'NN']}
+{'tags': ['VBN', 'NN', 'VBD', 'DT', 'NN', 'CD', 'CD', 'NNS']}
+{'tags': ['NNS', 'VBP', 'VBG', 'TO', 'VB', 'NNS', 'IN', 'PRP', 'VBP', 'TO', 'VB', 'DT', 'NN', 'VB', 'IN', 'NN', 'NN', 'CC', 'VB', 'IN', 'JJR', 'NNS', 'VBD', 'NNP', 'NNP', 'DT', 'NN', 'IN', 'NNP', 'NNP']}
+
+NLP SPLIT:
+The 40-a-share proposal values the company at about 106.6 million 
+In his Mansion House speech Mr. Lawson warned that a further slowdown can be expected as the impact of the last rise in interest rates earlier this month takes effect 
+Estimated volume was a light 2.4 million ounces 
+Truckers are trying to send signals that they need to stop the bloodletting forget about market share and go for higher rates said Michael Lloyd an analyst at Salomon Bros 
+
+####################################################################################################
+
+i = 1
+TEXTS:
+Freight rates declining for most of the decade because of competition spurred by deregulation are bottoming out turning upward and threatening to fuel inflation
+The deregulation of railroads and trucking companies that began in 1980 enabled shippers to bargain for transportation
+Chancellor of the Exchequer Nigel Lawson 's restated commitment to a firm monetary policy has helped to prevent a freefall in sterling over the past week
+Sterling was already showing some signs of a lack of confidence in Mr. Lawson 's promise Friday
+
+ANNOTATIONS:
+{'tags': ['NN', 'NNS', 'VBG', 'IN', 'RBS', 'IN', 'DT', 'NN', 'IN', 'IN', 'NN', 'VBN', 'IN', 'NN', 'VBP', 'VBG', 'IN', 'VBG', 'RB', 'CC', 'VBG', 'TO', 'VB', 'NN']}
+{'tags': ['DT', 'NN', 'IN', 'NNS', 'CC', 'NN', 'NNS', 'WDT', 'VBD', 'IN', 'CD', 'VBD', 'NNS', 'TO', 'VB', 'IN', 'NN']}
+{'tags': ['NNP', 'IN', 'DT', 'NNP', 'NNP', 'NNP', 'POS', 'VBN', 'NN', 'TO', 'DT', 'NN', 'JJ', 'NN', 'VBZ', 'VBN', 'TO', 'VB', 'DT', 'NN', 'IN', 'NN', 'IN', 'DT', 'JJ', 'NN']}
+{'tags': ['NNP', 'VBD', 'RB', 'VBG', 'DT', 'NNS', 'IN', 'DT', 'NN', 'IN', 'NN', 'IN', 'NNP', 'NNP', 'POS', 'NN', 'NNP']}
+
+NLP SPLIT:
+Freight rates declining for most of the decade because of competition spurred by deregulation are bottoming out turning upward and threatening to fuel inflation 
+The deregulation of railroads and trucking companies that began in 1980 enabled shippers to bargain for transportation 
+Chancellor of the Exchequer Nigel Lawson 's restated commitment to a firm monetary policy has helped to prevent a freefall in sterling over the past week 
+Sterling was already showing some signs of a lack of confidence in Mr. Lawson 's promise Friday 
+
+####################################################################################################
+
+i = 1
+TEXTS:
+We may ask questions as you go along or we may wait until the end
+New York-based John Kuhns and Robert MacDonald control East Rock Partners Inc. the sole general partner of East Rock Partners L.P
+Forecasts for the trade figures range widely but few economists expect the data to show a very marked improvement from the 2 billion 3.2 billion deficit in the current account reported for August
+And ship lines carrying containers are also trying to raise their rates
+
+ANNOTATIONS:
+{'tags': ['PRP', 'MD', 'VB', 'NNS', 'IN', 'PRP', 'VBP', 'IN', 'CC', 'PRP', 'MD', 'VB', 'IN', 'DT', 'NN']}
+{'tags': ['NNP', 'JJ', 'NNP', 'NNP', 'CC', 'NNP', 'NNP', 'NN', 'NNP', 'NNP', 'NNP', 'NNP', 'DT', 'JJ', 'JJ', 'NN', 'IN', 'NNP', 'NNP', 'NNP', 'NNP']}
+{'tags': ['NNS', 'IN', 'DT', 'NN', 'NNS', 'VBP', 'RB', 'CC', 'JJ', 'NNS', 'VBP', 'DT', 'NNS', 'TO', 'VB', 'DT', 'RB', 'VBN', 'NN', 'IN', 'DT', 'CD', 'CD', 'CD', 'CD', 'NN', 'IN', 'DT', 'JJ', 'NN', 'VBD', 'IN', 'NNP']}
+{'tags': ['CC', 'NN', 'NNS', 'VBG', 'NNS', 'VBP', 'RB', 'VBG', 'TO', 'VB', 'PRP$', 'NNS']}
+
+NLP SPLIT:
+We may ask questions as you go along or we may wait until the end 
+New York-based John Kuhns and Robert MacDonald control East Rock Partners Inc. the sole general partner of East Rock Partners L.P 
+Forecasts for the trade figures range widely but few economists expect the data to show a very marked improvement from the 2 billion 3.2 billion deficit in the current account reported for August 
+And ship lines carrying containers are also trying to raise their rates 
+
+####################################################################################################
+
+i = 1
+TEXTS:
+Nevertheless he noted No one will want to go into the trade figures without a flat position in the pound
+The U.S. currency was also changing hands at 142.43 yen up from 141.70 yen in New York late Thursday
+If there is another bad trade number there could be an awful lot of pressure noted Simon Briscoe U.K. economist for Midland Montagu a unit of Midland Bank PLC
+In Tokyo on Monday the U.S. currency opened for trading at 141.95 yen up from Friday 's Tokyo close of 141.35 yen
+
+ANNOTATIONS:
+{'tags': ['RB', 'PRP', 'VBD', 'DT', 'PRP', 'MD', 'VB', 'TO', 'VB', 'IN', 'DT', 'NN', 'NNS', 'IN', 'DT', 'JJ', 'NN', 'IN', 'DT', 'NN']}
+{'tags': ['DT', 'NNP', 'NN', 'VBD', 'RB', 'VBG', 'NNS', 'IN', 'CD', 'NN', 'IN', 'IN', 'CD', 'NN', 'IN', 'NNP', 'NNP', 'JJ', 'NNP']}
+{'tags': ['IN', 'EX', 'VBZ', 'DT', 'JJ', 'NN', 'NN', 'EX', 'MD', 'VB', 'DT', 'JJ', 'NN', 'IN', 'NN', 'VBD', 'NNP', 'NNP', 'NNP', 'NN', 'IN', 'NNP', 'NNP', 'DT', 'NN', 'IN', 'NNP', 'NNP', 'NNP']}
+{'tags': ['IN', 'NNP', 'IN', 'NNP', 'DT', 'NNP', 'NN', 'VBD', 'IN', 'NN', 'IN', 'CD', 'NN', 'IN', 'IN', 'NNP', 'POS', 'NNP', 'NN', 'IN', 'CD', 'NN']}
+
+NLP SPLIT:
+Nevertheless he noted No one will want to go into the trade figures without a flat position in the pound 
+The U.S. currency was also changing hands at 142.43 yen up from 141.70 yen in New York late Thursday 
+If there is another bad trade number there could be an awful lot of pressure noted Simon Briscoe U.K. economist for Midland Montagu a unit of Midland Bank PLC 
+In Tokyo on Monday the U.S. currency opened for trading at 141.95 yen up from Friday 's Tokyo close of 141.35 yen 
+
+####################################################################################################
+
+i = 1
+TEXTS:
+Combined with at least some rebound in exports after August 's unexpected decline the deficit could narrow to as little as 1.3 billion
+East Rock Partners Limited Partnership said it proposed to acquire A.P. Green Industries Inc. for 40 a share
+Bob Stone stewed over a letter from his manager putting him on probation for insubordination
+The company is a Mexico Mo. maker of refractory products
+
+ANNOTATIONS:
+{'tags': ['VBN', 'IN', 'IN', 'JJS', 'DT', 'NN', 'IN', 'NNS', 'IN', 'NNP', 'POS', 'JJ', 'NN', 'DT', 'NN', 'MD', 'VB', 'TO', 'RB', 'JJ', 'IN', 'CD', 'CD']}
+{'tags': ['NNP', 'NNP', 'NNP', 'NNP', 'NNP', 'VBD', 'PRP', 'VBD', 'TO', 'VB', 'NNP', 'NNP', 'NNP', 'NNP', 'IN', 'CD', 'DT', 'NN']}
+{'tags': ['NNP', 'NNP', 'JJ', 'IN', 'DT', 'NN', 'IN', 'PRP$', 'NN', 'VBG', 'PRP', 'IN', 'NN', 'IN', 'NN']}
+{'tags': ['DT', 'NN', 'VBZ', 'DT', 'NNP', 'NNP', 'NN', 'IN', 'JJ', 'NNS']}
+
+NLP SPLIT:
+Combined with at least some rebound in exports after August 's unexpected decline the deficit could narrow to as little as 1.3 billion 
+East Rock Partners Limited Partnership said it proposed to acquire A.P. Green Industries Inc. for 40 a share 
+Bob Stone stewed over a letter from his manager putting him on probation for insubordination 
+The company is a Mexico Mo. maker of refractory products 
+
+####################################################################################################
+
+i = 1
+TEXTS:
+And shippers are getting the feeling that they have played one trucker off against another as much as they can he said
+Consolidated Freightways plans to raise its rates 5.3 % late this year or early next year and at least two competitors have announced similar increases
+Railroad-rate increases are likely to be restrained by weakening rail-traffic levels and keen competition for freight from trucks
+Some bulk shipping rates have increased 3 % to 4 % in the past few months said Salomon 's Mr. Lloyd
+
+ANNOTATIONS:
+{'tags': ['CC', 'NNS', 'VBP', 'VBG', 'DT', 'NN', 'IN', 'PRP', 'VBP', 'VBN', 'CD', 'NN', 'IN', 'IN', 'DT', 'RB', 'JJ', 'IN', 'PRP', 'MD', 'PRP', 'VBD']}
+{'tags': ['NNP', 'NNP', 'VBZ', 'TO', 'VB', 'PRP$', 'NNS', 'CD', 'NN', 'JJ', 'DT', 'NN', 'CC', 'JJ', 'JJ', 'NN', 'CC', 'IN', 'JJS', 'CD', 'NNS', 'VBP', 'VBN', 'JJ', 'NNS']}
+{'tags': ['JJ', 'NNS', 'VBP', 'JJ', 'TO', 'VB', 'VBN', 'IN', 'VBG', 'JJ', 'NNS', 'CC', 'JJ', 'NN', 'IN', 'NN', 'IN', 'NNS']}
+{'tags': ['DT', 'NN', 'VBG', 'NNS', 'VBP', 'VBN', 'CD', 'NN', 'TO', 'CD', 'NN', 'IN', 'DT', 'JJ', 'JJ', 'NNS', 'VBD', 'NNP', 'POS', 'NNP', 'NNP']}
+
+NLP SPLIT:
+And shippers are getting the feeling that they have played one trucker off against another as much as they can he said 
+Consolidated Freightways plans to raise its rates 5.3 % late this year or early next year and at least two competitors have announced similar increases 
+Railroad-rate increases are likely to be restrained by weakening rail-traffic levels and keen competition for freight from trucks 
+Some bulk shipping rates have increased 3 % to 4 % in the past few months said Salomon 's Mr. Lloyd 
+
+####################################################################################################
+
+i = 1
+TEXTS:
+That 's a big change from recent years when freight haulage was a bright spot for U.S. productivity helping to restrain inflation and make U.S. industry more competitive abroad
+Less-than-truckload companies which carry the freight of several shippers in each truck trailer discounted away a 4.7 % rate increase implemented last April
+In European trading it declined to 1.5890 and 2.9495 marks from 1.5940 and 2.9429 marks late Thursday
+U.K. base rates are at their highest level in eight years
+
+ANNOTATIONS:
+{'tags': ['DT', 'VBZ', 'DT', 'JJ', 'NN', 'IN', 'JJ', 'NNS', 'WRB', 'NN', 'NN', 'VBD', 'DT', 'JJ', 'NN', 'IN', 'NNP', 'NN', 'VBG', 'TO', 'VB', 'NN', 'CC', 'VB', 'NNP', 'NN', 'RBR', 'JJ', 'RB']}
+{'tags': ['JJ', 'NNS', 'WDT', 'VBP', 'DT', 'NN', 'IN', 'JJ', 'NNS', 'IN', 'DT', 'NN', 'NN', 'VBD', 'RB', 'DT', 'CD', 'NN', 'NN', 'NN', 'VBD', 'JJ', 'NNP']}
+{'tags': ['IN', 'JJ', 'NN', 'PRP', 'VBD', 'TO', 'CD', 'CC', 'CD', 'NNS', 'IN', 'CD', 'CC', 'CD', 'NNS', 'JJ', 'NNP']}
+{'tags': ['JJ', 'NN', 'NNS', 'VBP', 'IN', 'PRP$', 'JJS', 'NN', 'IN', 'CD', 'NNS']}
+
+NLP SPLIT:
+That 's a big change from recent years when freight haulage was a bright spot for U.S. productivity helping to restrain inflation and make U.S. industry more competitive abroad 
+Less-than-truckload companies which carry the freight of several shippers in each truck trailer discounted away a 4.7 % rate increase implemented last April 
+In European trading it declined to 1.5890 and 2.9495 marks from 1.5940 and 2.9429 marks late Thursday 
+U.K. base rates are at their highest level in eight years 
+
+####################################################################################################
+
+i = 1
+TEXTS:
+And they warn any further drop in the government 's popularity could swiftly make this promise sound hollow
+Major shippers say they expect freight rates to rise at least as fast as inflation and maybe faster in the next few years
+The carriers were competing fiercely for market share
+Demand has caught up with the supply of certain types of freight transportation and rates are starting to move up at a rate close to or slightly more than the inflation rate said Clifford Sayre director of logistics at Du Pont Co
+
+ANNOTATIONS:
+{'tags': ['CC', 'PRP', 'VBP', 'DT', 'JJ', 'NN', 'IN', 'DT', 'NN', 'POS', 'NN', 'MD', 'RB', 'VB', 'DT', 'NN', 'NN', 'JJ']}
+{'tags': ['JJ', 'NNS', 'VBP', 'PRP', 'VBP', 'NN', 'NNS', 'TO', 'VB', 'IN', 'JJS', 'RB', 'RB', 'IN', 'NN', 'CC', 'RB', 'RBR', 'IN', 'DT', 'JJ', 'JJ', 'NNS']}
+{'tags': ['DT', 'NNS', 'VBD', 'VBG', 'RB', 'IN', 'NN', 'NN']}
+{'tags': ['NN', 'VBZ', 'VBN', 'IN', 'IN', 'DT', 'NN', 'IN', 'JJ', 'NNS', 'IN', 'NN', 'NN', 'CC', 'NNS', 'VBP', 'VBG', 'TO', 'VB', 'IN', 'IN', 'DT', 'NN', 'RB', 'TO', 'CC', 'RB', 'JJR', 'IN', 'DT', 'NN', 'NN', 'VBD', 'NNP', 'NNP', 'NN', 'IN', 'NNS', 'IN', 'NNP', 'NNP', 'NNP']}
+
+NLP SPLIT:
+And they warn any further drop in the government 's popularity could swiftly make this promise sound hollow 
+Major shippers say they expect freight rates to rise at least as fast as inflation and maybe faster in the next few years 
+The carriers were competing fiercely for market share 
+Demand has caught up with the supply of certain types of freight transportation and rates are starting to move up at a rate close to or slightly more than the inflation rate said Clifford Sayre director of logistics at Du Pont Co 
+
+####################################################################################################
+
+i = 1
+TEXTS:
+No lawyers or tape recorders were present
+In early trading in Hong Kong Monday gold was quoted at 366.50 an ounce
+It now holds 233,000 A.P. Green common shares including 30,000 shares bought last Thursday for 35.50 to 36.50 a share
+Proceeds from the sale will be used for remodeling and refurbishing projects as well as for the planned MGM Grand hotel\/casino and theme park
+
+ANNOTATIONS:
+{'tags': ['DT', 'NNS', 'CC', 'NN', 'NNS', 'VBD', 'JJ']}
+{'tags': ['IN', 'JJ', 'NN', 'IN', 'NNP', 'NNP', 'NNP', 'NN', 'VBD', 'VBN', 'IN', 'CD', 'DT', 'NN']}
+{'tags': ['PRP', 'RB', 'VBZ', 'CD', 'NNP', 'NNP', 'JJ', 'NNS', 'VBG', 'CD', 'NNS', 'VBD', 'JJ', 'NNP', 'IN', 'CD', 'TO', 'CD', 'DT', 'NN']}
+{'tags': ['NNS', 'IN', 'DT', 'NN', 'MD', 'VB', 'VBN', 'IN', 'VBG', 'CC', 'VBG', 'NNS', 'RB', 'RB', 'IN', 'IN', 'DT', 'VBN', 'NNP', 'NNP', 'NN', 'CC', 'NN', 'NN']}
+
+NLP SPLIT:
+No lawyers or tape recorders were present 
+In early trading in Hong Kong Monday gold was quoted at 366.50 an ounce 
+It now holds 233,000 A.P. Green common shares including 30,000 shares bought last Thursday for 35.50 to 36.50 a share 
+Proceeds from the sale will be used for remodeling and refurbishing projects as well as for the planned MGM Grand hotel\/casino and theme park 
+
+####################################################################################################
+
+i = 1
+TEXTS:
+Its stock closed at 38 up 1.875 in national over-the-counter trading
+This has increased the risk of the government being forced to increase base rates to 16 % from their current 15 % level to defend the pound economists and foreign exchange market analysts say
+The letter attached to a filing with the Securities and Exchange Commission said the approval is also contingent upon obtaining satisfactory financing
+This compares with a 1.6 % rise in the second from the first quarter and a 5.4 % increase from the second quarter of 1988
+
+ANNOTATIONS:
+{'tags': ['PRP$', 'NN', 'VBD', 'IN', 'CD', 'IN', 'CD', 'IN', 'JJ', 'JJ', 'NN']}
+{'tags': ['DT', 'VBZ', 'VBN', 'DT', 'NN', 'IN', 'DT', 'NN', 'VBG', 'VBN', 'TO', 'VB', 'NN', 'NNS', 'TO', 'CD', 'NN', 'IN', 'PRP$', 'JJ', 'CD', 'NN', 'NN', 'TO', 'VB', 'DT', 'NN', 'NNS', 'CC', 'JJ', 'NN', 'NN', 'NNS', 'VBP']}
+{'tags': ['DT', 'NN', 'VBN', 'TO', 'DT', 'NN', 'IN', 'DT', 'NNP', 'CC', 'NNP', 'NNP', 'VBD', 'DT', 'NN', 'VBZ', 'RB', 'JJ', 'IN', 'VBG', 'JJ', 'NN']}
+{'tags': ['DT', 'VBZ', 'IN', 'DT', 'CD', 'NN', 'NN', 'IN', 'DT', 'NN', 'IN', 'DT', 'JJ', 'NN', 'CC', 'DT', 'CD', 'NN', 'NN', 'IN', 'DT', 'JJ', 'NN', 'IN', 'CD']}
+
+NLP SPLIT:
+Its stock closed at 38 up 1.875 in national over-the-counter trading 
+This has increased the risk of the government being forced to increase base rates to 16 % from their current 15 % level to defend the pound economists and foreign exchange market analysts say 
+The letter attached to a filing with the Securities and Exchange Commission said the approval is also contingent upon obtaining satisfactory financing 
+This compares with a 1.6 % rise in the second from the first quarter and a 5.4 % increase from the second quarter of 1988 
+
+####################################################################################################
+
+i = 1
+TEXTS:
+Over a cup of coffee Mr. Stone told his story
+Trucking shipping and air-freight companies have announced rate increases scheduled for this fall or early next year reflecting higher costs and tightened demand for freight transport
+After the three members of the court introduced themselves the chairman of the panel said Go ahead and tell us what happened
+East Rock also said in the filing that it boosted its stake in A.P. Green to 8.7 %
+
+ANNOTATIONS:
+{'tags': ['IN', 'DT', 'NN', 'IN', 'NN', 'NNP', 'NNP', 'VBD', 'PRP$', 'NN']}
+{'tags': ['NNP', 'VBG', 'CC', 'NN', 'NNS', 'VBP', 'VBN', 'NN', 'NNS', 'VBN', 'IN', 'DT', 'NN', 'CC', 'JJ', 'JJ', 'NN', 'VBG', 'JJR', 'NNS', 'CC', 'VBD', 'NN', 'IN', 'NN', 'NN']}
+{'tags': ['IN', 'DT', 'CD', 'NNS', 'IN', 'DT', 'NN', 'VBD', 'PRP', 'DT', 'NN', 'IN', 'DT', 'NN', 'VBD', 'VB', 'RB', 'CC', 'VB', 'PRP', 'WP', 'VBD']}
+{'tags': ['NNP', 'NNP', 'RB', 'VBD', 'IN', 'DT', 'NN', 'IN', 'PRP', 'VBD', 'PRP$', 'NN', 'IN', 'NNP', 'NNP', 'TO', 'CD', 'NN']}
+
+NLP SPLIT:
+Over a cup of coffee Mr. Stone told his story 
+Trucking shipping and air-freight companies have announced rate increases scheduled for this fall or early next year reflecting higher costs and tightened demand for freight transport 
+After the three members of the court introduced themselves the chairman of the panel said Go ahead and tell us what happened 
+East Rock also said in the filing that it boosted its stake in A.P. Green to 8.7 % 
+
+####################################################################################################
+
+i = 1
+TEXTS:
+MGM Grand Inc. said it filed a registration statement with the Securities and Exchange Commission for a public offering of six million common shares
+Economists suggested that if the pound falls much below 2.90 marks the government will be forced to increase rates to 16 % both to halt any further decline and ensure that the balance of monetary policy remains unchanged
+Air-freight carriers raised their rates for U.S. products going across the Pacific to Asia by about 20 % earlier this month
+The risks for sterling of a bad trade figure are very heavily on the down side said Chris Dillow senior U.K. economist at Nomura Research Institute
+
+ANNOTATIONS:
+{'tags': ['NNP', 'NNP', 'NNP', 'VBD', 'PRP', 'VBD', 'DT', 'NN', 'NN', 'IN', 'DT', 'NNP', 'CC', 'NNP', 'NNP', 'IN', 'DT', 'JJ', 'NN', 'IN', 'CD', 'CD', 'JJ', 'NNS']}
+{'tags': ['NNS', 'VBD', 'IN', 'IN', 'DT', 'NN', 'VBZ', 'JJ', 'IN', 'CD', 'NNS', 'DT', 'NN', 'MD', 'VB', 'VBN', 'TO', 'VB', 'NNS', 'TO', 'CD', 'NN', 'DT', 'TO', 'VB', 'DT', 'JJ', 'NN', 'CC', 'VB', 'IN', 'DT', 'NN', 'IN', 'JJ', 'NN', 'VBZ', 'JJ']}
+{'tags': ['NN', 'NNS', 'VBD', 'PRP$', 'NNS', 'IN', 'NNP', 'NNS', 'VBG', 'IN', 'DT', 'NNP', 'TO', 'NNP', 'IN', 'IN', 'CD', 'NN', 'RBR', 'DT', 'NN']}
+{'tags': ['DT', 'NNS', 'IN', 'NN', 'IN', 'DT', 'JJ', 'NN', 'NN', 'VBP', 'RB', 'RB', 'IN', 'DT', 'JJ', 'NN', 'VBD', 'NNP', 'NNP', 'JJ', 'NNP', 'NN', 'IN', 'NNP', 'NNP', 'NNP']}
+
+NLP SPLIT:
+MGM Grand Inc. said it filed a registration statement with the Securities and Exchange Commission for a public offering of six million common shares 
+Economists suggested that if the pound falls much below 2.90 marks the government will be forced to increase rates to 16 % both to halt any further decline and ensure that the balance of monetary policy remains unchanged 
+Air-freight carriers raised their rates for U.S. products going across the Pacific to Asia by about 20 % earlier this month 
+The risks for sterling of a bad trade figure are very heavily on the down side said Chris Dillow senior U.K. economist at Nomura Research Institute 
+
+####################################################################################################
+
+i = 1
+TEXTS:
+Late in the New York trading day the dollar was quoted at 1.8578 marks up from 1.8470 marks late Thursday in New York
+Sanjay Joshi European economist at Baring Brothers & Co. said there is no sign that Britain 's manufacturing industry is transforming itself to boost exports
+But consumer expenditure data released Friday do n't suggest that the U.K. economy is slowing that quickly
+Confidence in the pound is widely expected to take another sharp dive if trade figures for September due for release tomorrow fail to show a substantial improvement from July and August 's near-record deficits
+
+ANNOTATIONS:
+{'tags': ['RB', 'IN', 'DT', 'NNP', 'NNP', 'NN', 'NN', 'DT', 'NN', 'VBD', 'VBN', 'IN', 'CD', 'NNS', 'IN', 'IN', 'CD', 'NNS', 'JJ', 'NNP', 'IN', 'NNP', 'NNP']}
+{'tags': ['NNP', 'NNP', 'JJ', 'NN', 'IN', 'NNP', 'NNPS', 'CC', 'NNP', 'VBD', 'EX', 'VBZ', 'DT', 'NN', 'IN', 'NNP', 'POS', 'NN', 'NN', 'VBZ', 'VBG', 'PRP', 'TO', 'VB', 'NNS']}
+{'tags': ['CC', 'NN', 'NN', 'NNS', 'VBD', 'NNP', 'VBP', 'RB', 'VB', 'IN', 'DT', 'NNP', 'NN', 'VBZ', 'VBG', 'DT', 'RB']}
+{'tags': ['NN', 'IN', 'DT', 'NN', 'VBZ', 'RB', 'VBN', 'TO', 'VB', 'DT', 'JJ', 'NN', 'IN', 'NN', 'NNS', 'IN', 'NNP', 'JJ', 'IN', 'NN', 'NN', 'VB', 'TO', 'VB', 'DT', 'JJ', 'NN', 'IN', 'NNP', 'CC', 'NNP', 'POS', 'JJ', 'NNS']}
+
+NLP SPLIT:
+Late in the New York trading day the dollar was quoted at 1.8578 marks up from 1.8470 marks late Thursday in New York 
+Sanjay Joshi European economist at Baring Brothers & Co. said there is no sign that Britain 's manufacturing industry is transforming itself to boost exports 
+But consumer expenditure data released Friday do n't suggest that the U.K. economy is slowing that quickly 
+Confidence in the pound is widely expected to take another sharp dive if trade figures for September due for release tomorrow fail to show a substantial improvement from July and August 's near-record deficits 
+
+####################################################################################################
+
+i = 1
+TEXTS:
+An A.P. Green official declined to comment on the filing
+And Japan Air Lines said it plans to boost its rates a further 25 % over the next two years
+Meanwhile overall evidence on the economy remains fairly clouded
+You 'll see carriers try to recoup some of the price cutting that occurred previously
+
+ANNOTATIONS:
+{'tags': ['DT', 'NNP', 'NNP', 'NN', 'VBD', 'TO', 'VB', 'IN', 'DT', 'NN']}
+{'tags': ['CC', 'NNP', 'NNP', 'NNPS', 'VBD', 'PRP', 'VBZ', 'TO', 'VB', 'PRP$', 'NNS', 'DT', 'JJ', 'CD', 'NN', 'IN', 'DT', 'JJ', 'CD', 'NNS']}
+{'tags': ['RB', 'JJ', 'NN', 'IN', 'DT', 'NN', 'VBZ', 'RB', 'VBN']}
+{'tags': ['PRP', 'MD', 'VB', 'NNS', 'VB', 'TO', 'VB', 'DT', 'IN', 'DT', 'NN', 'VBG', 'WDT', 'VBD', 'RB']}
+
+NLP SPLIT:
+An A.P. Green official declined to comment on the filing 
+And Japan Air Lines said it plans to boost its rates a further 25 % over the next two years 
+Meanwhile overall evidence on the economy remains fairly clouded 
+You 'll see carriers try to recoup some of the price cutting that occurred previously 
+
+####################################################################################################
+
+i = 1
+TEXTS:
+Robert Delaney a consultant at Arthur D. Little Inc. Cambridge Mass. said We 've gotten all the benefits of deregulation in freight-cost reductions
+This is the first year since transportation deregulation in 1980 that we have had such a dramatic and broad-based upturn in perceived transportation rates said Bernard LaLonde a transportation logistics professor at Ohio State in Columbus
+The figures show that spending rose 0.1 % in the third quarter from the second quarter and was up 3.8 % from a year ago
+The sole limited partner of the partnership is Westwood Brick Lime Inc. an indirect subsidiary of Westwood Group Inc
+
+ANNOTATIONS:
+{'tags': ['NNP', 'NNP', 'DT', 'NN', 'IN', 'NNP', 'NNP', 'NNP', 'NNP', 'NNP', 'NNP', 'VBD', 'PRP', 'VBP', 'VBN', 'PDT', 'DT', 'NNS', 'IN', 'NN', 'IN', 'JJ', 'NNS']}
+{'tags': ['DT', 'VBZ', 'DT', 'JJ', 'NN', 'IN', 'NN', 'NN', 'IN', 'CD', 'IN', 'PRP', 'VBP', 'VBN', 'JJ', 'DT', 'JJ', 'CC', 'JJ', 'NN', 'IN', 'VBN', 'NN', 'NNS', 'VBD', 'NNP', 'NNP', 'DT', 'NN', 'NNS', 'NN', 'IN', 'NNP', 'NNP', 'IN', 'NNP']}
+{'tags': ['DT', 'NNS', 'VBP', 'DT', 'NN', 'VBD', 'CD', 'NN', 'IN', 'DT', 'JJ', 'NN', 'IN', 'DT', 'JJ', 'NN', 'CC', 'VBD', 'IN', 'CD', 'NN', 'IN', 'DT', 'NN', 'RB']}
+{'tags': ['DT', 'JJ', 'JJ', 'NN', 'IN', 'DT', 'NN', 'VBZ', 'NNP', 'NNP', 'NNP', 'NNP', 'DT', 'JJ', 'NN', 'IN', 'NNP', 'NNP', 'NNP']}
+
+NLP SPLIT:
+Robert Delaney a consultant at Arthur D. Little Inc. Cambridge Mass. said We 've gotten all the benefits of deregulation in freight-cost reductions 
+This is the first year since transportation deregulation in 1980 that we have had such a dramatic and broad-based upturn in perceived transportation rates said Bernard LaLonde a transportation logistics professor at Ohio State in Columbus 
+The figures show that spending rose 0.1 % in the third quarter from the second quarter and was up 3.8 % from a year ago 
+The sole limited partner of the partnership is Westwood Brick Lime Inc. an indirect subsidiary of Westwood Group Inc 
+
+####################################################################################################
