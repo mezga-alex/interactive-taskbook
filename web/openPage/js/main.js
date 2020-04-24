@@ -13,7 +13,7 @@ function updateGlobalParameters() {
     result = JSON.parse(localStorage.getItem("result"));
 
     if (task === 'PASSIVE_VOICE' || task === 'ACTIVE_VOICE') {
-        answers = getResultAttribute(result, task, 'phrases')
+        answers = getResultAttribute(result, task, 'phrases');
     }
 }
 
@@ -74,6 +74,7 @@ function checkFullTask(e) {
             // If the word is correct -> set up green background
             if (isCorrect) {
                 if (!correctAnswers.has(taskID.substr(1))) {
+                    $(taskID).val();
                     correctAnswers.add(taskID.substr(1));
                     classie.removeClass(element, 'border-bottom-danger');
                     classie.addClass(element, 'border-bottom-success');
@@ -94,13 +95,7 @@ function checkFullTask(e) {
     }
 }
 
-$(document).ready(() => {
-    // Recover variables from localstorage
-    //All parameters are in the localstorage on the first call from the extension
-    updateGlobalParameters();
-    // If we have correct answers- handle it
-    createTaskByResult(task, result);
-
+function initializeInputHandlers() {
     // Handle pressing the enter key
     var inputs = $(':input').keyup(function(e){
         if (e.which == 13) {
@@ -145,8 +140,18 @@ $(document).ready(() => {
 
     // Get the button and check all related words inside the task
     $('.btn-check-task').on('click', function checkMultipleAnswers(e) {
+        alert('button');
         checkFullTask(this);
     });
+}
+
+$(document).ready(() => {
+    // Recover variables from localstorage
+    //All parameters are in the localstorage on the first call from the extension
+    updateGlobalParameters();
+    // If we have correct answers- handle it
+    createTaskByResult(task, result);
+    initializeInputHandlers();
 
     $('a').on('click', function isUpdateTask(e) {
         let id = $(this).attr('id');
@@ -158,14 +163,14 @@ $(document).ready(() => {
 
                 //  Update the task and only then reinitialize the globals
                 updateTask(server, text, taskType, taskSpecify).then(function () {
-                    updateGlobalParameters()
+                    updateGlobalParameters();
+                    initializeInputHandlers();
                 }).catch(function () {
                     // Do nothing if nothing is found
-                    alert('No matches found')
+                    alert('No matches found');
                 });
             }
         }
-
     });
 
 });
