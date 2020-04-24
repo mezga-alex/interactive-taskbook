@@ -43,6 +43,7 @@
            Tasks
         </div>
         <!-- Nav Item - Pages Collapse Menu -->
+        <!--        POS-->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePOS" aria-expanded="true" aria-controls="collapsePOS">
                 <i class="fas fa-fw fa-cog"></i>
@@ -63,6 +64,7 @@
         </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
+        <!--        ACTIVE VOICE-->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseActive" aria-expanded="true" aria-controls="collapseActive">
                 <i class="fas fa-fw fa-wrench"></i>
@@ -88,6 +90,7 @@
         </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
+        <!--        PASSIVE VOICE-->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePassive" aria-expanded="true" aria-controls="collapsePassive">
                 <i class="fas fa-fw fa-wrench"></i>
@@ -100,33 +103,21 @@
                     <a class="change-task collapse-item" href=""
                        onclick="changeTask('PASSIVE_VOICE','ALL');return false;">All</a>
 
-                    <a class="change-task collapse-item" href=""
-                       onclick="changeTask('PASSIVE_VOICE','PRESENT_SIMPLE');return false;">Present Simple</a>
-                    <a class="change-task collapse-item" href=""
-                       onclick="changeTask('PASSIVE_VOICE', 'PRESENT_CONTINUOUS');return false;">Present Continuous</a>
-                    <a class="change-task collapse-item" href=""
-                       onclick="changeTask('PASSIVE_VOICE','PRESENT_PERFECT');return false;">Present Perfect</a>
+                    <a id="TASK-PASSIVE_VOICE-PRESENT_SIMPLE" class="change-task collapse-item" href="#">Present Simple</a>
+                    <a id="TASK-PASSIVE_VOICE-PRESENT_CONTINUOUS" class="change-task collapse-item" href="#">Present Continuous</a>
+                    <a id="TASK-PASSIVE_VOICE-PRESENT_PERFECT" class="change-task collapse-item" href="#">Present Perfect</a>
 
-                    <a class="change-task collapse-item" href=""
-                       onclick="changeTask('PASSIVE_VOICE', 'PAST_SIMPLE');return false;">Past Simple</a>
-                    <a class="change-task collapse-item" href=""
-                       onclick="changeTask('PASSIVE_VOICE', 'PAST_CONTINUOUS');return false;">Past Continuous</a>
-                    <a class="change-task collapse-item" href=""
-                       onclick="changeTask('PASSIVE_VOICE', 'PAST_PERFECT');return false;">Past Perfect</a>
+                    <a id="TASK-PASSIVE_VOICE-PAST_SIMPLE" class="change-task collapse-item" href="#">Past Simple</a>
+                    <a id="TASK-PASSIVE_VOICE-PAST_CONTINUOUS" class="change-task collapse-item" href="#">Past Continuous</a>
+                    <a id="TASK-PASSIVE_VOICE-PAST_PERFECT" class="change-task collapse-item" href="#">Past Perfect</a>
 
-                    <a class="change-task collapse-item" href=""
-                       onclick="changeTask('PASSIVE_VOICE', 'FUTURE_SIMPLE');return false;">Future Simple</a>
-                    <a class="change-task collapse-item" href=""
-                       onclick="changeTask('PASSIVE_VOICE', 'FUTURE_PERFECT');return false;">Future Perfect</a>
-                    <a class="change-task collapse-item" href=""
-                       onclick="changeTask('PASSIVE_VOICE', 'FUTURE_CONTINUOUS');return false;">Future Continuous</a>
+                    <a id="TASK-PASSIVE_VOICE-FUTURE_SIMPLE" class="change-task collapse-item" href="#">Future Simple</a>
+                    <a id="TASK-PASSIVE_VOICE-FUTURE_PERFECT" class="change-task collapse-item" href="#">Future Perfect</a>
+                    <a id="TASK-PASSIVE_VOICE-FUTURE_CONTINUOUS" class="change-task collapse-item" href="#">Future Continuous</a>
 
-                    <a class="change-task collapse-item" href=""
-                       onclick="changeTask('PASSIVE_VOICE', 'FUTURE_IN_THE_PAST_SIMPLE');return false;">Future In The Past Simple</a>
-                    <a class="change-task collapse-item" href=""
-                       onclick="changeTask('PASSIVE_VOICE', 'FUTURE_IN_THE_PAST_PERFECT');return false;">Future In The Past Perfect</a>
-                    <a class="change-task collapse-item" href=""
-                       onclick="changeTask('PASSIVE_VOICE', 'MODALS');return false;">Passives With Modals</a>
+                    <a id="TASK-PASSIVE_VOICE-FUTURE_IN_THE_PAST_SIMPLE" class="change-task collapse-item" href="#">Future In The Past Simple</a>
+                    <a id="TASK-PASSIVE_VOICE-FUTURE_IN_THE_PAST_PERFECT" class="change-task collapse-item" href="#">Future In The Past Perfect</a>
+                    <a id="TASK-PASSIVE_VOICE-MODALS" class="change-task collapse-item" href="#">Passives With Modals</a>
                 </div>
             </div>
         </li>
@@ -244,16 +235,13 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <!-- Page Heading -->
-<!--                <h1 class="h3 mb-4 text-gray-800">Tasks</h1>-->
-
                 <!-- Basic Card Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Tasks</h6>
                     </div>
                     <div class="card-body" id="put_text">
-
+                    <!--  PUT EXERCISES  HERE!-->
                     </div>
                 </div>
 
@@ -283,24 +271,7 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <!-- Bootstrap core JavaScript-->
 <script src="vendor/jquery/jquery.min.js"></script>

@@ -135,9 +135,17 @@ $(document).ready(() => {
         checkFullTask(this);
     });
 
-    $('a').click(function(e) {
-        e.preventDefault();
-        alert('You clicked the link.');
+    $('a').on('click', function isUpdateTask(e) {
+        let id = $(this).attr('id');
+        if (id) {
+            let idAttributes = id.split('-');
+            if (idAttributes[0] === 'TASK') {
+                let taskType = idAttributes[1];
+                let taskSpecify = idAttributes[2];
+                updateTask(taskType, taskSpecify);
+            }
+        }
+
     });
 
 });

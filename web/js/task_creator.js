@@ -107,35 +107,12 @@ function output_exercise(phrases,phrases_lexemes, phrases_indices, phrases_sents
             '">Check all answers</button>';
         $("#put_text").append(b);
 
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////
-        // Answers creation //
-        // !! WILL BE DELETED IN FINAL VERSION !! //
-
-        // FIRST phrase appending
-        let phrases_space = "1) " + phrases[0].join(" ").toUpperCase();
-        let para = document.createElement("p");
-        let node = document.createTextNode(phrases_space);
-        para.appendChild(node);
-        let element = document.getElementById("put_passive");
-        if (element !== null)
-            element.appendChild(para);
-
-
-        // ANOTHER phrases appending
-        for(var i = 1; i < phrases.length; i++){
-            let phrases_space = phrases[i].join(" ").toUpperCase();
-            if (phrases_sents[i] !== phrases_sents[i-1]) {
-                phrases_space = (i+1).toString() + ") " + phrases_space;
-                //bkg.console.log(phrases_space);
-            }
-            let para = document.createElement("p");
-            let node = document.createTextNode(phrases_space);
-            para.appendChild(node);
-            let element = document.getElementById("put_passive");
-            if (element !== null)
-                element.appendChild(para);
-        }
-        ///////////////////////////////////////////////////////////////////////////////////////////////
     }
+}
+
+function updateTask(taskType, taskSpecify, text) {
+    // Delete ccurrent content
+    // TODO: Save current results for statistics
+    $("#put_text").empty()
+
 }

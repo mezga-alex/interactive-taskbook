@@ -100,14 +100,13 @@ var PARSE_UTILS = {
     },
 };
 
-
+// TODO: Deprecate
 var color;
 $('.btn-color').on('click', () => {
   color = $(this).attr('data-color');
 });
 
 var server = "http://poltavsky.pythonanywhere.com/process";
-
 $("#switch-id").click(function() {
     // this function will get executed every time the #switch-id element is clicked (or tab-spacebar changed)
     if($(this).is(":checked")) // "this" refers to the element that fired the event
@@ -123,24 +122,35 @@ $("#switch-id").click(function() {
 
 
 $("#btn-find").on("click", () => {
+    //////////////////////////////////////////////
+    // TODO: Update for the new visualization
+    let pos = $('#POS').val();
+    let active_voice = $('#ACTIVE_VOICE').val();
+    let passive_voice = $('#PASSIVE_VOICE').val();
+    let task = '';
+    let specifiedTask = '';
 
-  var speech = $('#speech').val();
-  var tense = $('#tense').val();
-  var passive_voice = $('#passive_voice').val();
-
-   // bkg.console.log(speech + "|" + tense + "|" + passive_voice + "|" + color);
-
-  chrome.tabs.getSelected(null, (tab) => {
-        var tabId = tab.id;
-        var tabUrl = tab.url;
-        var text = "";
+    if (pos !== 'NONE')  {
+        task = 'POS';
+        specifiedTask = speech;
+    }
+    if (active_voice !== 'NONE')  {
+        task = 'ACTIVE_VOICE';
+        specifiedTask = active_voice;
+    }
+    if (passive_voice !== 'NONE')  {
+        task = 'PASSIVE_VOICE';
+        specifiedTask = passive_voice;
+    }
+    alert(task, specifiedTask);
+    //////////////////////////////////////////////
+    chrome.tabs.getSelected(null, (tab) => {
+        let tabUrl = tab.url;
         PARSE_UTILS.keywordInterval(tabUrl, (text) => {
             data = JSON.stringify({
                 "text": text,
-                "pos": speech,
-                "tense": tense,
-                "passive_voice": passive_voice,
-                "color": color
+                "task": task,
+                "specifiedTask": specifiedTask
             });
             // chrome.tabs.create({'url': './openPage/result.html' });
             // for local inference use:
@@ -153,61 +163,60 @@ $("#btn-find").on("click", () => {
                 body: data,
                 cache: "no-cache",
                 headers: new Headers({
-                  'Access-Control-Allow-Origin':'*',
-                  "content-type": "application/json"
+                    'Access-Control-Allow-Origin': '*',
+                    "content-type": "application/json"
                 })
-            })
-            .then( (response) => {
-              if (response.status != 200) {
-                console.log(`Looks like there was a problem. Status code: ${response.status}`);
-                return null;
-              }
+            }).then((response) => {
+                    if (response.status != 200) {
+                        console.log(`Looks like there was a problem. Status code: ${response.status}`);
+                        return null;
+                    }
 
-              response.json().then( (data) => {
-                  let pos_result = data["pos_result"];
-                  let active_result = data["active_result"];
-                  let passive_result = data["passive_result"];
-                  var is_pos = false;
-                  var is_active = false;
-                  var is_passive = false;
+                    response.json().then((data) => {
+                        let result = data["result"];
+                        let is_pos = false;
+                        let is_active = false;
+                        let is_passive = false;
 
-                  if (pos_result != "") {
-                    //bkg.console.log(speech);
-                      is_pos = true;
-                      localStorage.setItem('pos_words', JSON.stringify(pos_result[0]));
-                      localStorage.setItem('pos_indices', JSON.stringify(pos_result[1]));
-                      if (speech == "all")
-                          localStorage.setItem('pos_tags', JSON.stringify(pos_result[2]));
-                  }
+                        if (task === 'POS') {
+                            //bkg.console.log(speech);
+                            is_pos = true;
+                            localStorage.setItem('pos_words', JSON.stringify(result[0]));
+                            localStorage.setItem('pos_indices', JSON.stringify(result[1]));
+                            if (speech === "all")
+                                localStorage.setItem('pos_tags', JSON.stringify(result[2]));
+                        }
 
-                  if (active_result != "") {
-                      is_active = true;
-                      localStorage.setItem('active_phrases', JSON.stringify(active_result[0]));
-                      localStorage.setItem('active_phrases_indices', JSON.stringify(active_result[1]));
-                      localStorage.setItem('active_phrases_lexemes', JSON.stringify(active_result[2]));
-                      localStorage.setItem('active_phrases_sents', JSON.stringify(active_result[3]));
-                  }
+                        if (task === 'ACTIVE_VOICE') {
+                            is_active = true;
+                            localStorage.setItem('active_phrases', JSON.stringify(result[0]));
+                            localStorage.setItem('active_phrases_indices', JSON.stringify(result[1]));
+                            localStorage.setItem('active_phrases_lexemes', JSON.stringify(result[2]));
+                            localStorage.setItem('active_phrases_sents', JSON.stringify(result[3]));
+                        }
 
-                  if (passive_result != "") {
-                      is_passive = true;
-                      localStorage.setItem('passive_phrases', JSON.stringify(passive_result[0]));
-                      localStorage.setItem('passive_phrases_indices', JSON.stringify(passive_result[1]));
-                      localStorage.setItem('passive_phrases_lexemes', JSON.stringify(passive_result[2]));
-                      localStorage.setItem('passive_phrases_sents', JSON.stringify(passive_result[3]));
-                  } 
-       
-                  localStorage.setItem('is_pos', JSON.stringify(is_pos));
-                  localStorage.setItem('is_active', JSON.stringify(is_active));
-                  localStorage.setItem('is_passive', JSON.stringify(is_passive));
+                        if (task === 'PASSIVE_VOICE') {
+                            alert('Lalala');
+                            is_passive = true;
+                            localStorage.setItem('passive_phrases', JSON.stringify(result[0]));
+                            localStorage.setItem('passive_phrases_indices', JSON.stringify(result[1]));
+                            localStorage.setItem('passive_phrases_lexemes', JSON.stringify(result[2]));
+                            localStorage.setItem('passive_phrases_sents', JSON.stringify(result[3]));
+                        }
 
-                  chrome.tabs.create({'url': './openPage/result.html' }, (tab) => {});
-              });
-            })
-              .catch(function (error) {
-              console.log("Fetch error: " + error);
-            }); 
-       });
-  });
+                        localStorage.setItem('is_pos', JSON.stringify(is_pos));
+                        localStorage.setItem('is_active', JSON.stringify(is_active));
+                        localStorage.setItem('is_passive', JSON.stringify(is_passive));
+
+                        chrome.tabs.create({'url': './openPage/result.html'}, (tab) => {
+                        });
+                    });
+                })
+                .catch(function (error) {
+                    console.log("Fetch error: " + error);
+                });
+        });
+    });
 });
 
 $(document).ready(() => {
