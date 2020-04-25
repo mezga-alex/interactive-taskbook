@@ -1,15 +1,18 @@
 from flask import Flask,render_template, request, make_response, jsonify
 import spacy
 import sys
+
+sys.path.append("/home/art/Downloads/pipe/skyeng-grammar-filter/nlp/processing")
 import text_processor as tp
 import pos_tagging
 import active_voice
 import passive_voice
 
-sys.path.append("/home/art/Downloads/code/skyeng-grammar-filter/nlp/processing")
 
-nlp_pos = tp.nlp_setup(spacy.load('en_core_web_lg'), 'pos')
-nlp_task_creator = tp.nlp_setup(spacy.load('en_core_web_lg'), 'tense')
+spacy.prefer_gpu()
+print(spacy.prefer_gpu())
+nlp_pos = tp.nlp_setup(spacy.load('en_core_web_sm'), 'pos')
+nlp_task_creator = tp.nlp_setup(spacy.load('en_core_web_sm'), 'tense')
 
 app = Flask(__name__)
 @app.route('/')
@@ -51,4 +54,4 @@ def answer():
 
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run(host='0.0.0.0')

@@ -107,10 +107,12 @@ $('.btn-color').on('click', () => {
 });
 
 // chrome.tabs.create({'url': './openPage/result.html' });
+// remote server:
+// http://87.117.25.190:5000/
 // for local inference use:
 // http://poltavsky.pythonanywhere.com/process
 // http://127.0.0.1:5000/process
-var server = "http://poltavsky.pythonanywhere.com/process";
+var server = "http://87.117.25.190:5000/process";
 $("#switch-id").click(function() {
     // this function will get executed every time the #switch-id element is clicked (or tab-spacebar changed)
     if($(this).is(":checked")) // "this" refers to the element that fired the event
@@ -118,7 +120,7 @@ $("#switch-id").click(function() {
         server = 'http://127.0.0.1:5000/process';
         alert('Be sure to run your localhost to evaluate results: '+ server);
     }  else {
-        server = "http://poltavsky.pythonanywhere.com/process";
+        server = "http://87.117.25.190:5000/process";
     }
 });
 
