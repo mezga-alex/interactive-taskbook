@@ -158,6 +158,7 @@ function initializeLinkClickHandlers() {
                 let taskType = idAttributes[1];
                 let taskSpecify = idAttributes[2];
 
+                if (taskType === task && taskSpecify === specifiedTask) return false;
                 //  Update the task and only then reinitialize the globals
                 updateTask(server, text, taskType, taskSpecify).then(function () {
                     updateGlobalParameters();
