@@ -125,6 +125,7 @@ $("#switch-id").click(function() {
 });
 
 $("#btn-find").on("click", () => {
+
     //////////////////////////////////////////////
     // TODO: Update for the new visualization
     let pos = $('#POS').val();
@@ -136,14 +137,16 @@ $("#btn-find").on("click", () => {
     if (pos !== 'NONE')  {
         task = 'POS';
         specifiedTask = pos;
-    }
-    if (active_voice !== 'NONE')  {
+    } else if (active_voice !== 'NONE')  {
         task = 'ACTIVE_VOICE';
         specifiedTask = active_voice;
     }
-    if (passive_voice !== 'NONE')  {
+    else if (passive_voice !== 'NONE')  {
         task = 'PASSIVE_VOICE';
         specifiedTask = passive_voice;
+    } else {
+        alert('Specify the task');
+        return false;
     }
     //////////////////////////////////////////////
 

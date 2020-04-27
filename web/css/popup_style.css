@@ -8,7 +8,7 @@ body {
     margin: 0;
     padding: 0;
     width: 350px;
-    height: 550px;
+    height: 570px;
     box-shadow: 0 0 5px #333;
     font-family: Helvetica, sans-serif;
     text-align: center;
@@ -130,9 +130,7 @@ hr {
     z-index: 99;
 }
 
-
 /*hide the items when the select box is closed:*/
-
 .select-hide {
     display: none;
 }
@@ -198,31 +196,8 @@ hr {
 }
 
 .popup-footer {
-    margin-top: 20px;
+    margin-top: 5px;
 }
-
-#btn-find {
-    width: 328px;
-    height: 47px;
-    border-radius: 8px;
-    background-color: #027aff;
-
-    border: 0px solid white;
-    text-transform: uppercase;
-    padding: 0px;
-    margin: auto;
-
-    font-family: Helvetica;
-    font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: 1px;
-    text-align: center;
-    color: #ffffff;
-}
-
 
 /* The switch - the box around the slider */
 .switch-div {
