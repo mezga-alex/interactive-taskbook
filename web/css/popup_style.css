@@ -26,14 +26,21 @@ hr {
     display: inline-block;
 }
 
+.selectpicker-selected {
+    background-color: #F0F0F0;
+    color: #191c1f;
+    position: relative;
+    font-size:14px;
+    text-transform: uppercase;
+    text-align-last:center;
+}
+
 .selectpicker-option {
     color: #191c1f;
     position: relative;
-
     font-size:14px;
     text-transform: uppercase;
     text-align: center;
-
 }
 
 .divider {
