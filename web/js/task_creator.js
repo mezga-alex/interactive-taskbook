@@ -118,8 +118,8 @@ function updateTask(server, text, task, specifiedTask) {
     return new Promise((resolve, reject) => {
         // Delete ccurrent content
         // TODO: Save current results for statistics
-        $("#put_text").empty();
         newTaskRequest(server, text, task, specifiedTask).then(function () {
+            $("#put_text").empty();
             result = JSON.parse(localStorage.getItem("result"));
             createTaskByResult(task, result);
             resolve("Success");

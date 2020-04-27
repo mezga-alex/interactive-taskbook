@@ -1,20 +1,29 @@
-var correctAnswers = new Set();
 var strictCheck = false;
 var server = localStorage.getItem("server");
 var text = localStorage.getItem("text");
+var groundTruthAnswers;
+var correctAnswers;
 var task;
 var specifiedTask;
 var result;
-var answers;
 
 function updateGlobalParameters() {
+    correctAnswers = new Set();
     task = localStorage.getItem("task");
     specifiedTask = localStorage.getItem("specifiedTask");
     result = JSON.parse(localStorage.getItem("result"));
 
     if (task === 'PASSIVE_VOICE' || task === 'ACTIVE_VOICE') {
-        answers = getResultAttribute(result, task, 'phrases')
+        groundTruthAnswers = getResultAttribute(result, task, 'phrases');
     }
+}
+
+// Helper function to get correct answer
+function getCorrectAnswerByID(taskID) {
+    let ids = taskID.match(/\d+/g);
+    let phraseID = ids[0];
+    let wordID = ids[1];
+    return groundTruthAnswers[phraseID][wordID];
 }
 
 // Resize all input forms according to their content
@@ -46,11 +55,7 @@ function animateCSS(element, animationName, callback) {
 
 // e.g. taskID = 'task-3-3' means that the index of the phrase is 3, and the index of the word inside the phrase is 3
 function checkAnswer(taskID, userAnswer) {
-    let ids = taskID.match(/\d+/g);
-    let phraseID = ids[0];
-    let wordID = ids[1];
-    let correctAnswer = answers[phraseID][wordID];
-    return userAnswer.toUpperCase() === correctAnswer.toUpperCase();
+    return userAnswer.toUpperCase() === getCorrectAnswerByID(taskID).toUpperCase();
 }
 
 // Check all words in
@@ -74,6 +79,7 @@ function checkFullTask(e) {
             // If the word is correct -> set up green background
             if (isCorrect) {
                 if (!correctAnswers.has(taskID.substr(1))) {
+                    $(taskID).val();
                     correctAnswers.add(taskID.substr(1));
                     classie.removeClass(element, 'border-bottom-danger');
                     classie.addClass(element, 'border-bottom-success');
@@ -94,13 +100,7 @@ function checkFullTask(e) {
     }
 }
 
-$(document).ready(() => {
-    // Recover variables from localstorage
-    //All parameters are in the localstorage on the first call from the extension
-    updateGlobalParameters();
-    // If we have correct answers- handle it
-    createTaskByResult(task, result);
-
+function initializeInputHandlers() {
     // Handle pressing the enter key
     var inputs = $(':input').keyup(function(e){
         if (e.which == 13) {
@@ -147,7 +147,9 @@ $(document).ready(() => {
     $('.btn-check-task').on('click', function checkMultipleAnswers(e) {
         checkFullTask(this);
     });
+}
 
+function initializeLinkClickHandlers() {
     $('a').on('click', function isUpdateTask(e) {
         let id = $(this).attr('id');
         if (id) {
@@ -156,16 +158,32 @@ $(document).ready(() => {
                 let taskType = idAttributes[1];
                 let taskSpecify = idAttributes[2];
 
+                if (taskType === task && taskSpecify === specifiedTask) return false;
                 //  Update the task and only then reinitialize the globals
                 updateTask(server, text, taskType, taskSpecify).then(function () {
-                    updateGlobalParameters()
+                    updateGlobalParameters();
+                    initializeInputHandlers();
+                    initializeClassie();
+
                 }).catch(function () {
                     // Do nothing if nothing is found
-                    alert('No matches found')
+                    alert('No matches found');
                 });
             }
         }
-
     });
+}
 
+$(document).ready(() => {
+    // Recover variables from localstorage
+    //All parameters are in the localstorage on the first call from the extension
+    updateGlobalParameters();
+
+    // If we have correct answers- handle it
+    createTaskByResult(task, result);
+
+    initializeInputHandlers();
+    initializeLinkClickHandlers();
+
+    initializeClassie();
 });
