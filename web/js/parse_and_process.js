@@ -124,6 +124,8 @@ $("#switch-id").click(function() {
 });
 
 $("#btn-find").on("click", () => {
+    $(this).trigger('mouseout');
+
 
     let task = $('#task').val();
     let specifiedTask = $('#specifiedTask').val();
