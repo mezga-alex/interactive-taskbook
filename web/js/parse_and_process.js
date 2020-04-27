@@ -126,30 +126,32 @@ $("#switch-id").click(function() {
 
 $("#btn-find").on("click", () => {
 
-    //////////////////////////////////////////////
-    // TODO: Update for the new visualization
-    let pos = $('#POS').val();
-    let active_voice = $('#ACTIVE_VOICE').val();
-    let passive_voice = $('#PASSIVE_VOICE').val();
-    let task = '';
-    let specifiedTask = '';
-
-    if (pos !== 'NONE')  {
-        task = 'POS';
-        specifiedTask = pos;
-    } else if (active_voice !== 'NONE')  {
-        task = 'ACTIVE_VOICE';
-        specifiedTask = active_voice;
-    }
-    else if (passive_voice !== 'NONE')  {
-        task = 'PASSIVE_VOICE';
-        specifiedTask = passive_voice;
-    } else {
-        alert('Specify the task');
-        return false;
-    }
-    //////////////////////////////////////////////
-
+    // //////////////////////////////////////////////
+    // // TODO: Update for the new visualization
+    // let pos = $('#POS').val();
+    // let active_voice = $('#ACTIVE_VOICE').val();
+    // let passive_voice = $('#PASSIVE_VOICE').val();
+    // let task = '';
+    // let specifiedTask = '';
+    //
+    // if (pos !== 'NONE')  {
+    //     task = 'POS';
+    //     specifiedTask = pos;
+    // } else if (active_voice !== 'NONE')  {
+    //     task = 'ACTIVE_VOICE';
+    //     specifiedTask = active_voice;
+    // }
+    // else if (passive_voice !== 'NONE')  {
+    //     task = 'PASSIVE_VOICE';
+    //     specifiedTask = passive_voice;
+    // } else {
+    //     alert('Specify the task');
+    //     return false;
+    // }
+    // //////////////////////////////////////////////
+    let task = $('#task').val();
+    let specifiedTask = $('#specifiedTask').val();
+    alert(task + ' ' + specifiedTask);
     chrome.tabs.getSelected(null, (tab) => {
         let tabUrl = tab.url;
         PARSE_UTILS.keywordInterval(tabUrl, (text) => {

@@ -53,97 +53,7 @@ hr {
 
 /*the container must be positioned relative:*/
 
-.custom-select {
-    position: relative;
-    display: block;
-    width: 327px;
-    height: 48px;
-    border-radius: 8px;
-    border: solid 2px #3176f5;
-    padding: 5px 5px 5px 5px;
-    box-sizing: border-box;
-    margin: 10px;
-    margin-top: 15px;
-    text-align: center;
-    text-transform: uppercase;
-
-    font-family: Helvetica;
-    font-size: 14px;
-    font-style: normal;
-    line-height: normal;
-    text-align: center;
-
-}
 /*the container must be positioned relative:*/
-.custom-select select {
-    display: none;
-    /*hide original SELECT element:*/
-}
-
-
-/*style the arrow inside the select element:*/
-.select-selected:after {
-    position: absolute;
-    display: block;
-    content: '';
-    width: 10px;
-    height: 10px;
-    top: 50%;
-    right: 25px;
-    margin-top: -3px;
-    border-bottom: 1px solid #333;
-    border-right: 1px solid #333;
-    transform: rotate(45deg) translateY(-50%);
-    transition: all .4s ease-in-out;
-    transform-origin: 50% 0;
-}
-
-
-/*point the arrow upwards when the select box is open (active):*/
-
-.select-selected.select-arrow-active:after {
-    margin-top: 3px;
-    transform: rotate(-135deg) translateY(-50%);
-}
-
-
-/*style the items (options), including the selected item:*/
-
-.select-items div,
-.select-selected {
-    color: #333;
-    padding: 10px;
-    border: 1px solid transparent;
-    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-    cursor: pointer;
-    background-color: white;
-}
-
-
-/*style items (options):*/
-
-.select-items {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 99;
-}
-
-/*hide the items when the select box is closed:*/
-.select-hide {
-    display: none;
-}
-
-.select-items div:hover,
-.same-as-selected {
-    background-color: #ddd;
-}
-
-.select-items div:hover,
-.same-as-selected {
-    background-color: #E3F8E4;
-}
 
 .btn-color {
     width: 20px;
@@ -269,4 +179,8 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+custom-select:disabled {
+    color: black;
 }
