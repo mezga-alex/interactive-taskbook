@@ -138,7 +138,6 @@ $("#btn-find").on("click", () => {
                 }).catch(function () {
                     alert('No matches found')
                 });
-
             });
         });
     }

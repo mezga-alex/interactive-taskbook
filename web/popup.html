@@ -2,12 +2,11 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/popup_style.css">
-
-    <!--    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">-->
-
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-select.min.css">
 </head>
 
 <body>
@@ -18,7 +17,8 @@
         </div>
     </div>
         <div class="popup-main">
-                <select class="custom-select" name="task" id="task">
+
+            <select class="selectpicker" name="task" id="task">
                     <option value="NONE">Select task</option>
                     <option value="POS">Part of speech</option>
                     <option value="ACTIVE_VOICE">Active voice</option>
@@ -62,10 +62,17 @@
 src="https://code.jquery.com/jquery-3.4.1.js"
 integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 crossorigin="anonymous"></script> -->
-<script src="js/jquery.min.js"></script>
+<script src="vendor/jquery/jquery.min.js"></script>
+
 <script type="text/javascript" src="js/task_creator.js"></script>
 <script type="text/javascript" src="js/parse_and_process.js"></script>
 <script type="text/javascript" src="js/popup.js"></script>
+
+<script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.js"></script>
+<script src="js/bootstrap-select.min.js"></script>
+
+<script src="js/popper.min.js"></script>
 
 </body>
 </html>
