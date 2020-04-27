@@ -99,10 +99,11 @@ var specificVal = {
 };
 
 // var taskType = document.querySelector("#taskType");
-var specifiedTask = document.querySelector("#specifiedTask");
 // window.onload = selectParams;
 
 $(document).ready(function(){
+    var specifiedTask = document.querySelector("#specifiedTask");
+
     $("#task").change(function(){
         // alert("The text has been changed.");
         specifiedTask.innerHTML = "";
@@ -112,12 +113,15 @@ $(document).ready(function(){
             document.getElementById("specifiedTask").disabled = false;
             for (let i = 0; i < specificVal[c].length; i++) {
                 o = new Option(specificVal[c][i][1], specificVal[c][i][0], false);
+                $(o).addClass('selectpicker-option');
                 specifiedTask.add(o);
+                $('#specifiedTask').selectpicker('refresh');
             }
         } else {
             document.getElementById("specifiedTask").disabled = true;
             o = new Option('specify the task', 'NONE', false);
             specifiedTask.add(o);
+            $('#specifiedTask').selectpicker('refresh');
         }
     });
 });

@@ -2,11 +2,12 @@
 <html lang="en">
 
 <head>
-<!--    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">-->
-    <link rel="stylesheet" href="css/buttons.css">
-    <link rel="stylesheet" href="css/popup_style.css">
+    <!--    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="css/popup_style.css">
+    <link rel="stylesheet" href="css/buttons.css">
+
 </head>
 
 <body>
@@ -16,46 +17,46 @@
             <img src="skyeng.svg">
         </div>
     </div>
-        <div class="popup-main">
+    <div class="popup-main">
 
-            <select class="selectpicker" name="task" id="task">
-                    <option value="NONE">Select task</option>
-                    <option value="POS">Part of speech</option>
-                    <option value="ACTIVE_VOICE">Active voice</option>
-                    <option value="PASSIVE_VOICE">Passive voice</option>
-                </select>
+        <select class="selectpicker" name="task" id="task" data-width="94%">
+            <option class="selectpicker-option" value="NONE">Select task</option>
+            <option class="selectpicker-option" value="POS">Part of speech</option>
+            <option class="selectpicker-option" value="ACTIVE_VOICE">Active voice</option>
+            <option class="selectpicker-option" value="PASSIVE_VOICE">Passive voice</option>
+        </select>
 
-                <select class="custom-select" name="taskParams" id="specifiedTask" disabled>
-                    <option value="NONE">specify the task</option>
-                </select>
-        </div>
+        <select class="selectpicker" name="taskParams" id="specifiedTask" data-width="94%" disabled>
+            <option class="selectpicker-option" value="NONE">specify the task</option>
+        </select>
+    </div>
 
-        <hr>
-        <!--            <h4>Change type of server</h4>-->
-        <h5>Switch to Localhost</h5>
-        <div class="switcher">
-            <label class="switch">
-                <input type="checkbox" id="switch-id">
-                <span class="slider round"></span>
-            </label>
-        </div>
-        <!-- Rounded switch -->
+    <hr>
+    <!--            <h4>Change type of server</h4>-->
+    <h5>Switch to Localhost</h5>
+    <div class="switcher">
+        <label class="switch">
+            <input type="checkbox" id="switch-id">
+            <span class="slider round"></span>
+        </label>
+    </div>
+    <!-- Rounded switch -->
 
-        <h5>Highlight Color</h5>
-        <div class="color-picker">
-            <button data-color="green" class="btn-color green"></button>
-            <button data-color="yellow" class="btn-color yellow"></button>
-            <button data-color="red" class="btn-color red"></button>
-            <button data-color="blue" class="btn-color blue"></button>
-            <button data-color="purple" class="btn-color purple"></button>
-        </div>
-        <h5>Matches found</h5>
-        <div id="found-count">0</div>
+    <h5>Highlight Color</h5>
+    <div class="color-picker">
+        <button data-color="green" class="btn-color green"></button>
+        <button data-color="yellow" class="btn-color yellow"></button>
+        <button data-color="red" class="btn-color red"></button>
+        <button data-color="blue" class="btn-color blue"></button>
+        <button data-color="purple" class="btn-color purple"></button>
+    </div>
+    <h5>Matches found</h5>
+    <div id="found-count">0</div>
 
 
     <div class="popup-footer">
-            <a id="btn-find" href="#" class="btn btn-sm animated-button thar-one">Find</a>
-<!--        <button id="btn-find">find</button>-->
+        <a id="btn-find" href="#" class="btn btn-sm animated-button thar-one">Find</a>
+        <!--        <button id="btn-find">find</button>-->
     </div>
 </div>
 <!-- <script
@@ -69,7 +70,6 @@ crossorigin="anonymous"></script> -->
 <script type="text/javascript" src="js/popup.js"></script>
 
 <script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.js"></script>
 <script src="js/bootstrap-select.min.js"></script>
 
 <script src="js/popper.min.js"></script>
