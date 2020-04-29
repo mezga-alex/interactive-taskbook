@@ -7,8 +7,8 @@ h4 {
 body {
     margin: 0;
     padding: 0;
-    width: 350px;
-    height: 550px;
+    width: 330px;
+    height: 520px;
     box-shadow: 0 0 5px #333;
     font-family: Helvetica, sans-serif;
     text-align: center;
@@ -24,6 +24,31 @@ hr {
     margin-left: auto;
     margin-right: auto;
     display: inline-block;
+}
+
+.select-container {
+    margin: 1em 0;
+}
+
+.selectpicker-selected {
+    height: 3.5em;
+    background-color: #F0F0F0;
+    color: #191c1f;
+    position: relative;
+    font-size:14px;
+    text-transform: uppercase;
+    text-align-last:center;
+    border-radius: 8px;
+    border: solid 2px #3176f5;
+}
+
+.selectpicker-option {
+    /*height: 3.5em;*/
+    color: #191c1f;
+    position: relative;
+    font-size:14px;
+    text-transform: uppercase;
+    text-align-last:center;
 }
 
 .divider {
@@ -52,101 +77,6 @@ hr {
 }
 
 /*the container must be positioned relative:*/
-
-.custom-select {
-    position: relative;
-    display: block;
-    width: 327px;
-    height: 48px;
-    border-radius: 8px;
-    border: solid 2px #3176f5;
-    padding: 5px 5px 5px 5px;
-    box-sizing: border-box;
-    margin: 10px;
-    margin-top: 15px;
-    text-align: center;
-    text-transform: uppercase;
-
-    font-family: Helvetica;
-    font-size: 14px;
-    font-style: normal;
-    line-height: normal;
-    text-align: center;
-
-}
-/*the container must be positioned relative:*/
-.custom-select select {
-    display: none;
-    /*hide original SELECT element:*/
-}
-
-
-/*style the arrow inside the select element:*/
-.select-selected:after {
-    position: absolute;
-    display: block;
-    content: '';
-    width: 10px;
-    height: 10px;
-    top: 50%;
-    right: 25px;
-    margin-top: -3px;
-    border-bottom: 1px solid #333;
-    border-right: 1px solid #333;
-    transform: rotate(45deg) translateY(-50%);
-    transition: all .4s ease-in-out;
-    transform-origin: 50% 0;
-}
-
-
-/*point the arrow upwards when the select box is open (active):*/
-
-.select-selected.select-arrow-active:after {
-    margin-top: 3px;
-    transform: rotate(-135deg) translateY(-50%);
-}
-
-
-/*style the items (options), including the selected item:*/
-
-.select-items div,
-.select-selected {
-    color: #333;
-    padding: 10px;
-    border: 1px solid transparent;
-    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-    cursor: pointer;
-    background-color: white;
-}
-
-
-/*style items (options):*/
-
-.select-items {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 99;
-}
-
-
-/*hide the items when the select box is closed:*/
-
-.select-hide {
-    display: none;
-}
-
-.select-items div:hover,
-.same-as-selected {
-    background-color: #ddd;
-}
-
-.select-items div:hover,
-.same-as-selected {
-    background-color: #E3F8E4;
-}
-
 .btn-color {
     width: 20px;
     height: 20px;
@@ -198,31 +128,8 @@ hr {
 }
 
 .popup-footer {
-    margin-top: 20px;
+    margin-bottom: 1em;
 }
-
-#btn-find {
-    width: 328px;
-    height: 47px;
-    border-radius: 8px;
-    background-color: #027aff;
-
-    border: 0px solid white;
-    text-transform: uppercase;
-    padding: 0px;
-    margin: auto;
-
-    font-family: Helvetica;
-    font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: 1px;
-    text-align: center;
-    color: #ffffff;
-}
-
 
 /* The switch - the box around the slider */
 .switch-div {

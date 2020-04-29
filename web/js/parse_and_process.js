@@ -1,4 +1,3 @@
-
 var PARSE_UTILS = {
     minBodyTailLength: function () {
         return 100;
@@ -49,7 +48,7 @@ var PARSE_UTILS = {
             return html;
     },
 
-    keywordInterval: function(url, callback) {
+    keywordInterval: function (url, callback) {
         let body = "";
         $.ajax({
             type: 'get',
@@ -85,7 +84,7 @@ var PARSE_UTILS = {
             url: url,
             cache: false,
             success: (resp) => {
-                String.prototype.replaceAll = function(search, replacement) {
+                String.prototype.replaceAll = function (search, replacement) {
                     var target = this;
                     return target.replace(new RegExp(search, 'g'), replacement);
                 };
@@ -103,7 +102,7 @@ var PARSE_UTILS = {
 // TODO: Deprecate
 var color;
 $('.btn-color').on('click', () => {
-  color = $(this).attr('data-color');
+    color = $(this).attr('data-color');
 });
 
 // chrome.tabs.create({'url': './openPage/result.html' });
@@ -113,50 +112,39 @@ $('.btn-color').on('click', () => {
 // http://poltavsky.pythonanywhere.com/process
 // http://127.0.0.1:8050/
 var server = "http://87.117.25.190:8060";
-$("#switch-id").click(function() {
+$("#switch-id").click(function () {
     // this function will get executed every time the #switch-id element is clicked (or tab-spacebar changed)
-    if($(this).is(":checked")) // "this" refers to the element that fired the event
+    if ($(this).is(":checked")) // "this" refers to the element that fired the event
     {
         server = 'http://127.0.0.1:8050';
-        alert('Be sure to run your localhost to evaluate results: '+ server);
-    }  else {
+        alert('Be sure to run your localhost to evaluate results: ' + server);
+    } else {
         server = "http://87.117.25.190:8060";
     }
 });
 
+
 $("#btn-find").on("click", () => {
-    //////////////////////////////////////////////
-    // TODO: Update for the new visualization
-    let pos = $('#POS').val();
-    let active_voice = $('#ACTIVE_VOICE').val();
-    let passive_voice = $('#PASSIVE_VOICE').val();
-    let task = '';
-    let specifiedTask = '';
-
-    if (pos !== 'NONE')  {
-        task = 'POS';
-        specifiedTask = pos;
-    }
-    if (active_voice !== 'NONE')  {
-        task = 'ACTIVE_VOICE';
-        specifiedTask = active_voice;
-    }
-    if (passive_voice !== 'NONE')  {
-        task = 'PASSIVE_VOICE';
-        specifiedTask = passive_voice;
-    }
-    //////////////////////////////////////////////
-
-    chrome.tabs.getSelected(null, (tab) => {
-        let tabUrl = tab.url;
-        PARSE_UTILS.keywordInterval(tabUrl, (text) => {
-            newTaskRequest(server, text, task, specifiedTask).then(function() {
-                localStorage.setItem('server', server);
-                chrome.tabs.create({'url': './openPage/result.html'}, (tab) => {});
-            }).catch(function () {
-                alert('No matches found')
+    $(this).unbind("mouseenter mouseleave");
+    let task = $('#task').val();
+    let specifiedTask = $('#specifiedTask').val();
+    if (task !== 'NONE' && specifiedTask !== 'NONE') {
+        try {
+            chrome.tabs.getSelected(null, (tab) => {
+                let tabUrl = tab.url;
+                PARSE_UTILS.keywordInterval(tabUrl, (text) => {
+                    newTaskRequest(server, text, task, specifiedTask).then(function () {
+                        localStorage.setItem('server', server);
+                        chrome.tabs.create({'url': './openPage/result.html'}, (tab) => {
+                        });
+                    }).catch(function () {
+                        alert('No matches found');
+                    });
+                });
             });
-
-        });
-    });
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
 });
