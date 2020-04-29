@@ -1,6 +1,7 @@
 /* Global Button Styles */
 a.animated-button:link, a.animated-button:visited {
     width: 94%;
+    /*height: 3.5em;*/
     position: relative;
     display: block;
     margin: 15px auto 0;
@@ -21,6 +22,7 @@ a.animated-button:link, a.animated-button:visited {
     -o-transition: all 1s ease;
     transition: all 1s ease;
 }
+
 a.animated-button:link:after, a.animated-button:visited:after {
     content: "";
     position: absolute;

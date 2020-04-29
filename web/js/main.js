@@ -3,12 +3,22 @@ var server = localStorage.getItem("server");
 var text = localStorage.getItem("text");
 var groundTruthAnswers;
 var correctAnswers;
+var wrongAnswers;
 var task;
 var specifiedTask;
 var result;
 
+function printSet(inputSet) {
+    var result = '';
+    for (let item of inputSet)
+        result += item + ' ';
+    console.log(result);
+}
+
 function updateGlobalParameters() {
     correctAnswers = new Set();
+    wrongAnswers = new Set();
+
     task = localStorage.getItem("task");
     specifiedTask = localStorage.getItem("specifiedTask");
     result = JSON.parse(localStorage.getItem("result"));
@@ -32,7 +42,7 @@ function resizeInputs() {
     let inputs = document.getElementsByClassName("input--kaede");
     for (var i = 0; i < lexemeSpans.length; i++) {
         let lexeme = lexemeSpans.item(i).innerHTML;
-        inputs.item(i).style.width = (2 * (lexeme.length + 1) + 1).toString() + 'em';
+        inputs.item(i).style.width = (2 * (lexeme.length + 2) + 1).toString() + 'em';
     }
 }
 
@@ -74,35 +84,43 @@ function checkFullTask(e) {
             // TODO: Get element by jquery.
             //  element = $(taskID) doesn't work.
             // Get span for the current input
-            spanID = 'span-'+taskID.substr(1); // Remove '#' from taskID
+            taskID = taskID.substr(1); // Remove '#' from taskID
+            let spanID = 'span-' + taskID;
             var element = document.getElementById(spanID);
             // If the word is correct -> set up green background
             if (isCorrect) {
-                if (!correctAnswers.has(taskID.substr(1))) {
-                    $(taskID).val();
-                    correctAnswers.add(taskID.substr(1));
+                if (wrongAnswers.has(taskID)) wrongAnswers.delete(taskID);
+                if (!correctAnswers.has(taskID)) {
+                    correctAnswers.add(taskID);
                     classie.removeClass(element, 'border-bottom-danger');
                     classie.addClass(element, 'border-bottom-success');
                     animateCSS(element, 'fadeIn');
                 }
-                // If the word is correct and is not empty -> set up red background
-            } else if (userAnswer !== '') {
-                if (correctAnswers.has(taskID)) correctAnswers.delete(taskID);
-                classie.removeClass(element, 'border-bottom-success');
-                classie.addClass(element, 'border-bottom-danger');
-                animateCSS(element, 'fadeIn');
             }
-
+            // If the word is correct and is not empty -> set up red background
+            else {
+                if (correctAnswers.has(taskID)) correctAnswers.delete(taskID);
+                if (userAnswer !== '') {
+                    if (!wrongAnswers.has(taskID)) {
+                        wrongAnswers.add(taskID);
+                        classie.removeClass(element, 'border-bottom-success');
+                        classie.addClass(element, 'border-bottom-danger');
+                        animateCSS(element, 'fadeIn');
+                    }
+                }
+            }
             // Next ID
             wordIndex += 1;
             taskID = '#task-' + phraseIndex.toString() + '-' + wordIndex.toString();
         }
     }
+    printSet(correctAnswers);
+    printSet(wrongAnswers);
 }
 
 function initializeInputHandlers() {
     // Handle pressing the enter key
-    var inputs = $(':input').keyup(function(e){
+    var inputs = $(':input').keyup(function (e) {
         if (e.which == 13) {
             e.preventDefault();
             var nextInput = inputs.get(inputs.index(this) + 1);
@@ -126,7 +144,7 @@ function initializeInputHandlers() {
             // If there are any “correct” or “inCorrect” classes, but change the input -> delete these classes
             let taskID = $(inputs.get(inputs.index(this))).attr('id');
             // Need span to create border for full length
-            let spanID = 'span-'+taskID;
+            let spanID = 'span-' + taskID;
             let element = document.getElementById(spanID);
 
             let isCorrect = element.classList.contains('border-bottom-success');

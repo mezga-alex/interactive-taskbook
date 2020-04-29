@@ -48,7 +48,7 @@ var PARSE_UTILS = {
             return html;
     },
 
-    keywordInterval: function(url, callback) {
+    keywordInterval: function (url, callback) {
         let body = "";
         $.ajax({
             type: 'get',
@@ -84,7 +84,7 @@ var PARSE_UTILS = {
             url: url,
             cache: false,
             success: (resp) => {
-                String.prototype.replaceAll = function(search, replacement) {
+                String.prototype.replaceAll = function (search, replacement) {
                     var target = this;
                     return target.replace(new RegExp(search, 'g'), replacement);
                 };
@@ -102,7 +102,7 @@ var PARSE_UTILS = {
 // TODO: Deprecate
 var color;
 $('.btn-color').on('click', () => {
-  color = $(this).attr('data-color');
+    color = $(this).attr('data-color');
 });
 
 // chrome.tabs.create({'url': './openPage/result.html' });
@@ -112,35 +112,39 @@ $('.btn-color').on('click', () => {
 // http://poltavsky.pythonanywhere.com/process
 // http://127.0.0.1:8050/
 var server = "http://87.117.25.190:8060";
-$("#switch-id").click(function() {
+$("#switch-id").click(function () {
     // this function will get executed every time the #switch-id element is clicked (or tab-spacebar changed)
-    if($(this).is(":checked")) // "this" refers to the element that fired the event
+    if ($(this).is(":checked")) // "this" refers to the element that fired the event
     {
         server = 'http://127.0.0.1:8050';
-        alert('Be sure to run your localhost to evaluate results: '+ server);
-    }  else {
+        alert('Be sure to run your localhost to evaluate results: ' + server);
+    } else {
         server = "http://87.117.25.190:8060";
     }
 });
 
+
 $("#btn-find").on("click", () => {
-    $(this).trigger('mouseout');
-
-
+    $(this).unbind("mouseenter mouseleave");
     let task = $('#task').val();
     let specifiedTask = $('#specifiedTask').val();
     if (task !== 'NONE' && specifiedTask !== 'NONE') {
-        chrome.tabs.getSelected(null, (tab) => {
-            let tabUrl = tab.url;
-            PARSE_UTILS.keywordInterval(tabUrl, (text) => {
-                newTaskRequest(server, text, task, specifiedTask).then(function () {
-                    localStorage.setItem('server', server);
-                    chrome.tabs.create({'url': './openPage/result.html'}, (tab) => {
+        try {
+            chrome.tabs.getSelected(null, (tab) => {
+                let tabUrl = tab.url;
+                PARSE_UTILS.keywordInterval(tabUrl, (text) => {
+                    newTaskRequest(server, text, task, specifiedTask).then(function () {
+                        localStorage.setItem('server', server);
+                        chrome.tabs.create({'url': './openPage/result.html'}, (tab) => {
+                        });
+                    }).catch(function () {
+                        alert('No matches found');
                     });
-                }).catch(function () {
-                    alert('No matches found')
                 });
             });
-        });
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
 });
