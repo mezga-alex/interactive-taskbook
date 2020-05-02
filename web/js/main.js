@@ -58,7 +58,6 @@ function animateCSS(element, animationName, callback) {
 
         if (typeof callback === 'function') callback()
     }
-
     element.addEventListener('animationend', handleAnimationEnd);
 }
 
@@ -174,8 +173,15 @@ function initializeInputHandlers() {
     });
 
     // Get the button and check all related words inside the task
-    $('.btn-check-task').on('click', function checkMultipleAnswers(e) {
+    $('.btn-check-task').on('click', function() {
         checkFullTask(this);
+    });
+
+    // Check all exercises
+    $('.btn-check-all').on('click', function() {
+        $(".btn-check-task").each(function() {
+            checkFullTask(this);
+        });
     });
 }
 
