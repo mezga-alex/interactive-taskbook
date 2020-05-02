@@ -100,6 +100,8 @@ def passive_voice_search_batches(nlp, text, tense='ALL'):
     passive_phrases_lexemes = []
     passive_phrases_indices = []
     passive_phrases_sents = []
+    passive_phrases_pos = []
+    passive_phrases_dep = []
 
     # Start navigating the dependency tree
     for cur_batch, doc in enumerate(docs):
@@ -110,6 +112,8 @@ def passive_voice_search_batches(nlp, text, tense='ALL'):
                     passive_match = []
                     passive_match_indices = []
                     passive_match_lexemes = []
+                    passive_match_pos = []
+                    passive_match_dep = []
                     num_of_aux = 0
                     num_of_aux_rule = tense_rule.get('num_of_aux')  # It is necessary for correct work with modals.
 
@@ -136,6 +140,8 @@ def passive_voice_search_batches(nlp, text, tense='ALL'):
                                 passive_match_lexemes.append(child.lemma_)
                             passive_match_indices.append([child.idx - sent.start_char,
                                                           child.idx + len(child) - sent.start_char])
+                            passive_match_pos.append(child.pos_)
+                            passive_match_dep.append(child.dep_)
                             subject_found = True
 
                         # 2: A passive auxiliary of a clause
@@ -145,11 +151,15 @@ def passive_voice_search_batches(nlp, text, tense='ALL'):
                                 passive_match_lexemes.append(child.lemma_)
                                 passive_match_indices.append([child.idx - sent.start_char,
                                                               child.idx + len(child) - sent.start_char])
+                                passive_match_pos.append(child.pos_)
+                                passive_match_dep.append(child.dep_)
                             else:
                                 # If we find a match but from another tense => skip
                                 passive_match = []
                                 passive_match_lexemes = []
                                 passive_match_indices = []
+                                passive_match_pos = []
+                                passive_match_dep = []
                                 num_of_aux = 0
                                 num_of_aux_rule = tense_rule.get('num_of_aux')
                                 break
@@ -162,6 +172,8 @@ def passive_voice_search_batches(nlp, text, tense='ALL'):
                                 passive_match_lexemes.append(child.lemma_)
                                 passive_match_indices.append([child.idx - sent.start_char,
                                                               child.idx + len(child) - sent.start_char])
+                                passive_match_pos.append(child.pos_)
+                                passive_match_dep.append(child.dep_)
 
                                 # If Modals with Passive in past tense the number of aux is more than 2
                                 if tense == 'MODALS' and child_lower == 'have':
@@ -171,6 +183,8 @@ def passive_voice_search_batches(nlp, text, tense='ALL'):
                                 passive_match = []
                                 passive_match_lexemes = []
                                 passive_match_indices = []
+                                passive_match_pos = []
+                                passive_match_dep = []
                                 num_of_aux = 0
                                 num_of_aux_rule = tense_rule.get('num_of_aux')
                                 break
@@ -181,6 +195,8 @@ def passive_voice_search_batches(nlp, text, tense='ALL'):
                             passive_match_lexemes.append(child.lemma_)
                             passive_match_indices.append([child.idx - sent.start_char,
                                                           child.idx + len(child) - sent.start_char])
+                            passive_match_pos.append(child.pos_)
+                            passive_match_dep.append(child.dep_)
 
                         # 5: The phrasal verb particle
                         if child.dep_ == 'prt':
@@ -195,6 +211,11 @@ def passive_voice_search_batches(nlp, text, tense='ALL'):
                                                           token.idx + len(token) - sent.start_char])
                             passive_match_indices.append([child.idx - sent.start_char,
                                                           child.idx + len(child) - sent.start_char])
+                            passive_match_pos.append(token.pos_)
+                            passive_match_pos.append(token.pos_)
+
+                            passive_match_dep.append(token.dep_)
+                            passive_match_dep.append(child.dep_)
                             # Flag for proper word placement
                             prt_contained = True
 
@@ -207,6 +228,8 @@ def passive_voice_search_batches(nlp, text, tense='ALL'):
                             passive_match_lexemes.append(token.lemma_)
                             passive_match_indices.append([token.idx - sent.start_char,
                                                           token.idx + len(token) - sent.start_char])
+                            passive_match_pos.append(token.pos_)
+                            passive_match_dep.append(token.dep_)
 
                         # Use batch_idx to correctly determine the index in the raw text
                         batch_idx = batch_indices[cur_batch]
@@ -214,8 +237,12 @@ def passive_voice_search_batches(nlp, text, tense='ALL'):
                         passive_phrases_lexemes.append(passive_match_lexemes)
                         passive_phrases_indices.append(passive_match_indices)
                         passive_phrases_sents.append(text[batch_idx + sent.start_char:batch_idx + sent.end_char].strip())
+                        passive_phrases_pos.append(passive_match_pos)
+                        passive_phrases_dep.append(passive_match_dep)
+
                         pass
 
     # Return the found phrases, their indices, word lexemes, their sentences
-    result = [passive_phrases, passive_phrases_indices, passive_phrases_lexemes, passive_phrases_sents]
+    result = [passive_phrases, passive_phrases_indices, passive_phrases_lexemes,
+              passive_phrases_sents, passive_phrases_pos, passive_phrases_dep]
     return result

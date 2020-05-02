@@ -116,7 +116,7 @@ $("#switch-id").click(function () {
     // this function will get executed every time the #switch-id element is clicked (or tab-spacebar changed)
     if ($(this).is(":checked")) // "this" refers to the element that fired the event
     {
-        server = 'http://127.0.0.1:8050';
+        server = 'http://127.0.0.1:5000/';
         alert('Be sure to run your localhost to evaluate results: ' + server);
     } else {
         server = "http://87.117.25.190:8060";
