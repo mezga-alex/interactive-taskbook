@@ -135,6 +135,7 @@ $("#btn-find").on("click", () => {
                 PARSE_UTILS.keywordInterval(tabUrl, (text) => {
                     newTaskRequest(server, text, task, specifiedTask).then(function () {
                         localStorage.setItem('server', server);
+                        localStorage.setItem('url', tabUrl);
                         chrome.tabs.create({'url': './openPage/result.html'}, (tab) => {
                         });
                     }).catch(function () {

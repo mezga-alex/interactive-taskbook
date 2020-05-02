@@ -1,3 +1,5 @@
+var commonJson;
+var articleObject;
 var strictCheck = false;
 var server = localStorage.getItem("server");
 var text = localStorage.getItem("text");
@@ -7,6 +9,7 @@ var wrongAnswers;
 var task;
 var specifiedTask;
 var result;
+var url;
 
 function printSet(inputSet) {
     var result = '';
@@ -19,13 +22,24 @@ function updateGlobalParameters() {
     correctAnswers = new Set();
     wrongAnswers = new Set();
 
+    // Get json for statistics
+    commonJson = JSON.parse(localStorage.getItem("commonJson"));
+
+    url = localStorage.getItem("url");
     task = localStorage.getItem("task");
     specifiedTask = localStorage.getItem("specifiedTask");
     result = JSON.parse(localStorage.getItem("result"));
 
     if (task === 'PASSIVE_VOICE' || task === 'ACTIVE_VOICE') {
         groundTruthAnswers = getResultAttribute(result, task, 'phrases');
+        // Get json for statistics
+        commonJson = JSON.parse(localStorage.getItem("commonJson"));
+        if (!commonJson) {
+            var statistics = new ArticleStatistics(url, task, specifiedTask, result);
+            console.log(JSON.stringify(statistics.toJson()));
+        }
     }
+
 }
 
 // Helper function to get correct answer
@@ -58,6 +72,7 @@ function animateCSS(element, animationName, callback) {
 
         if (typeof callback === 'function') callback()
     }
+
     element.addEventListener('animationend', handleAnimationEnd);
 }
 
@@ -173,13 +188,13 @@ function initializeInputHandlers() {
     });
 
     // Get the button and check all related words inside the task
-    $('.btn-check-task').on('click', function() {
+    $('.btn-check-task').on('click', function () {
         checkFullTask(this);
     });
 
     // Check all exercises
-    $('.btn-check-all').on('click', function() {
-        $(".btn-check-task").each(function() {
+    $('.btn-check-all').on('click', function () {
+        $(".btn-check-task").each(function () {
             checkFullTask(this);
         });
     });
@@ -200,7 +215,6 @@ function initializeLinkClickHandlers() {
                     updateGlobalParameters();
                     initializeInputHandlers();
                     initializeClassie();
-
                 }).catch(function () {
                     // Do nothing if nothing is found
                     alert('No matches found');
@@ -208,6 +222,19 @@ function initializeLinkClickHandlers() {
             }
         }
     });
+}
+
+function getArticleJson() {
+    alert(commonJson);
+    if (commonJson) {
+        for (let stat in commonJson.statistics) {
+            if (stat.url === articleURL) return stat;
+            // x += "<h1>" + myObj.cars[i].name + "</h1>";
+            // for (j in myObj.cars[i].models) {
+            //     x += myObj.cars[i].models[j];
+            // }
+        }
+    }
 }
 
 $(document).ready(() => {
