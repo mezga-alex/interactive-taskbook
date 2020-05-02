@@ -54,7 +54,6 @@ function animateCSS(element, animationName, callback) {
     function handleAnimationEnd() {
         classie.removeClass(element, 'animated');
         classie.removeClass(element, animationName);
-        //node.classList.remove('animated', animationName);
         element.removeEventListener('animationend', handleAnimationEnd);
 
         if (typeof callback === 'function') callback()
@@ -65,7 +64,11 @@ function animateCSS(element, animationName, callback) {
 
 // e.g. taskID = 'task-3-3' means that the index of the phrase is 3, and the index of the word inside the phrase is 3
 function checkAnswer(taskID, userAnswer) {
-    return userAnswer.toUpperCase() === getCorrectAnswerByID(taskID).toUpperCase();
+    if (userAnswer.length !== 0) {
+        let correctAnswer = getCorrectAnswerByID(taskID).replace(/\s/g, '');
+        userAnswer = userAnswer.replace(/\s/g, '');
+        return userAnswer.toUpperCase() === correctAnswer.toUpperCase();
+    }
 }
 
 // Check all words in
@@ -78,7 +81,8 @@ function checkFullTask(e) {
         var taskID = '#task-' + phraseIndex.toString() + '-' + wordIndex.toString();
         //while (isCorrect && ($(taskID).length !== 0)) {
         while ($(taskID).length !== 0) {
-            let userAnswer = $(taskID).val();
+            let inputElement = $(taskID);
+            let userAnswer = inputElement.val();
             isCorrect = checkAnswer(taskID, userAnswer);
 
             // TODO: Get element by jquery.
@@ -89,6 +93,9 @@ function checkFullTask(e) {
             var element = document.getElementById(spanID);
             // If the word is correct -> set up green background
             if (isCorrect) {
+                // Set correct case of answer
+                inputElement.val(getCorrectAnswerByID(taskID));
+
                 if (wrongAnswers.has(taskID)) wrongAnswers.delete(taskID);
                 if (!correctAnswers.has(taskID)) {
                     correctAnswers.add(taskID);
@@ -114,7 +121,9 @@ function checkFullTask(e) {
             taskID = '#task-' + phraseIndex.toString() + '-' + wordIndex.toString();
         }
     }
+    console.log('Correct: ');
     printSet(correctAnswers);
+    console.log('Wrong: ');
     printSet(wrongAnswers);
 }
 
@@ -155,7 +164,10 @@ function initializeInputHandlers() {
                     correctAnswers.delete(taskID);
                     classie.removeClass(element, 'border-bottom-success');
                 }
-                if (isIncorrect) classie.removeClass(element, 'border-bottom-danger');
+                if (isIncorrect) {
+                    wrongAnswers.delete(taskID);
+                    classie.removeClass(element, 'border-bottom-danger');
+                }
                 animateCSS(element, 'fadeIn');
             }
         }
