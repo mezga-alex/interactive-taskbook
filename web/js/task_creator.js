@@ -106,6 +106,10 @@ function getResultAttribute(result, task, attr) {
                     return result[2];
                 case 'sentences':
                     return result[3];
+                case 'pos':
+                    return result[4];
+                case 'dep':
+                    return result[5];
                 default:
                     return null;
             }

@@ -51,6 +51,8 @@ def active_voice_search_batches(nlp, text, tense='ALL'):
     active_phrases_lexemes = []
     active_phrases_indices = []
     active_phrases_sents = []
+    active_phrases_pos = []
+    active_phrases_dep = []
 
     for cur_batch, doc in enumerate(docs):
         for sent in doc.sents:
@@ -59,6 +61,8 @@ def active_voice_search_batches(nlp, text, tense='ALL'):
                     active_match = []
                     active_match_indices = []
                     active_match_lexemes = []
+                    active_match_pos = []
+                    active_match_dep = []
 
                     to_inf_match = []
                     subject_found = False
@@ -74,23 +78,32 @@ def active_voice_search_batches(nlp, text, tense='ALL'):
                                 active_match_lexemes.append(child.lemma_)
                             active_match_indices.append([child.idx - sent.start_char,
                                                          child.idx + len(child) - sent.start_char])
+                            active_match_pos.append(child.pos_)
+                            active_match_dep.append(child.dep_)
                             subject_found = True
 
                         if child.dep_ == 'auxpass':
                             active_match = []
-                            active_match_indices =[]
-                            active_match_lexemes =[]
+                            active_match_indices = []
+                            active_match_lexemes = []
+                            active_match_pos = []
+                            active_match_dep = []
                             break
+
                         if child.dep_ == 'aux':
                             if child_lower in tense_rule.get('aux') or child_lower in MODALS:
                                 active_match.append(child.text)
                                 active_match_lexemes.append(child.lemma_)
                                 active_match_indices.append([child.idx - sent.start_char,
                                                              child.idx + len(child) - sent.start_char])
+                                active_match_pos.append(child.pos_)
+                                active_match_dep.append(child.dep_)
                             else:
                                 active_match = []
                                 active_match_lexemes = []
                                 active_match_indices = []
+                                active_match_pos = []
+                                active_match_dep = []
                                 break
 
                         if child.dep_ == 'xcomp':
@@ -105,6 +118,8 @@ def active_voice_search_batches(nlp, text, tense='ALL'):
                             active_match_lexemes.append(child.lemma_)
                             active_match_indices.append([child.idx - sent.start_char,
                                                          child.idx + len(child) - sent.start_char])
+                            active_match_pos.append(child.pos_)
+                            active_match_dep.append(child.dep_)
                         if child.dep_ == 'prt':
                             active_match.append(token.text)
                             active_match.append(child.text)
@@ -117,6 +132,12 @@ def active_voice_search_batches(nlp, text, tense='ALL'):
                             active_match_indices.append([child.idx - sent.start_char,
                                                          child.idx + len(child) - sent.start_char])
 
+                            active_match_pos.append(token.pos_)
+                            active_match_pos.append(child.pos_)
+
+                            active_match_dep.append(token.dep_)
+                            active_match_dep.append(child.dep_)
+
                             prt_contained = True
                     if active_match and subject_found:
                         if not prt_contained:
@@ -124,16 +145,27 @@ def active_voice_search_batches(nlp, text, tense='ALL'):
                             active_match_lexemes.append(token.lemma_)
                             active_match_indices.append([token.idx - sent.start_char,
                                                          token.idx + len(token) - sent.start_char])
+                            active_match_pos.append(token.pos_)
+                            active_match_dep.append(token.dep_)
+
                         if to_inf_match:
                             [active_match.append(t.text) for t in to_inf_match]
                             [active_match_lexemes.append(t.lemma_) for t in to_inf_match]
                             [active_match_indices.append([t.idx - sent.start_char,
                                                          t.idx + len(t) - sent.start_char]) for t in to_inf_match]
+                            [active_match_pos.append(t.pos_) for t in to_inf_match]
+                            [active_match_dep.append(t.dep_) for t in to_inf_match]
+
                         batch_idx = batch_indices[cur_batch]
                         active_phrases.append(active_match)
                         active_phrases_lexemes.append(active_match_lexemes)
                         active_phrases_indices.append(active_match_indices)
                         active_phrases_sents.append(text[batch_idx + sent.start_char:batch_idx + sent.end_char].strip())
+                        active_phrases_pos.append(active_match_pos)
+                        active_phrases_dep.append(active_match_dep)
                         pass
-        result = [active_phrases, active_phrases_indices, active_phrases_lexemes, active_phrases_sents]
+
+        result = [active_phrases, active_phrases_indices, active_phrases_lexemes,
+                  active_phrases_sents, active_phrases_pos, active_phrases_dep]
+
         return result
