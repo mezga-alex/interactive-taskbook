@@ -10,6 +10,9 @@ var task;
 var specifiedTask;
 var result;
 var url;
+var globalStatisticsJSON;
+var curStatistics;
+var curExercise;
 
 function printSet(inputSet) {
     var result = '';
@@ -29,65 +32,23 @@ function updateGlobalParameters() {
 
     if (task === 'PASSIVE_VOICE' || task === 'ACTIVE_VOICE') {
         groundTruthAnswers = getResultAttribute(result, task, 'phrases');
-        ///////////////////////////////////  Unstable  /////////////////////////////////////////////
-        // Get json for statistics
-        let globalStatisticsJSON = JSON.parse(localStorage.getItem("globalStatisticsJSON"));
-        if (globalStatisticsJSON) {
-            console.log('Restored JSON from localStorage:');
-            console.log(globalStatisticsJSON);
+        ////////////////////////////////////  Unstable  /////////////////////////////////////////////
+        globalStatisticsJSON = JSON.parse(localStorage.getItem("globalStatisticsJSON"));
 
-            let updated = updateExerciseNode(globalStatisticsJSON, url, task, specifiedTask, result);
-            console.log('JSON After updateExerciseNode');
-            console.log(globalStatisticsJSON);
+        // console.log('Restored JSON from localStorage:');
+        // console.log(globalStatisticsJSON);
 
-            localStorage.setItem('globalStatisticsJSON', JSON.stringify(globalStatisticsJSON));
-        } else {
-            globalStatisticsJSON = createGlobalJSON(url, task, specifiedTask, result);
-            console.log('Create new JSON file:');
-            console.log(globalStatisticsJSON);
-            localStorage.setItem('globalStatisticsJSON', JSON.stringify(globalStatisticsJSON));
+        if (!globalStatisticsJSON) globalStatisticsJSON = createGlobalJSON(url, task, specifiedTask, result);
+        let indices = updateExerciseNode(globalStatisticsJSON, url, task, specifiedTask, result, true);
+        curStatistics = indices[0];
+        curExercise = indices[1];
 
-            // Initialize new GlobalStatistics
-            // let globalStatistics = new GlobalStatistics(url, task, specifiedTask, result);
+        // console.log('JSON After updateExerciseNode, indices: ', curStatistics, ' ', curExercise);
+        // console.log(globalStatisticsJSON);
 
-            //
-            // console.log('task :', globalStatistics.task);
-            // console.log('specifiedTask :', globalStatistics.specifiedTask);
-            // console.log('url :', globalStatistics.url);
-            // console.log('exercise :', globalStatistics.exercise);
-
-
-            // let articleExercise = new ArticleExercise(task, specifiedTask, result);
-            // let articleStatistics = new ArticleStatistics(url, articleExercise);
-            // let globalStatistics = new GlobalStatistics(articleStatistics);
-
-
-            // localStorage.setItem('globalStatistics', JSON.stringify(globalStatistics));
-
-            // console.log('single');
-            // console.log(articleExercise);
-            //
-            // console.log('multi');
-            // console.log([articleExercise, articleExercise, articleExercise]);
-            // let articleStatistics = new ArticleStatistics(url, articleExercise);
-
-
-            // // For debugging
-            // articleExercise = new ArticleExercise(task, specifiedTask, result);
-            // console.log('toJson:');
-            // console.log(articleExercise.toJson());
-            // // console.log('parse(this):');
-            // // console.log(JSON.parse(articleExercise));
-            // console.log('stringify(this)');
-            // console.log(JSON.stringify(articleExercise));
-            // console.log('stringify(this.toJson)');
-            // console.log(JSON.stringify(articleExercise.toJson()));
-
-        }
+        localStorage.setItem('globalStatisticsJSON', JSON.stringify(globalStatisticsJSON));
         //////////////////////////////////////////////////////////////////////////////////////////////
-
     }
-
 }
 
 // Helper function to get correct answer
@@ -96,6 +57,20 @@ function getCorrectAnswerByID(taskID) {
     let phraseID = ids[0];
     let wordID = ids[1];
     return groundTruthAnswers[phraseID][wordID];
+}
+
+// Get index in flat array
+function getFlatIndexByID(taskID) {
+    let ids = taskID.match(/\d+/g);
+    let phraseID = parseInt(ids[0]);
+    let wordID = parseInt(ids[1]);
+
+    var id = 0;
+    for (let i = 0; i < phraseID; i++) {
+        id += groundTruthAnswers[i].length
+    }
+    id += wordID;
+    return id;
 }
 
 // Resize all input forms according to their content
@@ -164,6 +139,9 @@ function checkFullTask(e) {
                     classie.removeClass(element, 'border-bottom-danger');
                     classie.addClass(element, 'border-bottom-success');
                     animateCSS(element, 'fadeIn');
+                    const flatID = getFlatIndexByID(taskID);
+                    updateWordStatistics(globalStatisticsJSON, flatID, "correct", curStatistics, curExercise);
+
                 }
             }
             // If the word is correct and is not empty -> set up red background
@@ -176,6 +154,10 @@ function checkFullTask(e) {
                         classie.addClass(element, 'border-bottom-danger');
                         animateCSS(element, 'fadeIn');
                     }
+                    const flatID = getFlatIndexByID(taskID);
+                    updateWordStatistics(globalStatisticsJSON, flatID, "wrong", curStatistics, curExercise);
+                    // console.log('Update word stat');
+                    // console.log(globalStatisticsJSON);
                 }
             }
             // Next ID
@@ -183,10 +165,13 @@ function checkFullTask(e) {
             taskID = '#task-' + phraseIndex.toString() + '-' + wordIndex.toString();
         }
     }
-    console.log('Correct: ');
-    printSet(correctAnswers);
-    console.log('Wrong: ');
-    printSet(wrongAnswers);
+    // Save statistics
+    localStorage.setItem('globalStatisticsJSON', JSON.stringify(globalStatisticsJSON));
+
+    // console.log('Correct: ');
+    // printSet(correctAnswers);
+    // console.log('Wrong: ');
+    // printSet(wrongAnswers);
 }
 
 function initializeInputHandlers() {

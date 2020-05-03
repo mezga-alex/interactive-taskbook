@@ -107,7 +107,7 @@ function updateExerciseNode(globalStatisticsJSON, url, task, specifiedTask, resu
 
                     // Return Exercise Node indices if specified
                     if (isReturnIndices)
-                        return [i, articleStatistics.exercises.length];
+                        return [i, articleStatistics.exercises.length-1];
                     break; // Not necessary to continue
                 }
             }
@@ -127,11 +127,23 @@ function updateExerciseNode(globalStatisticsJSON, url, task, specifiedTask, resu
     } catch (e) {
         alert('ERROR UPDATE');
     }
+
+}
+
+function updateWordStatistics(globalStatisticsJSON, wordIndex, typeOfChange, curStatistics, curExercise) {
+    // Get current word structure
+    let word = globalStatisticsJSON.statistics[curStatistics].exercises[curExercise].words[wordIndex];
+    word[typeOfChange] += 1;
 }
 
 $('#resetGlobalStatisticsJSON').on('click', function () {
     localStorage.removeItem('globalStatisticsJSON');
     console.log('reset JSON');
+});
+
+$('#logGlobalStatisticsJSON').on('click', function () {
+    console.log('current JSON status');
+    console.log(globalStatisticsJSON);
 });
 
 // class ArticleExercise {
