@@ -1,8 +1,8 @@
 // File to create this kind of JSON file
-// JSON = {
-//     "statistics": [{
+// JSON = {         // Create inside  createGlobalStatisticsStructure()
+//     "statistics": [{    // Create inside createArticleStatisticsStructure()
 //         "url": "",
-//         "exercise": [{  // Create inside createExerciseStructure
+//         "exercise": [{  // Create inside createExerciseStructure()
 //             "type": "",
 //             "words": [{      // Create inside createWordsArrayStructure()
 //                 "value": "",     //
@@ -69,7 +69,7 @@ function createGlobalStatisticsStructure(articleStatistics) {
     }
 }
 
-// Compile full JSON with this kind of structure:
+// Compile full JSON JSON from blocks
 function createGlobalJSON(url, task, specifiedTask, result) {
     const words = createWordsArrayStructure(result);
     const exercise = createExerciseStructure(task, specifiedTask, words);
@@ -77,33 +77,43 @@ function createGlobalJSON(url, task, specifiedTask, result) {
     return createGlobalStatisticsStructure(articleStatistics);
 }
 
+// Update JSON structure depending on the task
 function updateExerciseNode(globalStatisticsJSON, url, task, specifiedTask, result, isReturnIndices = false) {
     try {
+        // Check if we've already updated the structure
         let isUpdated = false;
+
+        // Iterate over unique Article Statistics Nodes (unique URLs)
         for (const [i, articleStatistics] of globalStatisticsJSON.statistics.entries()) {
+            // Check if the user has already worked with the article.
             if (articleStatistics.url === url) {
+                // iterate over Article Exercises Nodes
                 for (const [j, exercise] of articleStatistics.exercises.entries()) {
+                    // If there is FULL match -> don't update the structure.
                     if (exercise.task === task && exercise.specifiedTask === specifiedTask) {
-                        // console.log('No changes ', i, j);
-                        // console.log(globalStatisticsJSON);
                         isUpdated = true;
+                        // Return Exercise Node indices if specified
                         if (isReturnIndices)
                             return [i, j];
+                        break; // Not necessary to continue
                     }
                 }
-                // If there is no FULL match but url is'nt unique -> create new EXERCISE NODE
+                // If there is no FULL match but url isn't unique -> push new EXERCISE NODE for the same article.
                 if (!isUpdated) {
                     isUpdated = true;
                     const words = createWordsArrayStructure(result);
                     const exercise = createExerciseStructure(task, specifiedTask, words);
                     articleStatistics.exercises.push(exercise);
-                    // console.log('new exercise ', i, articleStatistics.exercises.length);
-                    // console.log(globalStatisticsJSON);
+
+                    // Return Exercise Node indices if specified
                     if (isReturnIndices)
                         return [i, articleStatistics.exercises.length];
+                    break; // Not necessary to continue
                 }
             }
         }
+
+        // If the user hasn't worked with the article before -> create new Article Statistics NODE
         if (!isUpdated) {
             const words = createWordsArrayStructure(result);
             const exercise = createExerciseStructure(task, specifiedTask, words);
@@ -115,7 +125,7 @@ function updateExerciseNode(globalStatisticsJSON, url, task, specifiedTask, resu
                 return [globalStatisticsJSON.statistics.length, 0];
         }
     } catch (e) {
-        alert('ERROR BLYAAAAAA');
+        alert('ERROR UPDATE');
     }
 }
 
