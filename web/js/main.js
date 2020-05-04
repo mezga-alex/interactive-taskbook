@@ -1,6 +1,7 @@
 var commonJson;
 var articleObject;
 var strictCheck = false;
+let extensionID = chrome.runtime.id;
 var server = localStorage.getItem("server");
 var text = localStorage.getItem("text");
 var groundTruthAnswers;
@@ -13,7 +14,6 @@ var url;
 var globalStatisticsJSON;
 var curStatistics;
 var curExercise;
-
 function printSet(inputSet) {
     var result = '';
     for (let item of inputSet)

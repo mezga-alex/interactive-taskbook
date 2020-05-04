@@ -15,12 +15,13 @@
 // }
 
 // Update file in database
-function updateDataBaseJSON(server, json) {
-    console.log(server);
+function updateDataBaseJSON(server, extensionID, json) {
+    let data = {extensionID : extensionID,
+                json : json};
     fetch(server, {
         method: "POST",
         credentials: "include",
-        body: json,
+        body: JSON.stringify(data),
         cache: "no-cache",
         headers: new Headers({
             'Access-Control-Allow-Origin': '*',
@@ -171,7 +172,8 @@ $('#logGlobalStatisticsJSON').on('click', function () {
 $('#updateDataBaseJSON').on('click', function () {
     console.log('current JSON status');
     console.log(globalStatisticsJSON);
-    updateDataBaseJSON(server+'/update', JSON.stringify(globalStatisticsJSON));
+    console.log(extensionID);
+    updateDataBaseJSON(server+'/update', extensionID, globalStatisticsJSON);
 });
 
 // class ArticleExercise {
