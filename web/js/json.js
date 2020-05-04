@@ -14,6 +14,20 @@
 //     }],
 // }
 
+//
+function fetchRequest(data) {
+    fetch(server, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(data),
+        cache: "no-cache",
+        headers: new Headers({
+            'Access-Control-Allow-Origin': '*',
+            "content-type": "application/json"
+        })
+    })
+}
+
 // Update file in database
 function updateDataBaseJSON(server, extensionID, json) {
     let data = {extensionID : extensionID,
@@ -34,6 +48,35 @@ function updateDataBaseJSON(server, extensionID, json) {
         }
     }).catch(function (error) {
         console.log("Fetch error: " + error);
+    });
+}
+
+function getDataBaseJSON(server, extensionID) {
+    return new Promise((resolve, reject) => {
+        let data = {extensionID: extensionID,};
+        fetch(server, {
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify(data),
+            cache: "no-cache",
+            headers: new Headers({
+                'Access-Control-Allow-Origin': '*',
+                "content-type": "application/json"
+            })
+        }).then((response) => {
+            if (response.status !== 200) {
+                console.log(`Looks like there was a problem. Status code: ${response.status}`);
+                reject("Error");
+            }
+
+            response.json().then((data) => {
+                localStorage.setItem('globalStatisticsJSON', JSON.stringify(data));
+                resolve('Success');
+            });
+        }).catch(function (error) {
+            console.log("Fetch error: " + error);
+            reject("Error")
+        });
     });
 }
 
@@ -159,6 +202,7 @@ function updateWordStatistics(globalStatisticsJSON, wordIndex, typeOfChange, cur
     word[typeOfChange] += 1;
 }
 
+
 $('#resetGlobalStatisticsJSON').on('click', function () {
     localStorage.removeItem('globalStatisticsJSON');
     console.log('reset JSON');
@@ -174,6 +218,13 @@ $('#updateDataBaseJSON').on('click', function () {
     console.log(globalStatisticsJSON);
     console.log(extensionID);
     updateDataBaseJSON(server+'/update', extensionID, globalStatisticsJSON);
+});
+
+$('#getDataJSON').on('click', function () {
+    getDataBaseJSON(server+'/get_data', extensionID);
+    globalStatisticsJSON = JSON.parse(localStorage.getItem("globalStatisticsJSON"));
+    console.log('returned stats from DB');
+    console.log(globalStatisticsJSON);
 });
 
 // class ArticleExercise {

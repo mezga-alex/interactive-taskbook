@@ -14,6 +14,7 @@ var url;
 var globalStatisticsJSON;
 var curStatistics;
 var curExercise;
+
 function printSet(inputSet) {
     var result = '';
     for (let item of inputSet)
@@ -21,6 +22,56 @@ function printSet(inputSet) {
     console.log(result);
 }
 
+// Update current exercise node and indices to the node
+function updateNodeAndIndices() {
+    let indices = updateExerciseNode(globalStatisticsJSON, url, task, specifiedTask, result, true);
+    curStatistics = indices[0];
+    curExercise = indices[1];
+}
+
+// Restore statistics
+function updateGlobalStatisticsJSON() {
+    // Parse globalStatisticsJSON from localStorage
+    globalStatisticsJSON = JSON.parse(localStorage.getItem("globalStatisticsJSON"));
+
+    if (!globalStatisticsJSON) {
+        // If it's empty -> try to restore from the server database
+        getDataBaseJSON(server+'/get_data', extensionID).then(function(value) {
+            console.log(value,': Response received');
+
+            // Restore the version from DB
+            globalStatisticsJSON = JSON.parse(localStorage.getItem("globalStatisticsJSON"));
+            // If it's empty -> create new JSON structure and send it to the server
+            if (!globalStatisticsJSON.statistics) {
+                console.log('Empty DB. Create new JSON');
+
+                globalStatisticsJSON = createGlobalJSON(url, task, specifiedTask, result);
+                updateDataBaseJSON(server + '/update', extensionID, globalStatisticsJSON);
+            }
+            // Update exercise node and indices
+            updateNodeAndIndices();
+            // Set restored version to the localStorage
+            localStorage.setItem('globalStatisticsJSON', JSON.stringify(globalStatisticsJSON));
+        }, function(reason) {
+            // Error in DB! ->
+            // create new JSON structure and send it to the server
+            console.log(reason, ': Create new JSON');
+            globalStatisticsJSON = createGlobalJSON(url, task, specifiedTask, result);
+            updateDataBaseJSON(server + '/update', extensionID, globalStatisticsJSON);
+            // Update exercise node and indices
+            updateNodeAndIndices();
+            localStorage.setItem('globalStatisticsJSON', JSON.stringify(globalStatisticsJSON));
+        });
+    } else {
+        console.log('Restored from localStorage');
+        // Do not wait response and update exercise node and indices
+        updateNodeAndIndices();
+        updateDataBaseJSON(server + '/update', extensionID, globalStatisticsJSON);
+        localStorage.setItem('globalStatisticsJSON', JSON.stringify(globalStatisticsJSON));
+    }
+}
+
+// Update globals for the new task
 function updateGlobalParameters() {
     correctAnswers = new Set();
     wrongAnswers = new Set();
@@ -32,22 +83,8 @@ function updateGlobalParameters() {
 
     if (task === 'PASSIVE_VOICE' || task === 'ACTIVE_VOICE') {
         groundTruthAnswers = getResultAttribute(result, task, 'phrases');
-        ////////////////////////////////////  Unstable  /////////////////////////////////////////////
-        globalStatisticsJSON = JSON.parse(localStorage.getItem("globalStatisticsJSON"));
+        updateGlobalStatisticsJSON();
 
-        // console.log('Restored JSON from localStorage:');
-        // console.log(globalStatisticsJSON);
-
-        if (!globalStatisticsJSON) globalStatisticsJSON = createGlobalJSON(url, task, specifiedTask, result);
-        let indices = updateExerciseNode(globalStatisticsJSON, url, task, specifiedTask, result, true);
-        curStatistics = indices[0];
-        curExercise = indices[1];
-
-        // console.log('JSON After updateExerciseNode, indices: ', curStatistics, ' ', curExercise);
-        // console.log(globalStatisticsJSON);
-
-        localStorage.setItem('globalStatisticsJSON', JSON.stringify(globalStatisticsJSON));
-        //////////////////////////////////////////////////////////////////////////////////////////////
     }
 }
 
@@ -254,19 +291,6 @@ function initializeLinkClickHandlers() {
             }
         }
     });
-}
-
-function getArticleJson() {
-    alert(commonJson);
-    if (commonJson) {
-        for (let stat in commonJson.statistics) {
-            if (stat.url === articleURL) return stat;
-            // x += "<h1>" + myObj.cars[i].name + "</h1>";
-            // for (j in myObj.cars[i].models) {
-            //     x += myObj.cars[i].models[j];
-            // }
-        }
-    }
 }
 
 $(document).ready(() => {
