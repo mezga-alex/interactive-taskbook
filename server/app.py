@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, make_response, jsonify
 import spacy
 import sys
 from pymongo import MongoClient
+from bson.json_util import dumps
+from bson.json_util import loads
 
 cluster = MongoClient("mongodb+srv://arch:lbpfqycfrctc@itb-xeeen.mongodb.net/test?retryWrites=true&w=majority")
 arch_home = '/home/art/Downloads/code_g/skyeng-grammar-filter/nlp/processing'
@@ -23,21 +25,24 @@ db = cluster.itb
 collection = db.users
 
 
-@app.route('/get_db', methods=["GET", "POST"])
-def get_user():
+@app.route('/get_data', methods=["POST"])
+def get_data():
     try:
         # connect to json
-
         req = request.get_json()
-        print(req)
-        return make_response(jsonify(200))
+        session_id = req['extensionID']
+        data = list(collection.find({"session_id": session_id}))
+        json_data = loads(dumps(data))
+        stats = json_data[0]['statistics']
+        statistics = {"statistics": stats}
+        return make_response(dumps(statistics), 200)
     except request.exceptions as e:
         print('request error occured: ', e)
         return make_response(jsonify(result=[e]), 500)
 
 
 @app.route('/update', methods=["POST"])
-def update_user():
+def update_data():
     try:
         req = request.get_json()
         # print(req)
@@ -84,7 +89,7 @@ def answer():
     ## JSON Request
     req = request.get_json()
     text = req["text"]
-    print("html", req["pos"])
+    # print("html", req["pos"])
     results = req["result"]
     return render_template("index.html", results=results, num_of_results=len(results), text=text)
 
