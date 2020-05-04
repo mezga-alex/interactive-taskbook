@@ -14,6 +14,28 @@
 //     }],
 // }
 
+// Update file in database
+function updateDataBaseJSON(server, json) {
+    console.log(server);
+    fetch(server, {
+        method: "POST",
+        credentials: "include",
+        body: json,
+        cache: "no-cache",
+        headers: new Headers({
+            'Access-Control-Allow-Origin': '*',
+            "content-type": "application/json"
+        })
+    }).then((response) => {
+        if (response.status !== 200) {
+            console.log(`Looks like there was a problem. Status code: ${response.status}`);
+            reject("Error");
+        }
+    }).catch(function (error) {
+        console.log("Fetch error: " + error);
+    });
+}
+
 // Single word structure
 function createWordStructure(value, pos, dep) {
     return {
@@ -144,6 +166,12 @@ $('#resetGlobalStatisticsJSON').on('click', function () {
 $('#logGlobalStatisticsJSON').on('click', function () {
     console.log('current JSON status');
     console.log(globalStatisticsJSON);
+});
+
+$('#updateDataBaseJSON').on('click', function () {
+    console.log('current JSON status');
+    console.log(globalStatisticsJSON);
+    updateDataBaseJSON(server+'/update', JSON.stringify(globalStatisticsJSON));
 });
 
 // class ArticleExercise {

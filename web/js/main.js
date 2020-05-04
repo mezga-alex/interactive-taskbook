@@ -141,7 +141,6 @@ function checkFullTask(e) {
                     animateCSS(element, 'fadeIn');
                     const flatID = getFlatIndexByID(taskID);
                     updateWordStatistics(globalStatisticsJSON, flatID, "correct", curStatistics, curExercise);
-
                 }
             }
             // If the word is correct and is not empty -> set up red background
