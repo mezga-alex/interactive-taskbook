@@ -1,11 +1,7 @@
 from flask import Flask, render_template, request, make_response, jsonify
 import spacy
 import sys
-import pymongo
-
-# init db
 from pymongo import MongoClient
-import datetime
 
 cluster = MongoClient("mongodb+srv://arch:lbpfqycfrctc@itb-xeeen.mongodb.net/test?retryWrites=true&w=majority")
 arch_home = '/home/art/Downloads/code_g/skyeng-grammar-filter/nlp/processing'
@@ -25,12 +21,6 @@ nlp_task_creator = tp.nlp_setup(spacy.load('en_core_web_sm'), 'tense')
 app = Flask(__name__)
 db = cluster.itb
 collection = db.users
-
-
-sample_user = {
-    "session_id": "iiimfbnmnldgfepajlnghaccejcaiaik",
-    "statistics": [],
-}
 
 
 @app.route('/get_db', methods=["GET", "POST"])
@@ -102,20 +92,17 @@ def answer():
 def add_user(session_id):
     sample_user = {
         "session_id": session_id,
-        "statistics": [],
     }
     collection.insert_one(sample_user)
 
 
 def update_db(session_id, stats):
     results = list(collection.find({"session_id": session_id}))
-    print("result", type(results))
-    # print(results[0])
-
+    # print("result", type(results))
     if len(results) == 0:
         add_user(session_id)
 
-    collection.update_one({"session_id": session_id}, {"$push": {"statistics": stats}})
+    collection.update_one({"session_id": session_id}, {"$set": {"statistics": stats}})
 
 
 if __name__ == '__main__':
