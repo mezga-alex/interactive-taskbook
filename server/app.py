@@ -32,6 +32,9 @@ def get_data():
         req = request.get_json()
         session_id = req['extensionID']
         data = list(collection.find({"session_id": session_id}))
+        if len(data) == 0:
+            print("null checked")
+            return make_response(dumps("statistics: null"), 200)
         json_data = loads(dumps(data))
         stats = json_data[0]['statistics']
         statistics = {"statistics": stats}
@@ -103,7 +106,6 @@ def add_user(session_id):
 
 def update_db(session_id, stats):
     results = list(collection.find({"session_id": session_id}))
-    # print("result", type(results))
     if len(results) == 0:
         add_user(session_id)
 
