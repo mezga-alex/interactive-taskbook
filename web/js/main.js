@@ -35,7 +35,9 @@ function updateGlobalStatisticsJSON() {
 
     if (!globalStatisticsJSON) {
         // If it's empty -> try to restore from the server database
-        getDataBaseJSON(server+'/get_data', extensionID).then(function(value) {
+        // TODO: RECOVER '/get_data'. Now it's wrong to avoid response (Server not updated)
+        //
+        getDataBaseJSON(server+'/get_dataa', extensionID).then(function(value) {
             console.log(value,': Response received');
 
             // Restore the version from DB
@@ -87,8 +89,8 @@ function updateGlobalParameters() {
 
     if (task === 'PASSIVE_VOICE' || task === 'ACTIVE_VOICE') {
         groundTruthAnswers = getResultAttribute(result, task, 'phrases');
-        newJSON();
-        // updateGlobalStatisticsJSON();
+        // newJSON();
+        updateGlobalStatisticsJSON();
     }
 }
 
