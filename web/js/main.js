@@ -12,9 +12,7 @@ var specifiedTask;
 var result;
 var url;
 var globalStatisticsJSON;
-var curStatistics;
-var curExercise;
-
+var statID, exerciseID, specificationID;
 function printSet(inputSet) {
     var result = '';
     for (let item of inputSet)
@@ -25,8 +23,9 @@ function printSet(inputSet) {
 // Update current exercise node and indices to the node
 function updateNodeAndIndices() {
     let indices = updateExerciseNode(globalStatisticsJSON, url, task, specifiedTask, result, true);
-    curStatistics = indices[0];
-    curExercise = indices[1];
+    statID = indices[0];
+    exerciseID = indices[1];
+    specificationID = indices[2];
 }
 
 // Restore statistics
@@ -71,6 +70,11 @@ function updateGlobalStatisticsJSON() {
     }
 }
 
+function newJSON() {
+    if (!globalStatisticsJSON)
+        globalStatisticsJSON = createGlobalJSON(url, task, specifiedTask, result);
+    updateNodeAndIndices();
+}
 // Update globals for the new task
 function updateGlobalParameters() {
     correctAnswers = new Set();
@@ -83,8 +87,8 @@ function updateGlobalParameters() {
 
     if (task === 'PASSIVE_VOICE' || task === 'ACTIVE_VOICE') {
         groundTruthAnswers = getResultAttribute(result, task, 'phrases');
-        updateGlobalStatisticsJSON();
-
+        newJSON();
+        // updateGlobalStatisticsJSON();
     }
 }
 

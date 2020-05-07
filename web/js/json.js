@@ -2,15 +2,21 @@
 // JSON = {         // Create inside  createGlobalStatisticsStructure()
 //     "statistics": [{    // Create inside createArticleStatisticsStructure()
 //         "url": "",
-//         "exercise": [{  // Create inside createExerciseStructure()
-//             "type": "",
-//             "words": [{      // Create inside createWordsArrayStructure()
-//                 "value": "",     //
-//                 "correct": 0,    // Create inside
-//                 "wrong": 0,      // createWordStructure()
-//                 "pos": "",       //
-//             }],
-//         }],
+//         "exercises": [{      // Create inside createExerciseStructure()
+//             "task" : "",	    // General task type: 'Active, 'Passive'
+//             "specification" : [
+//                 {
+//                     "specifiedTask" : "",		// Specified task: "ALL", "Present Simple" ...
+//                     "words": [{                  // Create inside createWordsArrayStructure()
+//                         "value": "",             //
+//                         "correct": 0,            // Create inside
+//                         "wrong": 0,              // createWordStructure()
+//                         "pos": "",               //
+//                     },]
+//                 },
+//             ]
+//         },
+//         ],
 //     }],
 // }
 
@@ -108,12 +114,21 @@ function createWordsArrayStructure(wordsData) {
     }
 }
 
+function createSpecificationStructure(specifiedTask, words) {
+    return {
+        "specifiedTask" : specifiedTask,
+        "words": words,
+    }
+}
+
+
 // Single exercise structure
-function createExerciseStructure(task, specifiedTask, words) {
+function createExerciseStructure(task, specifications) {
+    if (!specifications.length) specifications = [specifications];
+
     return {
         "task": task,
-        "specifiedTask": specifiedTask,
-        "words": words,
+        "specifications": specifications,
     }
 }
 
@@ -138,7 +153,8 @@ function createGlobalStatisticsStructure(articleStatistics) {
 // Compile full JSON JSON from blocks
 function createGlobalJSON(url, task, specifiedTask, result) {
     const words = createWordsArrayStructure(result);
-    const exercise = createExerciseStructure(task, specifiedTask, words);
+    const specification = createSpecificationStructure(specifiedTask, words);
+    const exercise = createExerciseStructure(task, specification);
     const articleStatistics = createArticleStatisticsStructure(url, exercise);
     return createGlobalStatisticsStructure(articleStatistics);
 }
@@ -150,48 +166,72 @@ function updateExerciseNode(globalStatisticsJSON, url, task, specifiedTask, resu
         let isUpdated = false;
 
         // Iterate over unique Article Statistics Nodes (unique URLs)
-        for (const [i, articleStatistics] of globalStatisticsJSON.statistics.entries()) {
+        for (const [statID, articleStatistics] of globalStatisticsJSON.statistics.entries()) {
             // Check if the user has already worked with the article.
             if (articleStatistics.url === url) {
                 // iterate over Article Exercises Nodes
-                for (const [j, exercise] of articleStatistics.exercises.entries()) {
-                    // If there is FULL match -> don't update the structure.
-                    if (exercise.task === task && exercise.specifiedTask === specifiedTask) {
-                        isUpdated = true;
-                        // Return Exercise Node indices if specified
-                        if (isReturnIndices)
-                            return [i, j];
-                        break; // Not necessary to continue
+                for (const [exerciseID, exercise] of articleStatistics.exercises.entries()) {
+                    if (exercise.task === task) {
+                        for (const [specificationID, specification] of exercise.specifications.entries()) {
+                            // If there is FULL match -> don't update the structure.
+                            if (specification.specifiedTask === specifiedTask) {
+                                isUpdated = true;
+                                if (isReturnIndices)
+                                    return [statID, exerciseID, specificationID];
+                                break;      // Not necessary to continue
+                            }
+                        }
+
+                        if (!isUpdated) {
+                            // If there is no FULL match but URL and GENERAL TASK aren't unique ->
+                            // push new specification structure to the 'specifications'
+                            isUpdated = true;
+                            const specificationID = exercise.specifications.length;
+                            const words = createWordsArrayStructure(result);
+                            const specification = createSpecificationStructure(specifiedTask, words);
+                            exercise.specifications.push(specification);
+                            if (isReturnIndices)
+                                return [statID, exerciseID, specificationID];
+                            break;      // Not necessary to continue
+                        }
                     }
                 }
-                // If there is no FULL match but url isn't unique -> push new EXERCISE NODE for the same article.
                 if (!isUpdated) {
+                    // Add new exercise structure if it's not exist but URL isn't unique
                     isUpdated = true;
+                    const exerciseID = articleStatistics.exercises.length;
+                    const specificationID = 0;
                     const words = createWordsArrayStructure(result);
-                    const exercise = createExerciseStructure(task, specifiedTask, words);
+                    const specification = createSpecificationStructure(specifiedTask, words);
+                    const exercise = createExerciseStructure(task, specification);
                     articleStatistics.exercises.push(exercise);
 
-                    // Return Exercise Node indices if specified
                     if (isReturnIndices)
-                        return [i, articleStatistics.exercises.length-1];
-                    break; // Not necessary to continue
+                        return [statID, exerciseID, specificationID];
+                    break;      // Not necessary to continue
                 }
             }
         }
 
         // If the user hasn't worked with the article before -> create new Article Statistics NODE
         if (!isUpdated) {
+            const statID = globalStatisticsJSON.statistics.length;
+            const exerciseID = 0;
+            const specificationID = 0;
+
             const words = createWordsArrayStructure(result);
-            const exercise = createExerciseStructure(task, specifiedTask, words);
+            const specification = createSpecificationStructure(specifiedTask, words);
+            const exercise = createExerciseStructure(task, specification);
             const newArticleStatistics = createArticleStatisticsStructure(url, exercise);
             globalStatisticsJSON.statistics.push(newArticleStatistics);
             // console.log('new newArticleStatistics', globalStatisticsJSON.statistics.length, 0);
             // console.log(globalStatisticsJSON);
             if (isReturnIndices)
-                return [globalStatisticsJSON.statistics.length, 0];
+                return [statID, exerciseID, specificationID];
         }
     } catch (e) {
         alert('ERROR UPDATE');
+        console.log('ERROR UPDATE', e);
     }
 
 }
@@ -209,6 +249,7 @@ $('#resetGlobalStatisticsJSON').on('click', function () {
 });
 
 $('#logGlobalStatisticsJSON').on('click', function () {
+    newJSON();
     console.log('current JSON status');
     console.log(globalStatisticsJSON);
 });
