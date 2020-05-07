@@ -236,9 +236,9 @@ function updateExerciseNode(globalStatisticsJSON, url, task, specifiedTask, resu
 
 }
 
-function updateWordStatistics(globalStatisticsJSON, wordIndex, typeOfChange, curStatistics, curExercise) {
+function updateWordStatistics(globalStatisticsJSON, typeOfChange, statID, exerciseID, specificationID, wordID) {
     // Get current word structure
-    let word = globalStatisticsJSON.statistics[curStatistics].exercises[curExercise].words[wordIndex];
+    let word = globalStatisticsJSON.statistics[statID].exercises[exerciseID].specifications[specificationID].words[wordID];
     word[typeOfChange] += 1;
 }
 

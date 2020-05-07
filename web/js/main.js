@@ -27,7 +27,7 @@ function updateNodeAndIndices() {
     exerciseID = indices[1];
     specificationID = indices[2];
 }
-
+// TODO: Recover Remote DataBase parameters
 // Restore statistics
 function updateGlobalStatisticsJSON() {
     // Parse globalStatisticsJSON from localStorage
@@ -180,8 +180,9 @@ function checkFullTask(e) {
                     classie.removeClass(element, 'border-bottom-danger');
                     classie.addClass(element, 'border-bottom-success');
                     animateCSS(element, 'fadeIn');
-                    const flatID = getFlatIndexByID(taskID);
-                    updateWordStatistics(globalStatisticsJSON, flatID, "correct", curStatistics, curExercise);
+                    const wordID = getFlatIndexByID(taskID);
+                    updateWordStatistics(globalStatisticsJSON, "correct",
+                        statID, exerciseID, specificationID, wordID);
                 }
             }
             // If the word is correct and is not empty -> set up red background
@@ -194,8 +195,9 @@ function checkFullTask(e) {
                         classie.addClass(element, 'border-bottom-danger');
                         animateCSS(element, 'fadeIn');
                     }
-                    const flatID = getFlatIndexByID(taskID);
-                    updateWordStatistics(globalStatisticsJSON, flatID, "wrong", curStatistics, curExercise);
+                    const wordID = getFlatIndexByID(taskID);
+                    updateWordStatistics(globalStatisticsJSON, "wrong",
+                        statID, exerciseID, specificationID, wordID);
                     // console.log('Update word stat');
                     // console.log(globalStatisticsJSON);
                 }
