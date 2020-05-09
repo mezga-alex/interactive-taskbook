@@ -249,7 +249,7 @@ $('#resetGlobalStatisticsJSON').on('click', function () {
 });
 
 $('#logGlobalStatisticsJSON').on('click', function () {
-    newJSON();
+    updateGlobalStatisticsJSON();
     console.log('current JSON status');
     console.log(globalStatisticsJSON);
 });
