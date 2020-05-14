@@ -1,3 +1,13 @@
+function backToTasks() {
+    $('a').on('click', function isUpdateTask(e) {
+        let id = $(this).attr('id');
+        if (id && id !== 'build-chart-btn') {
+            localStorage.setItem('requestFromOutside', id);
+        }
+
+    });
+}
+
 // Add canvas element
 function addCanvas() {
     const canvasHTML = '<div class="chart-pie">' +
@@ -13,6 +23,8 @@ function addCanvas() {
     $("#chart-body").empty();
     $("#chart-body").append(canvasHTML);
 }
+
+// Show the image if there is no results
 function noResultsVisualization() {
     const text = "Hmm... It looks like you haven't completed tasks of this type yet."
     const html = '<img class="mx-auto d-block" style="width: 25rem; margin-top: 1rem; margin-bottom: 1rem;" ' +
@@ -155,6 +167,7 @@ function selectorControl() {
 
 // Initialize control handlers
 function handleControlElements() {
+    backToTasks();
     selectorControl();
     buildChartButtonControl();
 }

@@ -13,6 +13,28 @@ let collapseCardEndId3StartTaskHTML = '">' + '<div class="card-body">';
 // -> Insert task
 let collapseCardEndTaskHTML = '</div></div></div>';
 
+function idToString(id) {
+    var taskStr = '';
+    let idAttributes = id.split('-');
+    if (idAttributes[1] === 'ACTIVE_VOICE')
+        taskStr = 'Active Voice';
+    else taskStr = 'Passive Voice';
+    const specifiedTaskStr = $(id).html().replace(/(\r\n|\n|\r)/gm, "").replace(/  +/g, ' ');
+    return taskStr + ' - ' + specifiedTaskStr;
+}
+
+function changeElementContent(elementID, content) {
+    $(elementID).empty();
+    $(elementID).append(content);
+}
+
+function noResultsVisualization() {
+    const text = "Oops... We did not find any suitable results. Try something else.";
+    const html = '<img class="mx-auto d-block" style="width: 25rem; margin-top: 1rem; margin-bottom: 1rem;" ' +
+        'src="../img/undraw_empty_xct9.svg" alt="">' +
+        '<p class="mb-4 text-center">' + text + '</p>';
+    changeElementContent('#put_text', html);
+}
 
 function newTaskRequest(server, text, task, specifiedTask) {
     return new Promise((resolve, reject) => {
@@ -51,6 +73,7 @@ function newTaskRequest(server, text, task, specifiedTask) {
             });
         }).catch(function (error) {
             console.log("Fetch error: " + error);
+            console.log(data);
             reject("Error")
         });
     })
@@ -157,6 +180,7 @@ function outputPos(posWords, posIndices) {
 }
 
 function outputExercise(phrases, phrases_lexemes, phrases_indices, phrases_sents) {
+    let b;
     if (phrases !== null && phrases.length > 0) {
         var count = 1;
         var is_different = true;
@@ -169,7 +193,7 @@ function outputExercise(phrases, phrases_lexemes, phrases_indices, phrases_sents
                 // We need a button id related to all the correct phrases ids.
                 // Example: if we have 2 phrases in the same sentence with their ids = 9, 10,
                 // we create Button Id = 'task-9-10' and so on.
-                var checkButton = '<div class="task-btn"><button class="btn-check-task", id="task-';
+                var checkButton = '<div class="task-btn"><button type="button" class="btn btn-outline-primary btn-check-task", id="task-';
                 var left_index = 0;
             }
 
@@ -185,11 +209,11 @@ function outputExercise(phrases, phrases_lexemes, phrases_indices, phrases_sents
                 var input =
 
                     '<span class="input input--kaede align-middle" ' +
-                            'id="span-task-' + i.toString() + '-' + j.toString() + '">\n' +
+                    'id="span-task-' + i.toString() + '-' + j.toString() + '">\n' +
                     '<input class="input__field input__field--kaede" type="text" ' +
-                            'id="task-' + i.toString() + '-' + j.toString() + '" autocomplete="off"/>\n' +
+                    'id="task-' + i.toString() + '-' + j.toString() + '" autocomplete="off"/>\n' +
                     '<label class="input__label input__label--kaede" ' +
-                            'for="task-' + i.toString() + '-' + j.toString() + '">\n' +
+                    'for="task-' + i.toString() + '-' + j.toString() + '">\n' +
                     '<span class="input__label-content input__label-content--kaede">' + phrases_lexemes[i][j] + '</span>\n' +
                     '</label>\n' +
                     '</span>\n';
@@ -216,8 +240,8 @@ function outputExercise(phrases, phrases_lexemes, phrases_indices, phrases_sents
             }
 
         }
-        b = '<button class="btn-check-all", id="task-' + i.toString() +
-            '">Check all answers</button>';
+
+        b = '<button type="button" class="btn btn-outline-primary btn-lg btn-check-all", id="task-' + i.toString() + '">Check all answers</button>';
         $("#put_text").append(b);
 
     }

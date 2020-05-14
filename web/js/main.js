@@ -13,6 +13,7 @@ var result;
 var url;
 var globalStatisticsJSON;
 var statID, exerciseID, specificationID;
+var requestFromOutside;
 function printSet(inputSet) {
     var result = '';
     for (let item of inputSet)
@@ -27,7 +28,7 @@ function updateNodeAndIndices() {
     exerciseID = indices[1];
     specificationID = indices[2];
 }
-// TODO: Recover Remote DataBase parameters
+
 // Restore statistics
 function updateGlobalStatisticsJSON() {
     // Parse globalStatisticsJSON from localStorage
@@ -86,6 +87,7 @@ function updateGlobalParameters() {
     task = localStorage.getItem("task");
     specifiedTask = localStorage.getItem("specifiedTask");
     result = JSON.parse(localStorage.getItem("result"));
+    requestFromOutside = localStorage.getItem("requestFromOutside");
 
     if (task === 'PASSIVE_VOICE' || task === 'ACTIVE_VOICE') {
         groundTruthAnswers = getResultAttribute(result, task, 'phrases');
@@ -147,7 +149,7 @@ function checkAnswer(taskID, userAnswer) {
     if (userAnswer.length !== 0) {
         let correctAnswer = getCorrectAnswerByID(taskID).replace(/\s/g, '');
         userAnswer = userAnswer.replace(/\s/g, '');
-        return userAnswer.toUpperCase() === correctAnswer.toUpperCase();
+        return userAnswer.trim().toUpperCase() === correctAnswer.toUpperCase();
     }
 }
 
@@ -280,21 +282,33 @@ function initializeInputHandlers() {
 function initializeLinkClickHandlers() {
     $('a').on('click', function isUpdateTask(e) {
         let id = $(this).attr('id');
+
         if (id) {
             let idAttributes = id.split('-');
             if (idAttributes[0] === 'TASK') {
                 let taskType = idAttributes[1];
                 let taskSpecify = idAttributes[2];
 
-                if (taskType === task && taskSpecify === specifiedTask) return false;
+                if ((taskType === task && taskSpecify === specifiedTask) && !requestFromOutside) return false;
                 //  Update the task and only then reinitialize the globals
                 updateTask(server, text, taskType, taskSpecify).then(function () {
                     updateGlobalParameters();
                     initializeInputHandlers();
                     initializeClassie();
-                }).catch(function () {
-                    // Do nothing if nothing is found
-                    alert('No matches found');
+
+                    const taskStr = idToString('#'+id);
+                    changeElementContent('#tasksCardTitle', taskStr);
+                }).catch(function (e) {
+                    console.log(e);
+                    // TODO: Update logic.
+                    if (requestFromOutside) {
+                        const taskStr = idToString('#'+id);
+                        changeElementContent('#tasksCardTitle', taskStr);
+                        noResultsVisualization();
+                    } else {
+                        // Do nothing if nothing is found
+                        alert('No matches found');
+                    }
                 });
             }
         }
@@ -305,12 +319,20 @@ $(document).ready(() => {
     // Recover variables from localstorage
     //All parameters are in the localstorage on the first call from the extension
     updateGlobalParameters();
-
-    // If we have correct answers- handle it
-    createTaskByResult(task, result);
-
     initializeInputHandlers();
     initializeLinkClickHandlers();
-
     initializeClassie();
+
+    // If there was request outside the tasks' page -> trigger button
+    if (requestFromOutside) {
+        console.log('Request From Outside. ID =', requestFromOutside);
+        $('#'+requestFromOutside).trigger('click');
+        localStorage.setItem('requestFromOutside', '');
+    } else {
+        requestFromOutside = true;
+        const id = '#TASK-'+task+'-'+specifiedTask;
+        $(id).trigger('click');
+        const taskStr = idToString(id);
+        changeElementContent('#tasksCardTitle', taskStr);
+    }
 });
