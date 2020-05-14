@@ -133,12 +133,13 @@ $("#btn-find").on("click", () => {
             chrome.tabs.getSelected(null, (tab) => {
                 let tabUrl = tab.url;
                 PARSE_UTILS.keywordInterval(tabUrl, (text) => {
-                    newTaskRequest(server, text, task, specifiedTask).then(function () {
-                        localStorage.setItem('server', server);
-                        chrome.tabs.create({'url': './openPage/result.html'}, (tab) => {
-                        });
-                    }).catch(function () {
-                        alert('No matches found');
+                    const taskID = 'TASK-'+task+'-'+specifiedTask;
+                    localStorage.setItem('text', text);
+                    localStorage.setItem('server', server);
+                    localStorage.setItem('url', tabUrl);
+                    localStorage.setItem('requestFromOutside', taskID);
+
+                    chrome.tabs.create({'url': './openPage/result.html'}, (tab) => {
                     });
                 });
             });
