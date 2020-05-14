@@ -16,9 +16,21 @@ let collapseCardEndTaskHTML = '</div></div></div>';
 function idToString(id) {
     var taskStr = '';
     let idAttributes = id.split('-');
-    if (idAttributes[1] === 'ACTIVE_VOICE')
-        taskStr = 'Active Voice';
-    else taskStr = 'Passive Voice';
+
+    switch (task) {
+        case 'POS':
+            taskStr = 'Part Of Speech';
+            break;
+        case 'ACTIVE_VOICE':
+            taskStr = 'Active Voice';
+            break;
+        case 'PASSIVE_VOICE':
+            taskStr = 'Passive Voice';
+            break;
+        default:
+            break;
+    }
+
     const specifiedTaskStr = $(id).html().replace(/(\r\n|\n|\r)/gm, "").replace(/  +/g, ' ');
     return taskStr + ' - ' + specifiedTaskStr;
 }
