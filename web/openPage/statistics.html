@@ -313,32 +313,32 @@
 
                                 <select class="selectpicker mr-2" id="tasksSelector" multiple title="Choose your fighter"
                                         data-selected-text-format="count > 3">
-                                    <optgroup label="Task" id="tasks" data-max-options="2">
+                                    <optgroup class="text-gray-900" label="Task" id="tasks" data-max-options="2">
                                         <option value="ACTIVE_VOICE">Active</option>
                                         <option value="PASSIVE_VOICE">Passive</option>
                                     </optgroup>
                                     <optgroup id="specifiedTasks" label="Specified" disabled>
-                                        <option value="ALL">All</option>
-                                        <option value="PRESENT_SIMPLE">Present Simple</option>
-                                        <option value="PRESENT_CONTINUOUS">Present Continuous</option>
-                                        <option value="PRESENT_PERFECT">Present Perfect</option>
+                                        <option class="both-types text-gray-600" value="ALL">All</option>
+                                        <option class="both-types text-gray-600" value="PRESENT_SIMPLE">Present Simple</option>
+                                        <option class="both-types text-gray-600" value="PRESENT_CONTINUOUS">Present Continuous</option>
+                                        <option class="both-types text-gray-600" value="PRESENT_PERFECT">Present Perfect</option>
 
-                                        <option value="PAST_SIMPLE">Past Simple</option>
-                                        <option value="PAST_CONTINUOUS">Past Continuous</option>
-                                        <option value="PAST_PERFECT">Past Perfect</option>
+                                        <option class="both-types text-gray-600" value="PAST_SIMPLE">Past Simple</option>
+                                        <option class="both-types text-gray-600" value="PAST_CONTINUOUS">Past Continuous</option>
+                                        <option class="both-types text-gray-600" value="PAST_PERFECT">Past Perfect</option>
 
-                                        <option value="FUTURE_SIMPLE">Future Simple</option>
-                                        <option value="FUTURE_CONTINUOUS">Future Continuous</option>
-                                        <option value="FUTURE_PERFECT">Future Perfect</option>
+                                        <option class="both-types text-gray-600" value="FUTURE_SIMPLE">Future Simple</option>
+                                        <option class="both-types text-gray-600" value="FUTURE_CONTINUOUS">Future Continuous</option>
+                                        <option class="both-types text-gray-600" value="FUTURE_PERFECT">Future Perfect</option>
 
-                                        <option class="passiveOnly" value="FUTURE_IN_THE_PAST_SIMPLE"
+                                        <option class="passive-only text-gray-600" value="FUTURE_IN_THE_PAST_SIMPLE"
                                                 data-subtext="Passive" disabled>Future In The Past Simple
                                         </option>
-                                        <option class="passiveOnly" value="FUTURE_IN_THE_PAST_PERFECT"
+                                        <option class="passive-only text-gray-600" value="FUTURE_IN_THE_PAST_PERFECT"
                                                 data-subtext="Passive" disabled>Future In The Past Perfect
                                         </option>
 
-                                        <option class="passiveOnly" value="MODALS" data-subtext="Passive" disabled>
+                                        <option class="passive-only text-gray-600" value="MODALS" data-subtext="Passive" disabled>
                                             Passives With Modals
                                         </option>
                                     </optgroup>

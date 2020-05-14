@@ -133,15 +133,21 @@ function selectorControl() {
         console.log(tasksSet);
         if (tasksSet.has('ACTIVE_VOICE') || tasksSet.has('PASSIVE_VOICE')) {
             $( "#specifiedTasks" ).prop( "disabled", false );
+            $( ".both-types" ).removeClass("text-gray-600").addClass("text-gray-900");;
+
             if (tasksSet.has('PASSIVE_VOICE')) {
-                $( ".passiveOnly" ).prop( "disabled", false );
+                $( ".passive-only" ).prop( "disabled", false );
+                $( ".passive-only" ).removeClass("text-gray-600").addClass("text-gray-900")
             } else {
-                $( ".passiveOnly" ).prop( "disabled", true );
+                $( ".passive-only" ).prop( "disabled", true );
+                $( ".passive-only" ).removeClass("text-gray-900").addClass("text-gray-600");
             }
             $("#tasksSelector").selectpicker("refresh");
 
         } else {
             $( "#specifiedTasks" ).prop( "disabled", true );
+            $( ".both-types" ).removeClass("text-gray-900").addClass("text-gray-600");
+            $( ".passive-only" ).removeClass("text-gray-900").addClass("text-gray-600");
             $("#tasksSelector").selectpicker("refresh");
         }
     })
