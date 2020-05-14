@@ -25,6 +25,7 @@
     <link rel="stylesheet" type="text/css" href="../css/set1.css"/>
     <link rel="stylesheet" type="text/css" href="../css/animate.css"/>
     <link rel="stylesheet" href="../css/buttons.css">
+
 </head>
 
 <body id="page-top">
@@ -300,55 +301,58 @@
 
                     <div class="card shadow" style="width: 99%;">
                         <div class="card-header">
-                            <h6 class="m-0 font-weight-bold text-primary">Tasks</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Statistics</h6>
                         </div>
                         <div class="card-body">
                             <div class="select-container d-flex align-items-center justify-content-center">
-                                <select class="selectpicker mr-2" multiple title="Select ">
+                                <select class="selectpicker mr-2" id="typeChart" multiple title="Select ">
                                     <option>Mustard</option>
                                     <option>Ketchup</option>
                                     <option>Relish</option>
                                 </select>
 
-                                <select class="selectpicker " multiple title="Choose your fighter ">
-                                    <optgroup label="Task" data-max-options="2">
-                                        <option>Active</option>
-                                        <option>Passive</option>
+                                <select class="selectpicker mr-2" id="tasksSelector" multiple title="Choose your fighter"
+                                        data-selected-text-format="count > 3">
+                                    <optgroup label="Task" id="tasks" data-max-options="2">
+                                        <option value="ACTIVE_VOICE">Active</option>
+                                        <option value="PASSIVE_VOICE">Passive</option>
                                     </optgroup>
-                                    <optgroup label="Specified" data-max-options="2">
-                                        <option>All</option>
-                                        <option>Present Simple</option>
-                                        <option>Present Continuous</option>
-                                        <option>Present Perfect</option>
+                                    <optgroup id="specifiedTasks" label="Specified" disabled>
+                                        <option value="ALL">All</option>
+                                        <option value="PRESENT_SIMPLE">Present Simple</option>
+                                        <option value="PRESENT_CONTINUOUS">Present Continuous</option>
+                                        <option value="PRESENT_PERFECT">Present Perfect</option>
 
-                                        <option>Past Simple</option>
-                                        <option>Past Continuous</option>
-                                        <option>Past Perfect</option>
+                                        <option value="PAST_SIMPLE">Past Simple</option>
+                                        <option value="PAST_CONTINUOUS">Past Continuous</option>
+                                        <option value="PAST_PERFECT">Past Perfect</option>
 
-                                        <option>Future Simple</option>
-                                        <option>Future Continuous</option>
-                                        <option>Future Perfect</option>
+                                        <option value="FUTURE_SIMPLE">Future Simple</option>
+                                        <option value="FUTURE_CONTINUOUS">Future Continuous</option>
+                                        <option value="FUTURE_PERFECT">Future Perfect</option>
 
-                                        <option>Future In The Past Simple</option>
-                                        <option>Future In The Past Perfect</option>
+                                        <option class="passiveOnly" value="FUTURE_IN_THE_PAST_SIMPLE"
+                                                data-subtext="Passive" disabled>Future In The Past Simple
+                                        </option>
+                                        <option class="passiveOnly" value="FUTURE_IN_THE_PAST_PERFECT"
+                                                data-subtext="Passive" disabled>Future In The Past Perfect
+                                        </option>
 
-                                        <option>Passives With Modals</option>
+                                        <option class="passiveOnly" value="MODALS" data-subtext="Passive" disabled>
+                                            Passives With Modals
+                                        </option>
                                     </optgroup>
                                 </select>
 
+                                <a href="#" class="btn btn-success btn-circle" id="build-chart-btn">
+                                    <i class="fas fa-check"></i>
+                                </a>
+
+<!--                                <button id="build-chart-btn">Show Statistics</button>-->
                             </div>
-                            <div class="align-items-center" id="chart-body" style="margin-top: 1rem; margin-bottom: 1rem;">
-                                <div class="chart-pie">
-                                    <canvas id="myPieChart"></canvas>
-                                </div>
-                                <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Correct
-                                        </span>
-                                    <span class="mr-2">
-                                            <i class="fas fa-circle text-danger"></i> Wrong
-                                        </span>
-                                </div>
+
+                            <div class="align-items-center" id="chart-body"
+                                 style="margin-top: 1rem; margin-bottom: 1rem;">
                             </div>
 
                             <hr>
@@ -390,7 +394,6 @@
 <!-- Bootstrap core JavaScript-->
 <script src="../vendor/jquery/jquery.min.js"></script>
 <script src="../vendor/bootstrap/js/bootstrap.bundle.js"></script>
-<script src="../js/bootstrap-select.min.js"></script>
 
 <!-- Core plugin JavaScript-->
 <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -415,5 +418,6 @@
 <script src="../js/parse_and_process.js"></script>
 <script src="../js/json.js"></script>
 
+<script src="../js/bootstrap-select.min.js"></script>
 </body>
 </html>
