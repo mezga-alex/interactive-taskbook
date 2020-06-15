@@ -1,4 +1,4 @@
-# Skyeng Grammar Filter
+# Interactive Taskbook
 The project allows you to form tasks in English grammar.
 
 ## Table of Contents
