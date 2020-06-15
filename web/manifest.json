@@ -1,9 +1,9 @@
 {
     "manifest_version": 2,
-    "name": "Skyeng GF",
+    "name": "Interactive Taskbook",
     "version": "1.0",
     "browser_action": {
-        "default_title": "Skyeng GF",
+        "default_title": "Interactive Taskbook",
         "default_popup": "popup.html"
     },
     "background": {
