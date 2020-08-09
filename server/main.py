@@ -57,10 +57,10 @@ def update_db(session_id, stats):
     Parameters
     ----------
     session_id: str,
-        id of extension session
+        id of extension session.
 
     stats: dict,
-        user statistics from front-end task execution
+        user statistics from front-end task execution.
 
     Returns
     -------
@@ -84,11 +84,12 @@ async def get_data(
     Parameters
     ----------
     session_id: str,
-        id of extension session
+        id of extension session.
 
     Returns
     -------
-    200 if success, error code with "msg" field of details otherwise
+
+        200 if success, error code with "msg" field of details otherwise.
     """
     try:
         data = list(collection.find({"session_id": session_id}))
@@ -117,15 +118,15 @@ async def update_data(
     ----------
 
     extensionID: str,
-        id of extenstion session
+        id of extenstion session.
 
     json:  dict,
-        user statistics from front-end task execution
+        user statistics from front-end task execution.
 
     Returns
     -------
 
-    200 if success, error code with "msg" field of details otherwise
+        200 if success, error code with "msg" field of details otherwise.
     """
     try:
         stats = json['statistics']
@@ -154,10 +155,10 @@ async def process_task(
         Text for analysis.
 
     task: str,
-        Task to process, i.e.: Passive
+        Task to process, i.e.: Passive.
 
     specifiedTask: str,
-        Specification of general task, i.e.: Passive Continuous
+        Specification of general task, i.e.: Passive Continuous.
 
     Returns
     -------
