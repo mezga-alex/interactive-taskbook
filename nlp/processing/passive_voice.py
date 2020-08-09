@@ -7,7 +7,7 @@ Passive voice search algorithm in the text.
 - Return results.
 """
 
-import text_processor as tp
+import nlp.processing.text_processor as tp
 # Possible dependencies between words.
 DEPENDENCIES = ["ROOT", "conj", "ccomp", "relcl", "acl", "advcl"]
 

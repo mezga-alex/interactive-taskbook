@@ -1,6 +1,12 @@
-from spacy.matcher import Matcher
-import spacy
-import text_processor as tp
+"""Active Voice Search.
+
+Active voice search algorithm in the text.
+- Prepare raw text.
+- Use the NLP model.
+- Use rule-based algorithm.
+- Return results.
+"""
+import nlp.processing.text_processor as tp
 
 MODALS = ["must", "can", "should", "could", "may", "might"]
 #DEPENDENCIES = ["ROOT", "advcl", "acl", "xcomp", "ccomp", "conj", "relcl"]

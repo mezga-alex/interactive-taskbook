@@ -1,0 +1,29 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+
+[dev-packages]
+black = "*"
+tox = "*"
+flake8 = "*"
+flake8-import-order = "*"
+flake8-docstrings = "*"
+pre-commit = "*"
+pytest = "*"
+mypy = "*"
+uvicorn = "*"
+
+[packages]
+fastapi = "*"
+pymongo = "*"
+spacy = "2.3.2"
+python_multipart = "*" 
+aiofiles = "*"
+
+[requires]
+python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true

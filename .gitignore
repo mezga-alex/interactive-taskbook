@@ -28,3 +28,7 @@ nlp/processing/__pycache__/
 nlp/experiments/__pycache__/
 
 web/.idea/
+
+.idea/
+
+*/__pycache__/

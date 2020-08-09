@@ -7,7 +7,7 @@ POS search algorithm in the text.
 - Return results.
 """
 
-import text_processor as tp
+import nlp.processing.text_processor as tp
 
 
 def pos_tag_search(nlp, text, pos_tag):
@@ -34,7 +34,7 @@ def pos_tag_search(nlp, text, pos_tag):
 
     # Create flexible batches (split at the end of the sentence)
     batch_indices = tp.flexible_batch_indices(text, 1000)
-    text_split = [text[batch_indices[i-1]:batch_indices[i]] for i in range(1, len(batch_indices))]
+    text_split = [text[batch_indices[i - 1]:batch_indices[i]] for i in range(1, len(batch_indices))]
 
     # Apply the model to batches
     docs = list(nlp.pipe(text_split))
@@ -64,4 +64,3 @@ def pos_tag_search(nlp, text, pos_tag):
         result.append(tokens_pos)
 
     return result
-
