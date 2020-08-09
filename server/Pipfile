@@ -18,7 +18,8 @@ uvicorn = "*"
 [packages]
 fastapi = "*"
 pymongo = "*"
-spacy = "2.3.2"
+dnspython = "*"
+spacy = "==2.3.2"
 python_multipart = "*" 
 aiofiles = "*"
 

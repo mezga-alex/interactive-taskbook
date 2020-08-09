@@ -32,7 +32,6 @@ collection = db.users
 
 # FastAPI server
 app = FastAPI()
-app.mount("/_static", StaticFiles(directory="_static"), name="_static")
 
 
 def add_user(session_id: str):
