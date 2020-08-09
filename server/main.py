@@ -3,7 +3,6 @@ from bson.json_util import dumps
 from bson.json_util import loads
 
 from fastapi import Body, FastAPI, HTTPException
-from fastapi.staticfiles import StaticFiles
 
 import nlp.processing.text_processor as tp
 import nlp.processing.pos_tagging as pos_tagging
@@ -59,6 +58,7 @@ def update_db(session_id, stats):
     ----------
     session_id: str,
         id of extension session
+
     stats: dict,
         user statistics from front-end task execution
 
@@ -84,7 +84,7 @@ async def get_data(
     Parameters
     ----------
     session_id: str,
-        id of extenstion session
+        id of extension session
 
     Returns
     -------
@@ -108,21 +108,23 @@ async def get_data(
 
 @app.post('db/update', status_code=200)
 async def update_data(
-
-        extensionID: str = Body(str),
+        extensionID: str = Body(None),
         json: dict = Body(None),
 ):
     """Get data from the database by session_id(extensionID) and user statistics.
 
     Parameters
     ----------
+
     extensionID: str,
         id of extenstion session
+
     json:  dict,
         user statistics from front-end task execution
 
     Returns
     -------
+
     200 if success, error code with "msg" field of details otherwise
     """
     try:
@@ -139,23 +141,27 @@ async def update_data(
 
 @app.post('/app/task', status_code=200)
 async def process_task(
-        text: str = Body(str),
-        task: str = Body(str),
-        specifiedTask: str = Body(str)
+        text: str = Body(None),
+        task: str = Body(None),
+        specifiedTask: str = Body(None)
 ):
     """Process provided text with task
 
     Parameters
     ----------
+
     text: str,
         Text for analysis.
+
     task: str,
         Task to process, i.e.: Passive
+
     specifiedTask: str,
         Specification of general task, i.e.: Passive Continuous
 
     Returns
     -------
+
         List of tokens and their indices.
     """
     try:
@@ -178,20 +184,23 @@ async def process_task(
 
 @app.post('/app/answer', status_code=200)
 async def send_answer(
-        text: str = Body(str),
-        result: dict = Body(str),
+        text: str = Body(None),
+        result: dict = Body(None),
 ):
     """Generate user statistics.
 
     Parameters
     ----------
+
     text: str,
         Text for analysis.
-    result: List,
+
+    result: list,
         List of tokens and their indices.
 
     Returns
     -------
+
     List of tokens and their indices, length of this result, and provided text
     """
     data = {"result": result, "num_of_result": len(result), "text": text}
