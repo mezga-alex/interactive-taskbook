@@ -35,7 +35,18 @@ app = FastAPI()
 app.mount("/_static", StaticFiles(directory="_static"), name="_static")
 
 
-def add_user(session_id):
+def add_user(session_id: str):
+    """Add user to database by session_id
+
+    Parameters
+    ----------
+    session_id: str,
+        id of extenstion session
+
+    Returns
+    -------
+
+    """
     sample_user = {
         "session_id": session_id,
     }
@@ -43,6 +54,19 @@ def add_user(session_id):
 
 
 def update_db(session_id, stats):
+    """Update database by given session_id and statistics.
+
+    Parameters
+    ----------
+    session_id: str,
+        id of extension session
+    stats: dict,
+        user statistics from front-end task execution
+
+    Returns
+    -------
+
+    """
     results = list(collection.find({"session_id": session_id}))
     if len(results) == 0:
         add_user(session_id)
@@ -56,6 +80,17 @@ def update_db(session_id, stats):
 async def get_data(
         session_id: str
 ):
+    """Get data from the database by session_id.
+
+    Parameters
+    ----------
+    session_id: str,
+        id of extenstion session
+
+    Returns
+    -------
+    200 if success, error code with "msg" field of details otherwise
+    """
     try:
         data = list(collection.find({"session_id": session_id}))
         if len(data) == 0:
@@ -68,15 +103,29 @@ async def get_data(
     except Exception as e:
         logging.warning(f'request error occured: {e}')
         raise HTTPException(
-            status_code=401, detail={"msg": e}
+            status_code=500, detail={"msg": e}
         )
 
 
 @app.post('db/update', status_code=200)
 async def update_data(
+
         extensionID: str = Body(str),
         json: dict = Body(None),
 ):
+    """Get data from the database by session_id(extensionID) and user statistics.
+
+    Parameters
+    ----------
+    extensionID: str,
+        id of extenstion session
+    json:  dict,
+        user statistics from front-end task execution
+
+    Returns
+    -------
+    200 if success, error code with "msg" field of details otherwise
+    """
     try:
         stats = json['statistics']
         logging.info(f'update stats by id: {extensionID}')
@@ -95,6 +144,21 @@ async def process_task(
         task: str = Body(str),
         specifiedTask: str = Body(str)
 ):
+    """Process provided text with task
+
+    Parameters
+    ----------
+    text: str,
+        Text for analysis.
+    task: str,
+        Task to process, i.e.: Passive
+    specifiedTask: str,
+        Specification of general task, i.e.: Passive Continuous
+
+    Returns
+    -------
+        List of tokens and their indices.
+    """
     try:
         result = []
         if task == "POS":
@@ -118,6 +182,19 @@ async def send_answer(
         text: str = Body(str),
         result: dict = Body(str),
 ):
+    """Generate user statistics.
+
+    Parameters
+    ----------
+    text: str,
+        Text for analysis.
+    result: List,
+        List of tokens and their indices.
+
+    Returns
+    -------
+    List of tokens and their indices, length of this result, and provided text
+    """
     data = {"result": result, "num_of_result": len(result), "text": text}
     return data
 
