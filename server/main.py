@@ -107,7 +107,7 @@ async def get_data(
         )
 
 
-@app.post('db/update', status_code=200)
+@app.post('/db/update', status_code=200)
 async def update_data(
         extensionID: str = Body(None),
         json: dict = Body(None),
