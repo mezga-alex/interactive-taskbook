@@ -13,7 +13,30 @@ The project allows you to form tasks in English grammar.
 ## Application in action <a name="intro"></a>
 ![](images/skyeng_gf.gif)
 
+## Server deployment
+### Using Docker
+
+- install docker from https://www.docker.com/
+
+#### Build image from Dockerfile
+In order to build image from source go to your project directory,
+where `Dockerfile` is located.
+
+Use `sudo` mode if docker doesn't have enough permission
+
+Run ` docker build -t interactive-taskbook .` where interactive-taskbook is name of your image
+
+When image is built, create a container `docker run -d --name itb-dev-1 -p 8050:8050 interactive-taskbook`, where 8050 - is default port
+
+After installation, check if your image up and running by `docker ps` command
+
+
+
+#### Download built image from dockerhub
+(under development) 
+
 ## Installation <a name="env"></a>
+
 To create virtual environment and download dependencies of project run from terminal:
 ```
 bash utils/install.sh
