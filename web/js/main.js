@@ -2,7 +2,7 @@ var commonJson;
 var articleObject;
 var strictCheck = false;
 let extensionID = chrome.runtime.id;
-var server = localStorage.getItem("server");
+const server = localStorage.getItem("server");
 var text = localStorage.getItem("text");
 var groundTruthAnswers;
 var correctAnswers;
@@ -14,12 +14,12 @@ var url;
 var globalStatisticsJSON;
 var statID, exerciseID, specificationID;
 var requestFromOutside;
-function printSet(inputSet) {
-    var result = '';
-    for (let item of inputSet)
-        result += item + ' ';
-    console.log(result);
-}
+// function printSet(inputSet) {
+//     var result = '';
+//     for (let item of inputSet)
+//         result += item + ' ';
+//     console.log(result);
+// }
 
 // Update current exercise node and indices to the node
 function updateNodeAndIndices() {
@@ -38,7 +38,7 @@ function updateGlobalStatisticsJSON() {
         // If it's empty -> try to restore from the server database
         // TODO: RECOVER '/get_data'. Now it's wrong to avoid response (Server not updated)
         //
-        getDataBaseJSON(server+'/get_data', extensionID).then(function(value) {
+        getDataBaseJSON(server+'/db/get_data', extensionID).then(function(value) {
             console.log(value,': Response received');
 
             // Restore the version from DB
@@ -48,7 +48,7 @@ function updateGlobalStatisticsJSON() {
                 console.log('Empty DB. Create new JSON');
 
                 globalStatisticsJSON = createGlobalJSON(url, task, specifiedTask, result);
-                updateDataBaseJSON(server + '/update', extensionID, globalStatisticsJSON);
+                updateDataBaseJSON(server + '/db/update', extensionID, globalStatisticsJSON);
             }
             // Update exercise node and indices
             updateNodeAndIndices();
@@ -59,7 +59,7 @@ function updateGlobalStatisticsJSON() {
             // create new JSON structure and send it to the server
             console.log(reason, ': Create new JSON');
             globalStatisticsJSON = createGlobalJSON(url, task, specifiedTask, result);
-            updateDataBaseJSON(server + '/update', extensionID, globalStatisticsJSON);
+            updateDataBaseJSON(server + '/db/update', extensionID, globalStatisticsJSON);
             // Update exercise node and indices
             updateNodeAndIndices();
             localStorage.setItem('globalStatisticsJSON', JSON.stringify(globalStatisticsJSON));
@@ -68,7 +68,7 @@ function updateGlobalStatisticsJSON() {
         console.log('Restored from localStorage');
         // Do not wait response and update exercise node and indices
         updateNodeAndIndices();
-        updateDataBaseJSON(server + '/update', extensionID, globalStatisticsJSON);
+        updateDataBaseJSON(server + '/db/update', extensionID, globalStatisticsJSON);
         localStorage.setItem('globalStatisticsJSON', JSON.stringify(globalStatisticsJSON));
     }
 }
@@ -78,6 +78,7 @@ function newJSON() {
         globalStatisticsJSON = createGlobalJSON(url, task, specifiedTask, result);
     updateNodeAndIndices();
 }
+
 // Update globals for the new task
 function updateGlobalParameters() {
     correctAnswers = new Set();
@@ -291,7 +292,7 @@ function initializeLinkClickHandlers() {
 
                 if ((taskType === task && taskSpecify === specifiedTask) && !requestFromOutside) return false;
                 //  Update the task and only then reinitialize the globals
-                updateTask(server, text, taskType, taskSpecify).then(function () {
+                updateTask(server+'/app/task', text, taskType, taskSpecify).then(function () {
                     updateGlobalParameters();
                     initializeInputHandlers();
                     initializeClassie();

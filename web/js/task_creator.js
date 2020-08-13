@@ -50,6 +50,7 @@ function noResultsVisualization() {
 
 function newTaskRequest(server, text, task, specifiedTask) {
     return new Promise((resolve, reject) => {
+
         let data = JSON.stringify({
             "text": text,
             "task": task,
@@ -155,7 +156,7 @@ function getResultAttribute(result, task, attr) {
 
 function updateTask(server, text, task, specifiedTask) {
     return new Promise((resolve, reject) => {
-        // Delete ccurrent content
+        // Delete current content
         // TODO: Save current results for statistics
         newTaskRequest(server, text, task, specifiedTask).then(function () {
             $("#put_text").empty();
