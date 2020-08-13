@@ -1,3 +1,4 @@
+import state from '/interactive-taskbook/web/js/main';
 var PARSE_UTILS = {
     minBodyTailLength: function () {
         return 100;
@@ -112,6 +113,7 @@ $('.btn-color').on('click', () => {
 // http://poltavsky.pythonanywhere.com/process
 // http://127.0.0.1:8050/
 var server = "http://87.117.25.190:8060";
+
 $("#switch-id").click(function () {
     // this function will get executed every time the #switch-id element is clicked (or tab-spacebar changed)
     if ($(this).is(":checked")) // "this" refers to the element that fired the event
@@ -134,11 +136,10 @@ $("#btn-find").on("click", () => {
                 let tabUrl = tab.url;
                 PARSE_UTILS.keywordInterval(tabUrl, (text) => {
                     const taskID = 'TASK-'+task+'-'+specifiedTask;
-                    localStorage.setItem('text', text);
-                    localStorage.setItem('server', server);
-                    localStorage.setItem('url', tabUrl);
-                    localStorage.setItem('requestFromOutside', taskID);
-
+                    state.text = text;
+                    state.server = server;
+                    state.url = tabUrl;
+                    state.requestFromOutside = taskID;
                     chrome.tabs.create({'url': './openPage/result.html'}, (tab) => {
                     });
                 });

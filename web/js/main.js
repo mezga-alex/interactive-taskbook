@@ -1,97 +1,99 @@
-var commonJson;
-var articleObject;
-var strictCheck = false;
-let extensionID = chrome.runtime.id;
-const server = localStorage.getItem("server");
-var text = localStorage.getItem("text");
-var groundTruthAnswers;
-var correctAnswers;
-var wrongAnswers;
-var task;
-var specifiedTask;
-var result;
-var url;
-var globalStatisticsJSON;
-var statID, exerciseID, specificationID;
-var requestFromOutside;
+export const state = {
+    extensionID: chrome.runtime.id,
+    server: localStorage.getItem("state.server"),
+    text: localStorage.getItem("state.text"),
+    groundTruthAnswers,
+    correctAnswers,
+    wrongAnswers,
+    task,
+    specifiedTask,
+    result,
+    url,
+    globalStatisticsJSON,
+    statID,
+    exerciseID,
+    specificationID,
+    requestFromOutside,
+}
+
 // function printSet(inputSet) {
-//     var result = '';
+//     var state.result = '';
 //     for (let item of inputSet)
-//         result += item + ' ';
-//     console.log(result);
+//         state.result += item + ' ';
+//     console.log(state.result);
 // }
 
 // Update current exercise node and indices to the node
 function updateNodeAndIndices() {
-    let indices = updateExerciseNode(globalStatisticsJSON, url, task, specifiedTask, result, true);
-    statID = indices[0];
-    exerciseID = indices[1];
-    specificationID = indices[2];
+    let indices = updateExerciseNode(state.globalStatisticsJSON, state.url, state.task, state.specifiedTask, state.result, true);
+    state.statID = indices[0];
+    state.exerciseID = indices[1];
+    state.specificationID = indices[2];
 }
 
 // Restore statistics
 function updateGlobalStatisticsJSON() {
-    // Parse globalStatisticsJSON from localStorage
-    globalStatisticsJSON = JSON.parse(localStorage.getItem("globalStatisticsJSON"));
+    // Parse state.globalStatisticsJSON from localStorage
+    state.globalStatisticsJSON = JSON.parse(localStorage.getItem("globalStatisticsJSON"));
 
-    if (!globalStatisticsJSON) {
-        // If it's empty -> try to restore from the server database
-        // TODO: RECOVER '/get_data'. Now it's wrong to avoid response (Server not updated)
+    if (!state.globalStatisticsJSON) {
+        // If it's empty -> try to restore from the state.server database
+        // TODO: RECOVER '/get_data'. Now it's wrong to avoid response (state.server not updated)
         //
-        getDataBaseJSON(server+'/db/get_data', extensionID).then(function(value) {
+        getDataBaseJSON(state.server+'/db/get_data', state.extensionID).then(function(value) {
             console.log(value,': Response received');
 
             // Restore the version from DB
-            globalStatisticsJSON = JSON.parse(localStorage.getItem("globalStatisticsJSON"));
-            // If it's empty -> create new JSON structure and send it to the server
-            if (!globalStatisticsJSON.statistics) {
+            state.globalStatisticsJSON = JSON.parse(localStorage.getItem("globalStatisticsJSON"));
+            // If it's empty -> create new JSON structure and send it to the state.server
+            if (!state.globalStatisticsJSON.statistics) {
                 console.log('Empty DB. Create new JSON');
 
-                globalStatisticsJSON = createGlobalJSON(url, task, specifiedTask, result);
-                updateDataBaseJSON(server + '/db/update', extensionID, globalStatisticsJSON);
+                state.globalStatisticsJSON = createGlobalJSON(state.url, state.task, state.specifiedTask, state.result);
+                updateDataBaseJSON(state.server + '/db/update', extensionID, state.globalStatisticsJSON);
             }
             // Update exercise node and indices
             updateNodeAndIndices();
             // Set restored version to the localStorage
-            localStorage.setItem('globalStatisticsJSON', JSON.stringify(globalStatisticsJSON));
+            localStorage.setItem('globalStatisticsJSON', JSON.stringify(state.globalStatisticsJSON));
         }, function(reason) {
             // Error in DB! ->
-            // create new JSON structure and send it to the server
+            // create new JSON structure and send it to the state.server
             console.log(reason, ': Create new JSON');
-            globalStatisticsJSON = createGlobalJSON(url, task, specifiedTask, result);
-            updateDataBaseJSON(server + '/db/update', extensionID, globalStatisticsJSON);
+            state.globalStatisticsJSON = createGlobalJSON(state.url, state.task, state.specifiedTask, state.result);
+            updateDataBaseJSON(state.server + '/db/update', extensionID, state.globalStatisticsJSON);
             // Update exercise node and indices
             updateNodeAndIndices();
-            localStorage.setItem('globalStatisticsJSON', JSON.stringify(globalStatisticsJSON));
+            localStorage.setItem('globalStatisticsJSON', JSON.stringify(state.globalStatisticsJSON));
         });
     } else {
         console.log('Restored from localStorage');
         // Do not wait response and update exercise node and indices
         updateNodeAndIndices();
-        updateDataBaseJSON(server + '/db/update', extensionID, globalStatisticsJSON);
-        localStorage.setItem('globalStatisticsJSON', JSON.stringify(globalStatisticsJSON));
+        updateDataBaseJSON(state.server + '/db/update', extensionID, state.globalStatisticsJSON);
+        localStorage.setItem('globalStatisticsJSON', JSON.stringify(state.globalStatisticsJSON));
     }
 }
 
 function newJSON() {
-    if (!globalStatisticsJSON)
-        globalStatisticsJSON = createGlobalJSON(url, task, specifiedTask, result);
+    if (!state.globalStatisticsJSON)
+        state.globalStatisticsJSON = createGlobalJSON(state.url, state.task, state.specifiedTask, state.result);
     updateNodeAndIndices();
 }
 
-// Update globals for the new task
+// Update globals for the new state.task
 function updateGlobalParameters() {
-    correctAnswers = new Set();
-    wrongAnswers = new Set();
+    state.correctAnswers = new Set();
+    state.wrongAnswers = new Set();
 
-    url = localStorage.getItem("url");
-    task = localStorage.getItem("task");
-    specifiedTask = localStorage.getItem("specifiedTask");
-    result = JSON.parse(localStorage.getItem("result"));
-    requestFromOutside = localStorage.getItem("requestFromOutside");
+    // state.url = localStorage.getItem("state.url");
+    // state.task = localStorage.getItem("state.task");
+    // state.specifiedTask = localStorage.getItem("state.specifiedTask");
+    // state.result = JSON.parse(localStorage.getItem("state.result"));
+    // state.requestFromOutside = localStorage.getItem("state.requestFromOutside");
 
-    if (task === 'PASSIVE_VOICE' || task === 'ACTIVE_VOICE') {
-        groundTruthAnswers = getResultAttribute(result, task, 'phrases');
+    if (state.task === 'PASSIVE_VOICE' || state.task === 'ACTIVE_VOICE') {
+        state.groundTruthAnswers = getResultAttribute(state.result, state.task, 'phrases');
         // newJSON();
         updateGlobalStatisticsJSON();
     }
@@ -102,7 +104,7 @@ function getCorrectAnswerByID(taskID) {
     let ids = taskID.match(/\d+/g);
     let phraseID = ids[0];
     let wordID = ids[1];
-    return groundTruthAnswers[phraseID][wordID];
+    return state.groundTruthAnswers[phraseID][wordID];
 }
 
 // Get index in flat array
@@ -113,7 +115,7 @@ function getFlatIndexByID(taskID) {
 
     var id = 0;
     for (let i = 0; i < phraseID; i++) {
-        id += groundTruthAnswers[i].length
+        id += state.groundTruthAnswers[i].length
     }
     id += wordID;
     return id;
@@ -145,7 +147,7 @@ function animateCSS(element, animationName, callback) {
     element.addEventListener('animationend', handleAnimationEnd);
 }
 
-// e.g. taskID = 'task-3-3' means that the index of the phrase is 3, and the index of the word inside the phrase is 3
+// e.g. taskID = 'state.task-3-3' means that the index of the phrase is 3, and the index of the word inside the phrase is 3
 function checkAnswer(taskID, userAnswer) {
     if (userAnswer.length !== 0) {
         let correctAnswer = getCorrectAnswerByID(taskID).replace(/\s/g, '');
@@ -161,7 +163,7 @@ function checkFullTask(e) {
         var isCorrect = true;
         var wordIndex = 0;
 
-        var taskID = '#task-' + phraseIndex.toString() + '-' + wordIndex.toString();
+        var taskID = '#state.task-' + phraseIndex.toString() + '-' + wordIndex.toString();
         //while (isCorrect && ($(taskID).length !== 0)) {
         while ($(taskID).length !== 0) {
             let inputElement = $(taskID);
@@ -179,65 +181,65 @@ function checkFullTask(e) {
                 // Set correct case of answer
                 inputElement.val(getCorrectAnswerByID(taskID));
 
-                if (wrongAnswers.has(taskID)) wrongAnswers.delete(taskID);
-                if (!correctAnswers.has(taskID)) {
-                    correctAnswers.add(taskID);
+                if (state.wrongAnswers.has(taskID)) state.wrongAnswers.delete(taskID);
+                if (!state.correctAnswers.has(taskID)) {
+                    state.correctAnswers.add(taskID);
                     classie.removeClass(element, 'border-bottom-danger');
                     classie.addClass(element, 'border-bottom-success');
                     animateCSS(element, 'fadeIn');
                     const wordID = getFlatIndexByID(taskID);
-                    updateWordStatistics(globalStatisticsJSON, "correct",
-                        statID, exerciseID, specificationID, wordID);
+                    updateWordStatistics(state.globalStatisticsJSON, "correct",
+                        state.statID, state.exerciseID, state.specificationID, wordID);
                 }
             }
             // If the word is correct and is not empty -> set up red background
             else {
-                if (correctAnswers.has(taskID)) correctAnswers.delete(taskID);
+                if (state.correctAnswers.has(taskID)) state.correctAnswers.delete(taskID);
                 if (userAnswer !== '') {
-                    if (!wrongAnswers.has(taskID)) {
-                        wrongAnswers.add(taskID);
+                    if (!state.wrongAnswers.has(taskID)) {
+                        state.wrongAnswers.add(taskID);
                         classie.removeClass(element, 'border-bottom-success');
                         classie.addClass(element, 'border-bottom-danger');
                         animateCSS(element, 'fadeIn');
                     }
                     const wordID = getFlatIndexByID(taskID);
-                    updateWordStatistics(globalStatisticsJSON, "wrong",
-                        statID, exerciseID, specificationID, wordID);
+                    updateWordStatistics(state.globalStatisticsJSON, "wrong",
+                        state.statID, state.exerciseID, state.specificationID, wordID);
                     // console.log('Update word stat');
-                    // console.log(globalStatisticsJSON);
+                    // console.log(state.globalStatisticsJSON);
                 }
             }
             // Next ID
             wordIndex += 1;
-            taskID = '#task-' + phraseIndex.toString() + '-' + wordIndex.toString();
+            taskID = '#state.task-' + phraseIndex.toString() + '-' + wordIndex.toString();
         }
     }
     // Save statistics
-    localStorage.setItem('globalStatisticsJSON', JSON.stringify(globalStatisticsJSON));
+    localStorage.setItem('state.globalStatisticsJSON', JSON.stringify(state.globalStatisticsJSON));
 
     // console.log('Correct: ');
-    // printSet(correctAnswers);
+    // printSet(state.correctAnswers);
     // console.log('Wrong: ');
-    // printSet(wrongAnswers);
+    // printSet(state.wrongAnswers);
 }
 
 function initializeInputHandlers() {
     // Handle pressing the enter key
     var inputs = $(':input').keyup(function (e) {
-        if (e.which == 13) {
-            e.preventDefault();
-            var nextInput = inputs.get(inputs.index(this) + 1);
+        if (e.which === 13) {
+           // e.preventDefault();
+            let nextInput = inputs.get(inputs.index(this) + 1);
             if (nextInput) {
                 // If the next element is an INPUT -> switch to the next input.
                 if (nextInput.tagName === 'INPUT') {
                     nextInput.focus();
                 }
-                // If the next element is the Button -> check the task by emulating the button click.
+                // If the next element is the Button -> check the state.task by emulating the button click.
                 else {
                     let nextID = '#' + $(nextInput).attr('id');
                     $(nextID).click();
 
-                    // If there is the next task -> go to it
+                    // If there is the next state.task -> go to it
                     nextInput = inputs.get(inputs.index(this) + 2).focus();
                     if (nextInput && nextInput.tagName === 'INPUT')
                         nextInput.focus();
@@ -255,11 +257,11 @@ function initializeInputHandlers() {
             if (isCorrect || isIncorrect) {
                 if (isCorrect) {
                     // Remove current input ID from correct answers
-                    correctAnswers.delete(taskID);
+                    state.correctAnswers.delete(taskID);
                     classie.removeClass(element, 'border-bottom-success');
                 }
                 if (isIncorrect) {
-                    wrongAnswers.delete(taskID);
+                    state.wrongAnswers.delete(taskID);
                     classie.removeClass(element, 'border-bottom-danger');
                 }
                 animateCSS(element, 'fadeIn');
@@ -267,14 +269,14 @@ function initializeInputHandlers() {
         }
     });
 
-    // Get the button and check all related words inside the task
-    $('.btn-check-task').on('click', function () {
+    // Get the button and check all related words inside the state.task
+    $('.btn-check-state.task').on('click', function () {
         checkFullTask(this);
     });
 
     // Check all exercises
     $('.btn-check-all').on('click', function () {
-        $(".btn-check-task").each(function () {
+        $(".btn-check-state.task").each(function () {
             checkFullTask(this);
         });
     });
@@ -290,9 +292,9 @@ function initializeLinkClickHandlers() {
                 let taskType = idAttributes[1];
                 let taskSpecify = idAttributes[2];
 
-                if ((taskType === task && taskSpecify === specifiedTask) && !requestFromOutside) return false;
-                //  Update the task and only then reinitialize the globals
-                updateTask(server+'/app/task', text, taskType, taskSpecify).then(function () {
+                if ((taskType === state.task && taskSpecify === state.specifiedTask) && !state.requestFromOutside) return false;
+                //  Update the state.task and only then reinitialize the globals
+                updateTask(state.server+'/app/state.task', state.text, taskType, taskSpecify).then(function () {
                     updateGlobalParameters();
                     initializeInputHandlers();
                     initializeClassie();
@@ -302,7 +304,7 @@ function initializeLinkClickHandlers() {
                 }).catch(function (e) {
                     console.log(e);
                     // TODO: Update logic.
-                    if (requestFromOutside) {
+                    if (state.requestFromOutside) {
                         const taskStr = idToString('#'+id);
                         changeElementContent('#tasksCardTitle', taskStr);
                         noResultsVisualization();
@@ -325,13 +327,13 @@ $(document).ready(() => {
     initializeClassie();
 
     // If there was request outside the tasks' page -> trigger button
-    if (requestFromOutside) {
-        console.log('Request From Outside. ID =', requestFromOutside);
-        $('#'+requestFromOutside).trigger('click');
-        localStorage.setItem('requestFromOutside', '');
+    if (state.requestFromOutside) {
+        console.log('Request From Outside. ID =', state.requestFromOutside);
+        $('#'+state.requestFromOutside).trigger('click');
+        localStorage.setItem('state.requestFromOutside', '');
     } else {
-        requestFromOutside = true;
-        const id = '#TASK-'+task+'-'+specifiedTask;
+        state.requestFromOutside = true;
+        const id = '#TASK-'+state.task+'-'+state.specifiedTask;
         $(id).trigger('click');
         const taskStr = idToString(id);
         changeElementContent('#tasksCardTitle', taskStr);
